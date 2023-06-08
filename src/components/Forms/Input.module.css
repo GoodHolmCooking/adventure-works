@@ -1,0 +1,26 @@
+.input {
+    width: 100%;
+    padding: 0.8em;
+    box-sizing: border-box;
+}
+
+.input label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.4em;
+}
+
+.input input, .input textarea {
+    outline: none;
+    border: 1px solid #ccc;
+    font: inherit;
+    padding: 0.4em 0.8em;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input input:focus, .input textarea:focus {
+    outline: none;
+    background-color: #eee;
+}

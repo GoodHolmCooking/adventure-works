@@ -1,0 +1,217 @@
+/************************************* 
+ general layout items 
+**************************************/
+.displayBlock
+{
+    position: relative;
+    width: 50%;
+    padding: 0;
+    margin: 0;
+}
+.displayBlock *
+{
+    padding: 0;
+    margin: 0;
+}
+.informationDisplay > span
+{
+    grid-area: 'label';
+}
+.informationDisplay > p
+{
+    grid-area: 'data';
+}
+.informationDisplay
+{
+    position: relative;
+    margin: 0;
+    padding: 0;
+   padding-left: 30px; 
+   font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #212121;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+    "label data";
+    margin-bottom: 21px;
+}
+
+/************************************* 
+ main layout items 
+**************************************/
+.cardTop
+{
+    width: 100%;
+    height: fit-content;
+}
+.personalInfo
+{
+    height: fit-content;
+    width: 50%;
+    grid-area: 'personal';
+}
+.personalInfo > div > h2,
+.employmentInfo > div > h2
+{
+   margin-bottom: 40px;
+   
+}
+.employmentInfo
+{
+    height: fit-content;
+    width: 50%;
+    grid-area: 'employment';
+}
+/************************************* 
+styling items that arent encumpased by layout
+**************************************/
+
+.modalHeader
+{
+    position: relative;
+    margin: 0;
+    padding: 0;
+ padding-left: 19.5px;
+ display: flex;
+ /* gap: 24px; */
+ font-family: 'Open Sans';
+font-style: normal;
+font-weight: 700;
+font-size: 22px;
+line-height: 22px;
+color: #212121;
+outline: 0;
+}
+
+.modalHeader > h2
+{
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+/************************************* 
+styling items that arent encumpased by layout
+**************************************/
+
+/************************************* 
+form styling
+**************************************/
+
+.modalWindow
+{
+    position: relative;
+    padding: 0;
+    margin: 0;
+    min-width: 821px;
+    min-height: 494px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.closeModal
+{
+    position: absolute;
+    right: 0;
+}
+
+.modalWindow form
+{
+    width: 100%;
+}
+
+.modalWindow form > h2
+{
+    margin-inline: 2.5%;
+}
+
+.modalWindow form input
+{
+    width: 100%;
+    right: 0;
+}
+
+.modalWindow form > div
+{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+}
+
+.modalWindow form
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.modalWindow form > div > *
+{
+    width: 50%;
+}
+
+.saveButton
+{
+    margin-inline: 2.5%;
+    width: 95%;
+    height: 49px;
+    background: #FDA14C;
+    border: 1px solid #212121;
+    border-radius: 5px;
+}
+.saveButtonFirst
+{
+    margin-inline: 2%;
+    width: 48%;
+    height: 49px;
+    background: #FDA14C;
+    border: 1px solid #212121;
+    border-radius: 5px;
+}
+
+.modalWindow input
+{
+    border: 1px solid #212121;
+    color: #212121;
+}
+
+.modalWindow form > div > label
+{
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.modalWindow form > div:first-child > input:first-child
+{
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 22px;
+}
+
+.modalWindow p
+{
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.cancel
+{
+    width: 171px;
+    background-color: transparent;
+    border: transparent;
+    text-decoration: underline;
+    text-align: left;
+    margin-top: 15px;
+    margin-bottom: 50px;
+    margin-inline: 2.5%;
+}

@@ -195,7 +195,6 @@ form styling
     line-height: 22px;
 }
 
-
 .modalWindow p
 {
     font-family: 'Open Sans';
@@ -215,36 +214,4 @@ form styling
     margin-top: 15px;
     margin-bottom: 50px;
     margin-inline: 2.5%;
-}
-.editButton
-{
-    display: flex;
-    /* align-items: center; */
-    justify-content: center;
-    background-color: transparent;
-    border: transparent;
-}
-
-.editButtonTop
-{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    border: transparent;
-}
-
-.editButton:hover, .editButton:hover
-{
-    cursor: pointer;
-}
-
-form button:hover
-{
-    cursor: pointer;
-}
-
-.editButtonTop:hover
-{
-    cursor: pointer;
 }

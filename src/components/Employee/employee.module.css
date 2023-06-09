@@ -1,0 +1,28 @@
+.employee
+{
+    width: 95%;
+    margin-inline: 2.5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: solid 3px orange;
+}
+
+.employee > *
+{
+  width: 14%;
+  text-align: left;
+}
+
+.faButton
+{
+  width:23px;
+  height: 23px;
+  background-color: transparent;
+  border: transparent;
+  margin-inline-end: 2em;
+}
+.faButton:hover
+{
+ cursor: pointer;
+}

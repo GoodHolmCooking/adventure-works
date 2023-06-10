@@ -17,12 +17,6 @@ function Vendors() {
                 });
     }, []);
 
-    /*
-        Yo! You've been reading the figma document wrong this entire time. Just load with the vendor call.
-        There's a vendor section and an order section. You might not even use the purchasing API.
-    */
-
-
     return (
         <section>
             {!vendorsLoaded && <h3>Loading...</h3>}

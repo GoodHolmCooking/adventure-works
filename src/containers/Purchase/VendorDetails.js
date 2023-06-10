@@ -11,14 +11,20 @@ function VendorDetails() {
 
     const [editingName, setEditName] = useState(false);
     const [vendorName, setVendorName] = useState(null);
-    const [vendorPhone, setVendorPhone] = useState(null);
+    const [vendorPhone, setVendorPhone] = useState({});
+    const [vendorPhoneNumber, setVendorPhoneNumber] = useState(null);
     const [vendorId, setVendorId] = useState(null);
 
     const [editingContacts, setEditContacts] = useState(false);
-    const [contacts, setContacts] = useState([]);
+    // const [contacts, setContacts] = useState([]);
 
     const [editingAddresses, setEditAddresses] = useState(false);
-    const [addresses, setAddresses] = useState([]);
+    const [FRProvinces, setFRProvinces] = useState([]);
+    const [CAProvinces, setCAProvinces] = useState([]);
+    const [USStates, setUSStates] = useState([]);
+
+
+    // If all else fails, you can run a loop grabbing each state and creating a dictionary. There shouldn't be too many addresses for each entry.
 
     // inital load
     useEffect(() => {
@@ -28,11 +34,10 @@ function VendorDetails() {
             setVendorName(resp.data.vendorName);
 
             // primary phone is first number of first contact
-            setVendorPhone(resp.data.contacts[0].phoneNumbers[0].phoneNumber);
+            setVendorPhone(resp.data.contacts[0].phoneNumbers[0]);
+            setVendorPhoneNumber(resp.data.contacts[0].phoneNumbers[0].phoneNumber);
             setVendorId(resp.data.businessEntityId);
-            setContacts(resp.data.contacts);
-            setAddresses(resp.data.addresses);
-
+            // setContacts(resp.data.contacts);
             setDetailsLoaded(true);
         })
         .catch(err => {
@@ -40,23 +45,88 @@ function VendorDetails() {
         });
     }, [id]);
 
+    // load provinces
+    useEffect(() => {
+        axios.get(`https://api.bootcampcentral.com/api/StateProvince/US`)
+            .then(resp => {
+                setUSStates(resp.data);
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            });
+
+            axios.get(`https://api.bootcampcentral.com/api/StateProvince/FR`)
+            .then(resp => {
+                setFRProvinces(resp.data);
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            });
+
+            axios.get(`https://api.bootcampcentral.com/api/StateProvince/CA`)
+            .then(resp => {
+                setCAProvinces(resp.data);
+            })
+            .catch(err => {
+                console.log(`Error: ${err}`);
+            });
+    }, []);
+
     const handleEditName = () => {
         setEditName(true);
     };
 
     const handleNameSubmit = (evt) => {
         evt.preventDefault();
-        let updatedContacts = [...contacts];
+        let nameValid = false;
+        let idValid = false;
 
-        // primary phone is first number of first contact
-        updatedContacts[0].phoneNumbers[0].phoneNumber = vendorPhone;
-        let vendorUpdate = { ...vendor, businessEntityId: vendorId, vendorName: vendorName, contacts: [...updatedContacts]};
+        // validate name
+        // not null
+        if (vendorName.length > 0) {
+            nameValid = true;
+        }
+        else {
+            alert("Enter a value for the vendor name");
+        }
 
-        // This double update is to avoid updating the vendor object without updating the isolated contact object.
-        setContacts(updatedContacts);
-        setVendor(vendorUpdate);
+            // Keeping validation loose for names with odd characters or numbers.
 
-        axios.put(`https://api.bootcampcentral.com/api/Vendor/${id}`, vendorUpdate);
+        // validate id
+        // not null
+        if (vendorId && vendorId != id) {
+            // not matching other ids
+            axios.get(`https://api.bootcampcentral.com/api/Vendor/${vendorId}`)
+            .then(() => {
+                alert("ID already exists");
+            })
+            .catch(() => {
+                idValid = true;
+            });
+        }
+        
+        
+        if (nameValid && idValid) {
+            let vendorUpdate = { ...vendor, businessEntityId: vendorId, vendorName: vendorName};
+
+            setVendor(vendorUpdate);
+    
+            axios.put(`https://api.bootcampcentral.com/api/Vendor/${id}`, vendorUpdate);
+        }
+
+
+        // Blocked until Drew updates API or tells you what you did wrong
+
+        // let phoneUpdate = { 
+        //     businessEntityId: +id, 
+        //     newPhoneNumber: vendorPhoneNumber, 
+        //     originalPhoneNumber: vendorPhone.phoneNumber,
+        //     newPhoneNumberTypeId: vendorPhone.phoneNumberTypeId,
+        //     originalPhoneNumberTypeId: vendorPhone.phoneNumberTypeId
+        // };
+
+        // console.log(phoneUpdate);
+        // axios.put(`https://api.bootcampcentral.com/api/Phone/${id}`, phoneUpdate);
 
         setEditName(false);
     };
@@ -72,9 +142,42 @@ function VendorDetails() {
     const handleContactsSubmit = evt => {
         evt.preventDefault();
 
-        console.log("saving contacts");
+        // Name
+        // validate name
+        // has data
+        // letters only
+
+        // Phone
+        // proper length
+        numberToCombo()
+        
+        // Email
+
+
         setEditContacts(false);
     };
+
+    // To simplify validation. Phone numbers are entered as a number and converted to dashed format.
+    // 8595550100 becomes 859-555-0100
+    function comboToNumber(combo) {
+        // 859-555-0100
+        let area = combo.substring(0, 3);
+        let firstSet = combo.substring(4, 7);
+        let secondSet = combo.substring(8);
+        let combinedNumber = area + firstSet + secondSet;
+
+        return +combinedNumber;
+    }
+
+    function numberToCombo(providedNumber) {
+        // 8595550100
+        let convertedString = providedNumber.toString();
+        let area = convertedString.substring(0, 3);
+        let firstSet = convertedString.substring(3, 6);
+        let secondSet = convertedString.substring(6);
+        let combo = area + "-" + firstSet + "-" + secondSet;
+        return combo;
+    }
 
     const handleContactsCancel = () => {
         setEditContacts(false);
@@ -121,8 +224,8 @@ function VendorDetails() {
                     {editingName &&
                         <form className={styles.nameBlock} onSubmit={handleNameSubmit}>
                             <input type="text" defaultValue={vendor.vendorName} className={styles.nameInput} onChange={evt => setVendorName(evt.target.value)} />
-                            <input type="text" defaultValue={vendor.contacts[0].phoneNumbers[0].phoneNumber} onChange={evt => setVendorPhone(evt.target.value)} />
-                            <input type="text" defaultValue={id} onChange={evt => setVendorId(evt.target.value)} />
+                            <input type="text" defaultValue={vendor.contacts[0].phoneNumbers[0].phoneNumber} onChange={evt => setVendorPhoneNumber(evt.target.value)} />
+                            <input type="number" defaultValue={id} onChange={evt => setVendorId(evt.target.value)} />
                             <input type="submit" defaultValue="Save Changes" className={styles.saveBtn} />
                             <input type="button" defaultValue="Cancel" className={styles.cancelBtn} onClick={handleNameCancel} />
                         </form>
@@ -178,10 +281,8 @@ function VendorDetails() {
                                                     <option>Home</option>
                                                     <option>Cell</option>
                                                 </select>
-                                                <input type="text" defaultValue={contact.phoneNumbers[0].phoneNumber} className={styles.phoneInput} />
+                                                <input type="number" defaultValue={comboToNumber(contact.phoneNumbers[0].phoneNumber)} className={styles.phoneInput} />
                                             </div>
-                                 
-                                            {/* {console.log(contact.emailAddresses[0].emailAddress)} */}
                                             <input type="text" defaultValue={contact.emailAddresses[0].emailAddress} />
                                         </fieldset>
                                     )
@@ -227,57 +328,28 @@ function VendorDetails() {
                                         <div className={styles.locationRow}>
                                             <input type="text" defaultValue={address.city} className={styles.addressInput} />
                                             <select className={styles.addressInput} >
-                                                <option value="">State</option>
-                                                <option value="AL">AL</option>
-                                                <option value="AK">AK</option>
-                                                <option value="AZ">AZ</option>
-                                                <option value="AR">AR</option>
-                                                <option value="CA">CA</option>
-                                                <option value="CO">CO</option>
-                                                <option value="CT">CT</option>
-                                                <option value="DE">DE</option>
-                                                <option value="FL">FL</option>
-                                                <option value="GA">GA</option>
-                                                <option value="HI">HI</option>
-                                                <option value="ID">ID</option>
-                                                <option value="IL">IL</option>
-                                                <option value="IN">IN</option>
-                                                <option value="IA">IA</option>
-                                                <option value="KS">KS</option>
-                                                <option value="KY">KY</option>
-                                                <option value="LA">LA</option>
-                                                <option value="ME">ME</option>
-                                                <option value="MD">MD</option>
-                                                <option value="MA">MA</option>
-                                                <option value="MI">MI</option>
-                                                <option value="MN">MN</option>
-                                                <option value="MS">MS</option>
-                                                <option value="MO">MO</option>
-                                                <option value="MT">MT</option>
-                                                <option value="NE">NE</option>
-                                                <option value="NV">NV</option>
-                                                <option value="NH">NH</option>
-                                                <option value="NJ">NJ</option>
-                                                <option value="NM">NM</option>
-                                                <option value="NY">NY</option>
-                                                <option value="NC">NC</option>
-                                                <option value="ND">ND</option>
-                                                <option value="OH">OH</option>
-                                                <option value="OK">OK</option>
-                                                <option value="OR">OR</option>
-                                                <option value="PA">PA</option>
-                                                <option value="RI">RI</option>
-                                                <option value="SC">SC</option>
-                                                <option value="SD">SD</option>
-                                                <option value="TN">TN</option>
-                                                <option value="TX">TX</option>
-                                                <option value="UT">UT</option>
-                                                <option value="VT">VT</option>
-                                                <option value="VA">VA</option>
-                                                <option value="WA">WA</option>
-                                                <option value="WV">WV</option>
-                                                <option value="WI">WI</option>
-                                                <option value="WY">WY</option>
+                                                <option value="">State/Province</option>
+                                                {address.countryRegionCode === "US" &&
+                                                    USStates.map(USState => {
+                                                        return (
+                                                            <option value={USState.stateProvinceCode} key={USState.stateProvinceId}>{USState.stateProvinceCode}</option>
+                                                        )
+                                                    })
+                                                }
+                                                {address.countryRegionCode === "CA" &&
+                                                    CAProvinces.map(province => {
+                                                        return (
+                                                            <option value={province.stateProvinceCode} key={province.stateProvinceId}>{province.stateProvinceCode}</option>
+                                                        )
+                                                    })
+                                                }
+                                                {address.countryRegionCode === "FR" &&
+                                                    FRProvinces.map(province => {
+                                                        return (
+                                                            <option value={province.stateProvinceCode} key={province.stateProvinceId}>{province.stateProvinceCode}</option>
+                                                        )
+                                                    })
+                                                }
                                             </select>
                                         </div>
                                         <input type="text" defaultValue={address.postalCode} className={styles.addressInput} />

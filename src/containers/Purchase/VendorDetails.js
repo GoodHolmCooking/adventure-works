@@ -3,6 +3,9 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import Contact from "../../components/Purchase/Contact";
+import Address from "../../components/Purchase/Adress";
+import VendorForm from "../../components/Forms/VendorForm";
 
 function VendorDetails() {
     const [vendor, setVendor] = useState(null);
@@ -28,6 +31,7 @@ function VendorDetails() {
 
     // inital load
     useEffect(() => {
+        console.log(`Loading vendor with id ${id}`);
         axios.get(`https://api.bootcampcentral.com/api/Vendor/${id}`)
         .then(resp => {
             setVendor(resp.data);
@@ -149,7 +153,7 @@ function VendorDetails() {
 
         // Phone
         // proper length
-        numberToCombo()
+        numberToPhone()
         
         // Email
 
@@ -159,17 +163,17 @@ function VendorDetails() {
 
     // To simplify validation. Phone numbers are entered as a number and converted to dashed format.
     // 8595550100 becomes 859-555-0100
-    function comboToNumber(combo) {
+    function phoneToNumber(phoneToConvert) {
         // 859-555-0100
-        let area = combo.substring(0, 3);
-        let firstSet = combo.substring(4, 7);
-        let secondSet = combo.substring(8);
+        let area = phoneToConvert.substring(0, 3);
+        let firstSet = phoneToConvert.substring(4, 7);
+        let secondSet = phoneToConvert.substring(8);
         let combinedNumber = area + firstSet + secondSet;
 
         return +combinedNumber;
     }
 
-    function numberToCombo(providedNumber) {
+    function numberToPhone(providedNumber) {
         // 8595550100
         let convertedString = providedNumber.toString();
         let area = convertedString.substring(0, 3);
@@ -202,7 +206,7 @@ function VendorDetails() {
             {!detailsLoaded && <h3>Loading...</h3>}
             {detailsLoaded && 
                 <div>
-                    <Link to="/purchases" className={styles.row} style={{textDecoration: 'none', color: '#212121'}}>
+                    <Link to="/vendors" className={styles.row} style={{textDecoration: 'none', color: '#212121'}}>
                         <img src="../../images/ArrowLeft.png" alt="navigate back" />
                         <p className={styles.backBtn}>Back</p>
                     </Link>
@@ -222,13 +226,20 @@ function VendorDetails() {
                         </div>
                     }
                     {editingName &&
-                        <form className={styles.nameBlock} onSubmit={handleNameSubmit}>
-                            <input type="text" defaultValue={vendor.vendorName} className={styles.nameInput} onChange={evt => setVendorName(evt.target.value)} />
-                            <input type="text" defaultValue={vendor.contacts[0].phoneNumbers[0].phoneNumber} onChange={evt => setVendorPhoneNumber(evt.target.value)} />
-                            <input type="number" defaultValue={id} onChange={evt => setVendorId(evt.target.value)} />
-                            <input type="submit" defaultValue="Save Changes" className={styles.saveBtn} />
-                            <input type="button" defaultValue="Cancel" className={styles.cancelBtn} onClick={handleNameCancel} />
-                        </form>
+                        <div>
+                            <VendorForm 
+                                vendor={vendor}
+                            />
+                            <button className={styles.cancelBtn} onClick={handleNameCancel}>Cancel</button>
+                        </div>
+
+                        // <form className={styles.nameBlock} onSubmit={handleNameSubmit}>
+                        //     <input type="text" defaultValue={vendor.vendorName} className={styles.nameInput} onChange={evt => setVendorName(evt.target.value)} />
+                        //     <input type="text" defaultValue={vendor.contacts[0].phoneNumbers[0].phoneNumber} onChange={evt => setVendorPhoneNumber(evt.target.value)} />
+                        //     <input type="number" defaultValue={id} onChange={evt => setVendorId(evt.target.value)} />
+                        //     <input type="submit" defaultValue="Save Changes" className={styles.saveBtn} />
+                        //     <input type="button" defaultValue="Cancel" className={styles.cancelBtn} onClick={handleNameCancel} />
+                        // </form>
                     }
 
                     <section>
@@ -242,21 +253,17 @@ function VendorDetails() {
                             <ol>
                                 {vendor.contacts.map(contact => {
                                     return (
-                                    <li className={styles.contentBlock} key={contact.personId}>
-                                        <p>{contact.personalTitle} {contact.firstName} {contact.middleName} {contact.lastName}</p>
-                                        <p>{contact.typeName}</p>
-                                        <ul>
-                                        {contact.phoneNumbers.map(phoneNumber => {
-                                            return (<li key={phoneNumber.phoneNumberTypeId}>{phoneNumber.phoneNumberTypeName}: {phoneNumber.phoneNumber}</li>);
-                                        })}
-                                        </ul>
-
-                                        <ul>
-                                        {contact.emailAddresses.map(email => {
-                                            return (<li key={email.emailAddressId}>Email: {email.emailAddress}</li>);
-                                        })}
-                                        </ul>
-                                    </li>
+                                        <Contact
+                                            key={contact.personId}
+                                            personalId={contact.personId}
+                                            personalTitle={contact.personalTitle}
+                                            firstName={contact.firstName}
+                                            middleName={contact.middleName}
+                                            lastName={contact.lastName}
+                                            typeName={contact.typeName}
+                                            phoneNumbers={contact.phoneNumbers}
+                                            emailAddresses={contact.emailAddresses}
+                                        />
                                     );
                                 })}
                             </ol>
@@ -281,7 +288,7 @@ function VendorDetails() {
                                                     <option>Home</option>
                                                     <option>Cell</option>
                                                 </select>
-                                                <input type="number" defaultValue={comboToNumber(contact.phoneNumbers[0].phoneNumber)} className={styles.phoneInput} />
+                                                <input type="number" defaultValue={phoneToNumber(contact.phoneNumbers[0].phoneNumber)} className={styles.phoneInput} />
                                             </div>
                                             <input type="text" defaultValue={contact.emailAddresses[0].emailAddress} />
                                         </fieldset>
@@ -305,14 +312,17 @@ function VendorDetails() {
                         <ol>
                             {vendor.addresses.map(address => {
                                 return (
-                                <li className={styles.contentBlock} key={address.addressId}>
-                                    <p>{address.addressTypeName}</p>
-                                    <p>{address.addressLine1}</p>
-                                    <p>{address.addressLine2}</p>
-                                    <p>{address.city}, {address.stateProvinceCode}</p>
-                                    <p>{address.postalCode}</p>
-                                    <p>{address.countryRegionCode}</p>
-                                </li>
+                                <Address 
+                                    key={address.addressId}
+                                    addressId={address.addressId}
+                                    addressTypeName={address.addressTypeName}
+                                    addressLine1={address.addressLine1}
+                                    addressLine2={address.addressLine2}
+                                    city={address.city}
+                                    stateProvinceCode={address.stateProvinceCode}
+                                    postalCode={address.postalCode}
+                                    countryRegionCode={address.countryRegionCode}
+                                />
                                 );
                             })}
                         </ol>

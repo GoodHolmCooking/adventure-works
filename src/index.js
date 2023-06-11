@@ -9,7 +9,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import employeeSlice from './store/slices/employeeSlice';
-import { configureStore } from "@reduxjs/toolkit";
+// import { configureStore } from "@reduxjs/toolkit";
 
 axios.defaults.baseURL = "https://api.bootcampcentral.com/api";
 axios.defaults.headers.common["Authorization"] = "MY AUTH TOKEN";

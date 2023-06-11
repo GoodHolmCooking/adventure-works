@@ -7,6 +7,7 @@ function Vendors() {
     const [vendorsLoaded, setLoading] = useState(false);
 
     useEffect(() => {
+        console.log("Loading vendors...");
             axios.get("https://api.bootcampcentral.com/api/Vendor")
                 .then(resp => {
                     setVendors(resp.data);

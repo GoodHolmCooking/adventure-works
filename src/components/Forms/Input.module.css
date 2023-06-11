@@ -10,7 +10,9 @@
     margin-bottom: 0.4em;
 }
 
-.input input, .input textarea {
+.input input, .input textarea,
+.input input,
+.input textarea {
     outline: none;
     border: 1px solid #ccc;
     font: inherit;
@@ -20,7 +22,11 @@
     box-sizing: border-box;
 }
 
-.input input:focus, .input textarea:focus {
+
+
+.input input:focus,
+.input textarea:focus {
+
     outline: none;
     background-color: #eee;
 }

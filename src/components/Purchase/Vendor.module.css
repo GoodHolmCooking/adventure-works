@@ -1,0 +1,13 @@
+.vendorBlock {
+    border-block-end: 3px solid #9BC53D;
+    display: flex;
+    justify-content: space-between;
+    margin-inline: 5%;
+    margin-block: 1rem;
+    padding-block-end: 1rem;
+    color: #212121;
+}
+
+.vendorLink {
+    text-decoration: none;
+}

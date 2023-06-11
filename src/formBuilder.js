@@ -39,13 +39,24 @@ const formBuilder = {
 		return content;
 	},
 	
+	// formBuilder.configInput("input", "number", "Business Entity ID", "", {required: true}, vendor.businessEntityId)
 	checkValidity(inputConfig) {
 		inputConfig.valid = true;
 		inputConfig.errors = {};
+
 		if (inputConfig.validation.required) {
-			if (inputConfig.value.trim() === "") {
-				inputConfig.valid = false;
-				inputConfig.errors.required = `You must enter a value for ${inputConfig.label}`;
+			if (inputConfig.type === "text") {
+				if (inputConfig.value.trim() === "") {
+					inputConfig.valid = false;
+					inputConfig.errors.required = `You must enter a value for ${inputConfig.label}`;
+				}
+			}
+
+			if (inputConfig.type === "number") {
+				if (inputConfig.value === null || inputConfig.value <= 0) {
+					inputConfig.valid = false;
+					inputConfig.errors.required = `You must enter a valid value for ${inputConfig.label}`;
+				}
 			}
 		}
 
@@ -53,6 +64,13 @@ const formBuilder = {
 			if (inputConfig.value.trim().length < inputConfig.validation.minLength) {
 				inputConfig.valid = false;
 				inputConfig.errors.minLength = `${inputConfig.label} must be at least ${inputConfig.validation.minLength} characters`;
+			}
+		}
+
+		if (inputConfig.validation.exactLength) {
+			if (inputConfig.value.trim().length !== inputConfig.validation.exactLength) {
+				inputConfig.valid = false;
+				inputConfig.errors.minLength = `${inputConfig.label} must be exactly ${inputConfig.validation.exactLength} characters`;
 			}
 		}
 	},

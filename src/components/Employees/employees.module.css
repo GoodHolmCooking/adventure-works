@@ -1,3 +1,7 @@
+.mobile
+{
+    display: none;
+}
 .employee
 {
     width: 95%;
@@ -12,6 +16,7 @@
     font-size: 20px;
     line-height: 22px;
 }
+
 
 .employee > *
 {
@@ -37,6 +42,8 @@
     font-size: 50px;
     line-height: 22px;
 }
+
+
 
 .header > div > button
 {
@@ -128,4 +135,102 @@ padding-inline: 7px;
 .closeButton:hover
 {
    cursor: pointer;
+}
+
+/***************************************************
+mobile view
+*****************************************************/
+
+@media screen and  (max-width: 600px){
+
+    .mobile
+    {
+        display: contents;
+    }
+
+    .desktop
+    {
+        display: none;
+    }
+
+    * {
+        box-sizing: border-box;
+      }
+    .header > h1
+    {
+        background-color: orange;
+        height: 55px;
+        padding-block: 0.75em;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding-inline-start: 24px;
+    }
+    .header
+    {
+        padding: 0;
+        margin: 0;
+    }
+    .employeesDisplay
+    {
+        padding: 0;
+        margin: 0;
+    }
+   
+    .headerInteractables
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    .headerInteractables > button
+    {
+        align-self: flex-start;
+        margin-left: 25px;
+        /* margin-block-end: 5em; */
+    }
+    .headerInteractables > .searchbar
+    {
+        margin-block-start: 1em;
+    }
+
+    .searchbar
+    {
+        width: 90%;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        margin-bottom: 32px;
+    }
+    .searchbar > input
+    {
+        width: 80%;
+    }
+    .searchbar > button
+    {
+        width: 20%;
+    }
+    .circleOne
+{
+    height: 20px;
+    width: 20px;
+    border: 3px solid orange;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.circleTwo
+{
+    height: 12px;
+    width: 12px;
+    background-color: orange;
+    border-radius: 50%;
+}
+.backText
+{
+    margin-inline-start: 2.5%;   
+    border: solid black 
+}
 }

@@ -19,6 +19,8 @@ function Employees(props) {
 	//edit object
 	const [editEmployee,setEditEmployee] = useState(null);
 
+  const backText = "< Back"
+
 //axios/api stuff
 
 	useEffect(() => {
@@ -40,11 +42,13 @@ function Employees(props) {
 	//modal stuff
 	const handleOpenEditEmployee = (emp) =>
 	{
+    document.body.style.overflow = 'hidden';
 		setEditEmployee(emp);
 	}
 
 	const handleCloseEditEmployee = () =>
 	{
+    document.body.style.overflow = 'unset';
 		setEditEmployee(null);
 	}
 
@@ -54,16 +58,37 @@ function Employees(props) {
 	{
 		Modal.setAppElement('body');
 		editModal = (
-			<>
-			<Modal className="modal " isOpen={true}>
-        			<EditEmployee id={editEmployee.employeeId}></EditEmployee>
-					<button className={styles.closeButton} onClick={() => 
-					{
-						handleCloseEditEmployee();
-					}}><img src={close} alt="close" ></img></button>
-    			</Modal>
-			</>
-		)
+      <>
+        <Modal className="modal " isOpen={true}>
+          <div className={`modalHeaderMobile `}>
+            <section className={styles.header} >
+            <h1 >Employees</h1>
+            <div className={styles.headerInteractables}>
+              <button className={styles.mobile} onClick={() => {
+                  handleCloseEditEmployee();
+                }}
+              >
+                <div >
+                  <div ></div>
+                </div>
+                <p className={styles.buttonText}>Overview</p>
+              </button>
+            </div>
+              <p className={[styles.backText, styles.mobile].join(" ")} > {backText} </p>
+            </section>
+          </div>
+          <EditEmployee id={editEmployee.employeeId}></EditEmployee>
+          <button
+            className={`${styles.closeButton} ${styles.desktop} `}
+            onClick={() => {
+              handleCloseEditEmployee();
+            }}
+          >
+            <img src={close} alt="close"></img>
+          </button>
+        </Modal>
+      </>
+    );
 	}
 
 	const checkIfNull = (val) => 
@@ -79,46 +104,52 @@ function Employees(props) {
 	}
 //view return 
 	return (
-    <div>
-      <section className={styles.header} >
+    <div className={styles.employeesDisplay}>
+      <section className={styles.header}>
         <h1>Employees</h1>
-		<div>
-		<button>
-			<div className={styles.circleOne}>
-				<div className={styles.circleTwo}>
-
-				</div>
-			</div>
-          <p className={styles.buttonText} >Overview</p>
-        </button>
-		<section className={styles.searchbar}>
-			<input type="text"
-			onChange={evt => dispatch(setFilter(evt.target.value))}
-			>
-			</input>
-			<button onClick={() => dispatch(applyFilter(employees))}> <img src={searchButtons} alt="search"></img> </button>
-		</section>
-		</div>
+        <div className={styles.headerInteractables}>
+          <button>
+            <div className={styles.circleOne}>
+              <div className={styles.circleTwo}></div>
+            </div>
+            <p className={styles.buttonText}>Overview</p>
+          </button>
+          <section className={styles.searchbar}>
+            <input
+              type="text"
+              onChange={(evt) => dispatch(setFilter(evt.target.value))}
+              onKeyUp={(e) => {
+                if (e.key === "Enter")
+                {
+                  dispatch(applyFilter(employees))
+                }
+           }}
+            ></input>
+            <button onClick={() => dispatch(applyFilter(employees))}>
+              {" "}
+              <img src={searchButtons} alt="search"></img>{" "}
+            </button>
+          </section>
+        </div>
       </section>
-		<section className={styles.employee}>
-			{/* table top */}
-			<p>Employee</p>
-			<p>Shifts</p>
-			<p>Job Title</p>
-			<p>department</p>
-			<p>Employee ID</p>
-			<p>Start Date</p>
-			<p>Options</p>
-		</section>
-	  <section>
-        {
-		displayEmployees.map((employee) => (
+      <section className={`${styles.employee} ${styles.desktop}`}>
+        {/* table top */}
+        <p className={ styles.desktop} >Employee</p>
+        <p className={ styles.desktop}>Shifts</p>
+        <p className={ styles.desktop}>Job Title</p>
+        <p className={ styles.desktop}>department</p>
+        <p className={ styles.desktop}>Employee ID</p>
+        <p className={ styles.desktop}>Start Date</p>
+        <p className={ styles.desktop}>Options</p>
+      </section>
+      <section>
+        {displayEmployees.map((employee) => (
           <Employee
             // top level information
             key={employee.employeeId}
             firstName={employee.firstName}
-			lastName={employee.lastName}
-            title= {checkIfNull(employee.title)}
+            lastName={employee.lastName}
+            title={checkIfNull(employee.title)}
             id={employee.employeeId}
             //employment information
             department={checkIfNull(employee.department)}
@@ -129,8 +160,8 @@ function Employees(props) {
               handleOpenEditEmployee(employee);
             }}
             delete={() => {
-				dispatch(deleteEmployeeAsync(employee))
-			}}
+              dispatch(deleteEmployeeAsync(employee));
+            }}
           ></Employee>
         ))}
         {editModal}

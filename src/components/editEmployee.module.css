@@ -1,3 +1,8 @@
+.mobile
+{
+    display: none;
+}
+
 /************************************* 
  general layout items 
 **************************************/
@@ -239,6 +244,11 @@ form styling
     cursor: pointer;
 }
 
+.editButton:hover, .editButton:hover
+{
+    cursor: pointer;
+}
+
 form button:hover
 {
     cursor: pointer;
@@ -247,4 +257,33 @@ form button:hover
 .editButtonTop:hover
 {
     cursor: pointer;
+}
+
+@media screen and  (max-width: 600px){
+    .mobile
+    {
+        display: contents;
+    }
+
+    .desktop
+    {
+        display: none;
+    }
+
+    .modalWindow
+{
+    position: relative;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.editButton
+{
+   position: absolute;
+   right: 0;
+}
+
 }

@@ -358,7 +358,7 @@ function EditEmployee(props) {
         <>
           <div className={styles.modalHeader}>
             <h2>{employee.name}</h2>
-            <button className={styles.editButtonTop} onClick={() => { 
+            <button className={[styles.editButtonTop, styles.desktop].join(" ")} onClick={() => { 
               setEditCardTop(true)
               setEditPersonalInfo(false)
               setEmploymentInfo(false)

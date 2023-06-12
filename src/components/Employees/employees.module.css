@@ -77,8 +77,9 @@
 }
 .searchbar > input
 {
+    align-self: center;
     width: 296px;
-    height: 36px;
+    height: 30px;
     border: none;
     background-color: transparent;
 }
@@ -249,5 +250,9 @@ mobile view
     margin-top: 40px;
 }
 
+.searchbar > input
+{
+    height: 36px;
+}
 
 }

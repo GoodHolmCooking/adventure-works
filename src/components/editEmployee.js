@@ -43,8 +43,6 @@ function EditEmployee(props) {
     const [topEditForm, setTopEditForm] = useState(topEditFormBuilder);
     const [personalEditForm, setPersonalEditForm] = useState(personalEditFormBuilder);
     const [employmentEditForm, setEmploymentEditForm] = useState(employmentEditFormBuilder);
-    const [department,setDepartment] = useState(0);
-    const [shift, setShift] = useState(0);
     //get based on the id
     const id = props.id;
     //misc
@@ -77,8 +75,6 @@ function EditEmployee(props) {
               endDate: tmp.shiftHistory[0].endDate,
             };
             setEmployee(emp);
-            setDepartment(emp.department);
-            setShift(emp.shift)
           });
       } 
       catch (err) 
@@ -86,7 +82,7 @@ function EditEmployee(props) {
         toast.error(err);
       }
       
-    },[id,shift]);
+    },[id]);
     let name = employee.firstName + " " + employee.lastName
     //formbuilders
     
@@ -137,12 +133,13 @@ function EditEmployee(props) {
       setPersonalEditForm(updatedForm);
     };
 
+    
     const handleChangeShift = (e) => {
-      setShift(e.target.value);
+      employee.shift = e.target.value
     }
 
     const handleChangeDepartment = (e) => {
-      setDepartment(e.target.value);
+      employee.department = e.target.value
     }
 
 
@@ -150,12 +147,12 @@ function EditEmployee(props) {
       let departments = 
       (
        
-        <select name="shifts" defaultValue={employee.department} onChange={handleChangeDepartment} >
+        <select name="departments" defaultValue={employee.department} onChange={handleChangeDepartment} >
           <option value={7}>Production</option>
           <option value={2}>inventory</option>
           <option value={1}>shipping</option>
           <option value={3}>packaging</option>
-          <option value={0}></option>
+          <option value={0}>{employee.departmentName}</option>
         </select>
       );
       let shifts = 
@@ -180,7 +177,7 @@ function EditEmployee(props) {
         }
         setEmploymentEditForm(editCardEmploymentFormBuilder)
       }
-    },[editCEmploymentInfo,employee,])
+    })
     
     const handleEmploymentInputChange = (evt, id) => {
       const updatedForm = { ...employmentEditForm };
@@ -318,8 +315,8 @@ function EditEmployee(props) {
       const data = {
         title: employmentEditForm.title.value,
         employeeId: employmentEditForm.employeeId.value,
-        department: department,
-        shift: shift,
+        department: employee.department,
+        shift: employee.shift,
         start: employmentEditForm.start.value,
         endDate: employmentEditForm.end.value,
         id: id

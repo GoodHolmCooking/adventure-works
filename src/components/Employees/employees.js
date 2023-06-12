@@ -7,7 +7,9 @@ import styles from "./employees.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { applyFilter, deleteEmployeeAsync, loadEmployeesAsync, setFilter } from "../../store/slices/employeeSlice";
 import searchButtons from "../../images/search.png";
-import close from "../../images/close.png"
+import close from "../../images/close.png";
+import remove from "../../images/delete.png";
+
 
 function Employees(props) {
 //made objects for operations
@@ -61,20 +63,30 @@ function Employees(props) {
       <>
         <Modal className="modal " isOpen={true}>
           <div className={`modalHeaderMobile `}>
-            <section className={styles.header} >
-            <h1 >Employees</h1>
-            <div className={styles.headerInteractables}>
-              <button className={styles.mobile} onClick={() => {
+            <section className={styles.header}>
+              <h1>Employees</h1>
+              <div className={styles.headerInteractables}>
+                <button
+                  className={styles.mobile}
+                  onClick={() => {
+                    handleCloseEditEmployee();
+                  }}
+                >
+                  <div>
+                    <div></div>
+                  </div>
+                  <p className={styles.buttonText}>Overview</p>
+                </button>
+              </div>
+              <p
+                className={[styles.backText].join(" ")}
+                onClick={() => {
                   handleCloseEditEmployee();
                 }}
               >
-                <div >
-                  <div ></div>
-                </div>
-                <p className={styles.buttonText}>Overview</p>
-              </button>
-            </div>
-              <p className={[styles.backText, styles.mobile].join(" ")} > {backText} </p>
+                {" "}
+                {backText}{" "}
+              </p>
             </section>
           </div>
           <EditEmployee id={editEmployee.employeeId}></EditEmployee>
@@ -86,6 +98,19 @@ function Employees(props) {
           >
             <img src={close} alt="close"></img>
           </button>
+          <div>
+            <button
+              className={styles.archive}
+              onClick={() => {
+                const temp = editEmployee;
+                dispatch(deleteEmployeeAsync(temp));
+                handleCloseEditEmployee();
+              }}
+            >
+              <img className={styles.desktop} alt="delete" src={remove}></img>
+              ArchiveEmployee
+            </button>
+          </div>
         </Modal>
       </>
     );

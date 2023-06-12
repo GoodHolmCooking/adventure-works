@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import LoginContextProvider from './context/loginContext';
 import axios from "axios";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
@@ -26,15 +26,16 @@ const store = configureStore({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
-
 root.render(
+  // <Provider store={store}>
+  //     <App />
+  // </Provider>
 
-  <Provider store={store}>
+  <LoginContextProvider>
+    <Provider store={store}>
       <App />
-  </Provider>
-
-
-   
+    </Provider>
+  </LoginContextProvider>
 );
 
 reportWebVitals();

@@ -11,13 +11,20 @@ import Employees from "./components/Employees/employees";
 // import FormTest from "./components/Purchase/FormTest";
 import Vendors from './containers/Purchase/Vendors';
 import VendorDetails from './containers/Purchase/VendorDetails';
-
+import Login from "./components/login"
+import { LoginContext } from "./context/loginContext";
+import { useContext } from 'react';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
-  return (
-
-    <div className="App">
-
+  let key = "dashboardLoginStatus"
+  const loginContext = useContext(LoginContext);
+  let content;
+  let loginstatus = window.sessionStorage.getItem(key) 
+  if(loginContext.accepted || loginstatus === true)
+  {
+    content = (
+      <div className="App">
       <BrowserRouter>
 
       <Routes>
@@ -28,12 +35,14 @@ function App() {
       </Routes>
           
       </BrowserRouter>
-
      {/* <Employees></Employees> */}
     </div>
-
-
-  );
+    )
+  }
+  else{
+    content = (<Login></Login>)
+  }
+  return content;
 }
 
 export default App;

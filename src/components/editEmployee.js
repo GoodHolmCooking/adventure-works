@@ -12,7 +12,7 @@ import { updateEmployee } from "../store/slices/employeeSlice";
 //default forms
 const topEditFormBuilder = {
   name: formBuilder.configInput("input", "text", "Name", null, { required: true, minLength: 2 }),
-  title: formBuilder.configInput("input", "text", "Title", null, { required: true }),
+  title: formBuilder.configInput("input", "text", "Title", null,),
   emplyeeId: formBuilder.configInput("input", "number", "employee id",null,{})
 };
 
@@ -62,7 +62,8 @@ function EditEmployee(props) {
           .then((resp) => {
             let tmp = resp.data;
             let emp = {
-              id: tmp.employeeNumber,
+              id: id,
+              employeeId: tmp.employeeNumber,
               name: tmp.firstName + " " + tmp.lastName,
               title: tmp.title,
               firstName: tmp.firstName,
@@ -95,9 +96,9 @@ function EditEmployee(props) {
 
         const editCardTopFormBuilder =
         {
-         name: formBuilder.configInput("input", "text", "", null, { required: true, minLength: 2 }, name),
+         name: formBuilder.configInput("input", "text", "", null, { required: true, minLength: 2 }, employee.name),
          title: formBuilder.configInput("input", "text", "", null, { required: true },employee.title),
-         emplyeeId: formBuilder.configInput("input", "number", "",null,{},employee.employeeId)
+         emplyeeId: formBuilder.configInput("input", "number", "",null,{},employee.emplyeeId)
         }
         setTopEditForm(editCardTopFormBuilder)
       }
@@ -211,7 +212,7 @@ function EditEmployee(props) {
       }
 
       //make data format from table
-      const data = {
+      let data = {
         firstName: personalEditForm.firstName.value,
         lastName: personalEditForm.lastName.value,
         middleName: personalEditForm.middleName.value,
@@ -223,6 +224,7 @@ function EditEmployee(props) {
       .then(resp => {
         if(resp)
         {
+          data = {...data,name:data.firstName + " " + data.lastName}
           setEmployee({...employee,...data})
           dispatch(updateEmployee(data))
         }
@@ -255,6 +257,7 @@ function EditEmployee(props) {
       //make data format from table
       const personalData = {
         firstName: tmp[0],
+        name: topEditForm.name.value,
         lastName: tmp[1],
         middleName: employee.middleName,
         suffix: employee.suffix,
@@ -271,6 +274,7 @@ function EditEmployee(props) {
       .then(resp => {
         if(resp)
         {
+          employee.name = name;
           setEmployee({...employee,...personalData})
           dispatch(updateEmployee(personalData))
           axios.put(`/Employee/Employment/${id}`,employmentData)
@@ -321,7 +325,7 @@ function EditEmployee(props) {
         id: id
       };
       //put data into database
-      axios.put(`/Employee/Employment/${12}`,data,{crossDomain:true})
+      axios.put(`/Employee/Employment/${id}`,data,{crossDomain:true})
       .then(resp => {
         if(resp)
         {

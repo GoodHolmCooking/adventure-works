@@ -2,13 +2,6 @@ import './App.css';
 import {BrowserRouter, Routes, Route, NavLink} from "react-router-dom";
 import Employees from "./components/Employees/employees";
 
-// import { BrowserRouter } from 'react-router-dom';
-// import { Routes, Route } from 'react-router-dom';
-
-// pages
-// import Home from './components/Home';
-// import TempHeader from './components/TempHeader';
-// import FormTest from "./components/Purchase/FormTest";
 import Vendors from './containers/Purchase/Vendors';
 import VendorDetails from './containers/Purchase/VendorDetails';
 

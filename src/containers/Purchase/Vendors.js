@@ -1,26 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Vendor from "../../components/Purchase/Vendor";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { loadVendorsAsync} from "../../store/slices/vendorSlice";
 
 function Vendors() {
-    const [vendors, setVendors] = useState([]);
-    const [vendorsLoaded, setLoading] = useState(false);
+    const {vendors} = useSelector(state => state.vendors);
+    const dispatch = useDispatch();
 
+    // Load vendors
     useEffect(() => {
-        console.log("Loading vendors...");
-            axios.get("https://api.bootcampcentral.com/api/Vendor")
-                .then(resp => {
-                    setVendors(resp.data);
-                    setLoading(true);
-                })
-                .catch(err => {
-                    console.log(`Error: ${err}`);
-                });
-    }, []);
+        if (!vendors.length) {
+            dispatch(loadVendorsAsync());
+        };
+    }, [dispatch, vendors]);
 
     return (
         <section>
-            {!vendorsLoaded && <h3>Loading...</h3>}
+            {!vendors.length && <h3>Loading...</h3>}
             {vendors && vendors.map(vendor => {
 
                 return (

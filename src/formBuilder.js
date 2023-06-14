@@ -1,7 +1,11 @@
 import React from "react";
 import Input from "./components/Forms/Input";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const formBuilder = {
+	
+
 	configInput(kind, type, label, placeholder, validation = {}, value = "") {
 		const settings = { kind, label, value, validation, attrs: {}};
 
@@ -68,9 +72,20 @@ const formBuilder = {
 		}
 
 		if (inputConfig.validation.exactLength) {
-			if (inputConfig.value.trim().length !== inputConfig.validation.exactLength) {
+			if (inputConfig.value.toString().trim().length !== inputConfig.validation.exactLength) {
 				inputConfig.valid = false;
 				inputConfig.errors.minLength = `${inputConfig.label} must be exactly ${inputConfig.validation.exactLength} characters`;
+			}
+		}
+
+		if (inputConfig.validation.format) {
+			switch (inputConfig.validation.format) {
+				case "email":
+					// @ symbol present?
+					break;
+				// phone is actually handled through the exact length validation and numberToPhone function.
+				default:
+					inputConfig.errors.format = `${inputConfig.label} must be in the proper format`;
 			}
 		}
 	},

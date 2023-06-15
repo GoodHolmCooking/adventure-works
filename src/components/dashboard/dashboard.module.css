@@ -1,0 +1,536 @@
+
+/*********************************************
+general layout and size
+***********************************************/
+
+body {
+   overflow-x: hidden;
+}
+.sales
+{
+    grid-area: sales;
+    background: #FDFDFD;
+    border: 3.55911px solid #EE66A0;
+    border-radius: 8.89776px;
+    padding: 0.5em;
+}
+
+.profits
+{
+    grid-area: profits;
+    border: 2.80124px solid #EE66A0;
+    border-radius: 7.00309px;
+    padding-bottom: 20px;
+    height: fit-content;
+}
+
+.sellers
+{
+    grid-area: sellers;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shifts
+{
+    grid-area: shifts;
+    width: 211px;
+    border: 2.49325px solid #5BC0EB;
+    border-radius: 6.23313px;
+
+}
+
+.btnIcon
+{
+    background-color: transparent;
+    border: transparent;
+}
+
+.products
+{
+    grid-area: products;
+    width: 85%;
+}
+
+.dashboardMain
+{
+    justify-self: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    grid-template-rows: 1fr 1fr 1fr;
+    row-gap: 30px;
+    column-gap: 30px;
+    grid-template-areas: 
+    "sales profits shifts"
+    "sales sellers shifts"
+    "products products products";
+    width: 100vw;
+}
+.dashboard
+{
+   position: relative;
+    width:100%;
+    padding-inline: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+}
+.dashboard > h1
+{
+   width: fit-content;
+  align-self: center;
+}
+/**************************************************
+shifts styling 
+ **************************************************/
+.shiftSection
+{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-inline-start: 1em;
+    margin-bottom: 45px;
+}
+
+.shiftSection > h3
+{
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    letter-spacing: 0.536049px;
+    text-decoration-line: underline;
+    color: #212121;
+}
+
+.shiftSection > p
+{
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 27px;
+    letter-spacing: 0.536049px;
+    color: #212121;
+}
+
+.shiftsHeader
+{
+    display: flex;
+    justify-content: space-around;
+}
+
+/**************************************************
+    low Products styling
+ **************************************************/
+ .prodList
+ {
+    padding: 0;
+    margin: 0;
+    width: 98%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+ }
+
+ .prod
+ {
+    
+    max-width: 20%;
+    padding: 0;
+    margin: 0;
+    padding-inline: 1em;
+    position: relative;
+    border: 2.49325px solid #5BC0EB;
+    border-radius: 6.23313px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+    "header info"
+    "buttons buttons" ;
+    margin-bottom: 1em;
+ }
+ .prodHeader
+ {
+    grid-area: header;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+ }
+ .prodHeader > div
+ {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+ }
+ .prodHeader > p
+ {
+    padding: 0;
+    margin: 0;
+   
+ }
+ .warningText
+ {
+    color: #E11818;
+ }
+
+ .stockOrderInfo
+ {
+    grid-area: info;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 0px;
+ }
+ .stockOrderInfo *
+ {
+  padding: 0%;
+  margin: 0%;
+ }
+ .productButtons
+ {
+    grid-area: buttons;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 1em;
+    padding-bottom: 1em;
+    padding-inline-end: 1em;
+ }
+
+ .productButtons *:first-child
+ {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12.4663px 24.9325px;
+    gap: 1.25px; 
+    width: 129.87px;
+    height: 43.63px;
+    border: 1.24663px solid #5BC0EB;
+    border-radius: 6.23313px;
+    background-color: transparent;
+ }
+
+ .productButtons *:nth-child(2)
+ {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12.4663px 24.9325px;
+    gap: 1.25px;
+    width: 129.65px;
+    height: 43.63px;
+    background: #5BC0EB;
+    border: 1.24663px solid #5BC0EB;
+    border-radius: 6.23313px;
+
+ }
+
+ @media screen and (max-width: 1200px){
+    .prod
+    {
+        max-width: 100%;
+    }
+ }
+
+  /************************************************
+    profits css 
+ *************************************************/
+
+ .profitsGreater
+ {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 14px;
+    gap: 0.5em;
+    width: 94px;
+    height: 43px;
+    background: rgba(155, 197, 61, 0.8);
+    border-radius: 7px;
+ }
+ .profitsLower
+ {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 14px;
+    gap: 0.5em;
+    width: 94px;
+    height: 43px;
+    background: rgb(231, 26, 26,0.8);
+    border-radius: 7px;
+ }
+
+ .profitsGreater, .profitsLower, .profitsSame
+ {
+     font-style: normal;
+     font-weight: 500;
+     font-size: 19.6087px;
+     line-height: 28px;
+     letter-spacing: -0.02em;
+     color: #212121;
+     font-family: 'Public Sans';
+ }
+
+ .profitsLower > img
+ {
+    rotate: 180deg;
+ }
+
+ .profitsSame
+ {
+       display: flex;
+       flex-direction: row;
+       align-items: center;
+       justify-content: center;
+       padding: 7px 14px;
+       gap: 0.5em;
+       width: 94px;
+       height: 43px;
+       background: lightgray;
+       border-radius: 7px;
+    
+ }
+
+ .vsLast
+ {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+ }
+ .vsLast > p
+ {
+     font-style: normal;
+     font-weight: 400;
+     font-size: 19.6087px;
+     line-height: 28px;
+     letter-spacing: -0.02em;
+     color: #8B909A;
+     font-family: 'Open Sans';
+ }
+ .profitsDataNumbers
+ {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: flex-start;
+ }
+ .profitsDataNumbers > h2
+ {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 44.8198px;
+    line-height: 45px;  
+    letter-spacing: -0.02em;
+    color: #212121;
+ }
+ .profitsInfo
+ {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+ }
+ .profitsInfo *
+ {
+    padding:0;
+    margin: 0;
+ }
+ .profitsInfo > h4
+ {
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 25.2111px;
+    letter-spacing: -0.02em;
+    color: #212121;
+    font-style: normal;
+    line-height: 36px;
+}
+.profitsInfo > p
+{
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19.6087px;
+    line-height: 28px; 
+    letter-spacing: -0.02em;
+    color: #8B909A;
+    margin-bottom: 27px;
+}
+
+.profitsDisplay
+{
+    margin-top: 20px;
+    margin-left: 40px;
+    display: flex;
+    align-items: center;
+}
+/************************************************
+    donut charts css 
+ *************************************************/
+ .circles
+ {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0;
+ }
+ .cirleGraphContainer
+ {
+    border-radius: 5.90007px;
+    border: 2.36003px solid #9BC53D;
+ }
+
+ /************************************************
+    sales css for non graph related items
+ *************************************************/
+
+ .salescompGood, .salescompBad, .salescomp
+ {
+    display: flex;
+    align-items: center;
+    gap:7px;
+ }
+.graphSummary
+{
+   display: flex;
+   gap: 15px;
+   margin-bottom: 5em;
+}
+.salesHeader
+{
+   position: relative;
+   width: 100%;
+   display: flex;
+   align-items: center;
+}
+.salesHeader > *:first-child
+{
+   justify-self: flex-start;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 27.1681px;
+   line-height: 37px;
+   letter-spacing: 0.849004px;
+   color: #3C3C3C;
+   font-family: 'Open Sans';
+}
+.salesHeader > *:nth-child(2)
+{
+   position: absolute;
+   right: 0;
+   font-style: normal;
+   font-weight: 500;
+   font-size: 13.5841px;
+   line-height: 16px;
+   display: flex;
+   align-items: center;
+   letter-spacing: 0.307251px;
+   color: #979797;
+   font-family: 'Roboto';
+   display: flex;
+   align-items: center;
+   gap: 5.5px;
+}
+
+.border
+{
+   height: 300px;
+   width:215px;
+}
+
+ /************************************************
+    canvas size css
+ *************************************************/
+
+.salesGraphCanvas
+{
+   width: 80%;
+}
+
+.profitLineCanvas
+{
+   width: 50%;   
+}
+
+@media screen and  (max-width: 1100px){
+.desktop
+   {
+      display: none;
+   }
+   .circles
+ {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+ }
+
+   .dashboardMain {
+         justify-self: center;
+         display: flex;
+         flex-direction: column;
+      }
+      .dashboardMain > * {
+        width: 80%;
+      }
+      .prod
+      {
+         width: 100%;
+      }
+      .prodList
+      {
+         display: flex;
+         margin-bottom: 0;
+         padding-bottom: 0;
+         height: fit-content;
+      }
+
+
+      .prodList > *:not(:first-child)
+      {
+         display:none;
+      }
+      .products
+      {
+         height: fit-content;
+      }
+      .sellers
+      {
+         margin-block: 0;
+         padding-block: 0;
+         height: fit-content;
+      }
+}

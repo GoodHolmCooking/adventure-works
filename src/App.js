@@ -14,13 +14,15 @@ import VendorDetails from './containers/Purchase/VendorDetails';
 import Login from "./components/login"
 import { LoginContext } from "./context/loginContext";
 import { useContext } from 'react';
+import Dashboard from './components/dashboard/dashboard';
 import { ToastContainer } from 'react-toastify';
 
 function App() {
   let key = "dashboardLoginStatus"
   const loginContext = useContext(LoginContext);
   let content;
-  let loginstatus = window.sessionStorage.getItem(key) 
+  // let loginstatus = window.sessionStorage.getItem(key)
+  let loginstatus = true; 
   if(loginContext.accepted || loginstatus === true)
   {
     content = (
@@ -28,7 +30,7 @@ function App() {
       <BrowserRouter>
 
       <Routes>
-        <Route path="/" element={<h1>Dashboard</h1>}></Route>
+        <Route path="/" element={<Dashboard/>}></Route>
         <Route path="/employees" element={<Employees/>} />
         <Route path="/vendors" element={<Vendors />}/>
         <Route path="/vendors/:id" element={<VendorDetails />}/>

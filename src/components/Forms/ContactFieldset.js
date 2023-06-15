@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
-import PhoneOption from "./PhoneOption";
 
 const ContactFieldset = props => {
     const {
         contact, 
-        emailAddresses, 
-        setEmailAddresses, 
-        titles, 
-        phoneToNumber, 
-        numberToPhone, 
-        phoneNumbers,
-        setPhoneNumbers,
+        emails, 
+        setEmails, 
+        titles,
         contactTypes, 
         contacts, 
         setContacts
@@ -18,8 +13,22 @@ const ContactFieldset = props => {
     const [firstName, setFirstName] = useState(contact.firstName);
     const [middleName, setMiddleName] = useState(contact.middleName);
     const [lastName, setLastName] = useState(contact.lastName);
-    const [contactTypeId, setContactTypeId] = useState(contact.contactTypeName);
+    const [contactTypeId, setContactTypeId] = useState(contact.contactTypeId);
     const [personalTitle, setPersonalTitle] = useState(contact.personalTitle);
+    const [contactEmails, setContactEmails] = useState([]);
+    const [contactTypeOptions, setContactTypeOptions] = useState([]);
+
+    useEffect(() => {
+        setContactTypeOptions(contactTypes.map(contactType => {
+            return <option value={contactType.contactTypeId} key={contactType.contactTypeId}>{contactType.contactTypeName}</option>;
+        }));
+    }, [contactTypes]);
+
+    useEffect(() => {
+        setContactEmails(emails.filter(email => {
+            return email.businessEntityId === contact.personId;
+        }));
+    }, [emails, contact]);
 
     // Contacts are saved as an object.
     // This effect handles the logic for changes to the contact object.
@@ -30,7 +39,8 @@ const ContactFieldset = props => {
         });
 
         tempContacts[updateContactIndex] = {
-            ...contact,
+            businessEntityId: contact.businessEntityId,
+            personId: contact.personId,
             personalTitle: personalTitle,
             firstName: firstName,
             middleName: middleName,
@@ -39,12 +49,12 @@ const ContactFieldset = props => {
             contactTypeId: contactTypeId
         };
         setContacts(tempContacts);
-    }, [contactTypeId, firstName, lastName, middleName, personalTitle]);
+    }, [personalTitle, firstName, middleName, lastName, contactTypeId]);
 
 
     const handleEmailChange = (evt, id) => {
         // emails are stored in a temporary value until change can be applied
-        let tempEmailAddresses = [...emailAddresses];
+        let tempEmailAddresses = [...emails];
         let updateEmailAdressIndex = tempEmailAddresses.findIndex(email => {
             return email.emailAddressId === id;
         });
@@ -53,7 +63,7 @@ const ContactFieldset = props => {
             emailAddressId: id,
             emailAddress: evt.target.value
         };
-        setEmailAddresses(tempEmailAddresses);
+        setEmails(tempEmailAddresses);
     };
 
     // Blocked until Drew updates API
@@ -71,7 +81,7 @@ const ContactFieldset = props => {
     return (
         <fieldset key={contact.personId}>
             {/* Mr. / Mrs. / Ms. */}
-            <select defaultValue={contact.personalTitle} onChange={evt => setPersonalTitle(evt.target.value)}>
+            <select value={contact.personalTitle} onChange={evt => setPersonalTitle(evt.target.value)}>
                 {titles.map(title => {
                     return <option value={title.name} key={title.id}>{title.name}</option>
                 })}
@@ -87,15 +97,7 @@ const ContactFieldset = props => {
             <input type="text" defaultValue={contact.lastName} onChange={evt => setLastName(evt.target.value)} />
 
             {/* Job Title */}
-            <select defaultValue={contact.contactTypeName} onChange={evt => setContactTypeId(evt.target.value)}>
-                {contactTypes.map(contactType => {
-                    return (
-                        <option value={contactType.contactTypeId} key={contactType.contactTypeId}>
-                            {contactType.contactTypeName}
-                        </option>
-                    );
-                })}
-            </select>
+            <select value={contact.contactTypeId} onChange={evt => setContactTypeId(evt.target.value)}>{contactTypeOptions}</select>
 
             {/* Phone numbers */}
             {/* {contact.phoneNumbers.map(phoneEntry => {
@@ -109,7 +111,7 @@ const ContactFieldset = props => {
                 );
             })} */}
 
-            {contact.emailAddresses.map(emailEntry => {
+            {contactEmails.map(emailEntry => {
                 return (
                     <input 
                         type="text" 

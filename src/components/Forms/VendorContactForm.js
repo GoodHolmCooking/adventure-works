@@ -42,29 +42,38 @@ function numberToPhone(providedNumber) {
 }
 
 const VendorContactForm = props => {
-    const {vendor, toggleEditView} = props;
+    const {vendor, toggleEditView, contacts, setContacts, emails, setEmails} = props;
     const {contactTypes} = useSelector(state => state.vendors);
-    const [contacts, setContacts] = useState(vendor.contacts);
-    const [phoneNumbers, setPhoneNumbers] = useState([]);
-    const [emailAddresses, setEmailAddresses] = useState([]);
+    // const [contacts, setContacts] = useState([]);
+    // const [phoneNumbers, setPhoneNumbers] = useState([]);
+    // const [emailAddresses, setEmailAddresses] = useState([]);
 
     const dispatch = useDispatch();
-    const getEmailsFromContacts = () => {
-        let allEmails = [];
-        contacts.forEach(contact => {
-            contact.emailAddresses.forEach(email => {
-                allEmails.push(email);
-            })
-        });
-        return allEmails;
-    };
 
     useEffect(() => {
+        // if there are no contact types loaded into the state, load them
         if (!contactTypes.length) {
-            dispatch(loadContactTypesAsync);
-            setEmailAddresses(getEmailsFromContacts());
+            dispatch(loadContactTypesAsync());
         }
     }, [contactTypes, dispatch]);
+
+    useEffect(() => {
+        // if there are no contacts loaded into the state, load them
+        if (!contacts.length) {
+            setContacts(vendor.contacts.map(contact => {
+                return {
+                    businessEntityId: contact.businessEntityId,
+                    personId: contact.businessEntityId,
+                    personalTitle: contact.personalTitle,
+                    firstName: contact.firstName,
+                    middleName: contact.middleName,
+                    lastName: contact.lastName,
+                    suffix: contact.suffix,
+                    contactTypeId: contact.contactTypeId
+                }
+            }));
+        }
+    }, []);
 
     const titles = [
         {name: "Mr.", id: 1},
@@ -81,14 +90,17 @@ const VendorContactForm = props => {
         evt.preventDefault();
 
         // update contacts
+        console.log("submitting contacts...")
         contacts.forEach(contact => {
-            dispatch(updateContactAsync(contact));
+            // dispatch(updateContactAsync(contact));
+            console.log(contact);
         });
 
         // update phone numbers (Blocked until Drew fixes API)
 
         // update emaila addresses
-        emailAddresses.forEach(email => {
+        console.log("submitting emails...")
+        emails.forEach(email => {
             dispatch(updateEmailAsync(email));
         });
 
@@ -103,17 +115,17 @@ const VendorContactForm = props => {
                    <ContactFieldset 
                         key={contact.personId}
                         contact={contact}
-                        phoneTypes={phoneTypes}
                         titles={titles}
-                        phoneToNumber={phoneToNumber}
-                        numberToPhone={numberToPhone}
                         contactTypes={contactTypes}
                         contacts={contacts}
                         setContacts={setContacts}
-                        phoneNumbers={phoneNumbers}
-                        setPhoneNumbers={setPhoneNumbers}
-                        emailAddresses={emailAddresses}
-                        setEmailAddresses={setEmailAddresses}
+                        emails={emails}
+                        setEmails={setEmails}
+                        // phoneTypes={phoneTypes}
+                        // phoneToNumber={phoneToNumber}
+                        // numberToPhone={numberToPhone}
+                        // phoneNumbers={phoneNumbers}
+                        // setPhoneNumbers={setPhoneNumbers} 
                    />
                 );
             })}

@@ -51,12 +51,10 @@ export const loadVendorsAsync = createAsyncThunk("/vendors/loadVendorsAsync", as
 
 export const updateVendorAsync = createAsyncThunk("/vendors/updateVendorAsync", async data => {
     try {
-        console.log("Running vendor update");
 		axios.put(`/Vendor/${data.vendorUpdate.businessEntityId}`, data.vendorUpdate)
             .then(resp => {
                 console.log(`Status: ${resp.status}`);
                 data.callbacks.setVendor(data.vendorUpdate);
-                data.callbacks.navigate(`/vendors/${data.vendorUpdate.businessEntityId}`)
             });
 	} catch (err) {
 		toast.error(err.toString());

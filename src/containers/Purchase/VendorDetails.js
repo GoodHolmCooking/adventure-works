@@ -15,6 +15,9 @@ function VendorDetails() {
     const { id } = useParams();
 
     const [vendor, setVendor] = useState({});
+    const [contacts, setContacts] = useState([]);
+    const [emails, setEmails] = useState([]);
+    const [addresses, setAddresses] = useState([]);
 
     const [editingName, setEditingName] = useState(false);
     const [editingContacts, setEditingContacts] = useState(false);
@@ -24,9 +27,43 @@ function VendorDetails() {
     useEffect(() => {
         axios.get(`https://api.bootcampcentral.com/api/Vendor/${id}`)
             .then(resp => {
-                setVendor(resp.data);
+                setVendor({
+                    businessEntityId: resp.data.businessEntityId,
+                    accountNumber: resp.data.accountNumber,
+                    vendorName: resp.data.vendorName,
+                    creditRating: resp.data.creditRating
+                });
+
+                setContacts(resp.data.contacts.map(contact => {
+                    return {
+                        businessEntityId: contact.businessEntityId,
+                        personId: contact.businessEntityId,
+                        personalTitle: contact.personalTitle,
+                        firstName: contact.firstName,
+                        middleName: contact.middleName,
+                        lastName: contact.lastName,
+                        suffix: contact.suffix,
+                        contactTypeId: contact.contactTypeId
+                    }
+                }));
+
+                let allEmails = [];
+                resp.data.contacts.forEach(contact => {
+                    contact.emailAddresses.forEach(email => {
+                        allEmails.push(email);
+                    });
+                });
+
+                setEmails(allEmails);
+
+                setAddresses(resp.data.addresses)
             });
     }, [id]);
+
+    // close the edit view after the vendor changes are processed
+    useEffect(() => {
+        toggleEditName();
+    }, [vendor]);
 
     const toggleEditName = () => {
         setEditingName(!editingName);
@@ -39,10 +76,6 @@ function VendorDetails() {
     const toggleEditAddresses = () => {
         setEditingAddresses(!editingAddresses);
     }
-
-    const handleNameBlockSubmit = evt => {
-
-    };
 
     const handleContactBlockSubmit = evt => {
 
@@ -69,7 +102,7 @@ function VendorDetails() {
                                 
                             </div>
                             <div className={styles.blockSubContainer}>
-                                <p>{vendor.contacts[0].phoneNumbers[0].phoneNumber}</p>
+                                {/* <p>{vendor.contacts[0].phoneNumbers[0].phoneNumber}</p> */}
                                 <p>{id}</p>
                             </div>
 
@@ -81,7 +114,6 @@ function VendorDetails() {
                             <VendorForm 
                                 vendor={vendor}
                                 setVendor={setVendor}
-                                submitData={handleNameBlockSubmit}
                                 toggleEdit={toggleEditName}
                             />
                             <button className={styles.cancelBtn} onClick={toggleEditName}>Cancel</button>
@@ -97,18 +129,12 @@ function VendorDetails() {
                         </div>
                         {!editingContacts && 
                             <ol>
-                                {vendor.contacts.map(contact => {
+                                {contacts.map(contact => {
                                     return (
                                         <Contact
                                             key={contact.personId}
-                                            personalId={contact.personId}
-                                            personalTitle={contact.personalTitle}
-                                            firstName={contact.firstName}
-                                            middleName={contact.middleName}
-                                            lastName={contact.lastName}
-                                            typeName={contact.contactTypeName}
-                                            phoneNumbers={contact.phoneNumbers}
-                                            emailAddresses={contact.emailAddresses}
+                                            contact={contact}
+                                            emails={emails}
                                         />
                                     );
                                 })}
@@ -118,6 +144,10 @@ function VendorDetails() {
                             <div>
                                 <VendorContactForm
                                     vendor={vendor}
+                                    contacts={contacts}
+                                    setContacts={setContacts}
+                                    emails={emails}
+                                    setEmails={setEmails}
                                     toggleEditView={toggleEditContacts}
                                 />
                                 <button className={styles.cancelBtn} onClick={toggleEditContacts}>Cancel</button>
@@ -135,7 +165,7 @@ function VendorDetails() {
 
                         {!editingAddresses &&
                             <ol>
-                                {vendor.addresses.map(address => {
+                                {addresses.map(address => {
                                     return (
                                     <Address 
                                         key={address.addressId}

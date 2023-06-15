@@ -63,6 +63,31 @@ export const updateVendorAsync = createAsyncThunk("/vendors/updateVendorAsync", 
 	}
 });
 
+export const updateContactAsync = createAsyncThunk("/vendors/updateContactAsync", async data => {
+    try {
+        console.log("Running contact update");
+		axios.put(`/Contact/${data.personId}/${data.businessEntityId}`, data)
+            .then(resp => {
+                console.log(`Status: ${resp.status}`);
+            });
+	} catch (err) {
+		toast.error(err.toString());
+	}
+});
+
+
+export const updateEmailAsync = createAsyncThunk("/vendors/updateEmailAsync", async data => {
+    try {
+        console.log("Running email update");
+		axios.put(`/Email/${data.emailAddressId}/${data.businessEntityId}`, data)
+            .then(resp => {
+                console.log(`Status: ${resp.status}`);
+            });
+	} catch (err) {
+		toast.error(err.toString());
+	}
+});
+
 export const loadContactTypesAsync = createAsyncThunk("/vendors/loadContactTypesAsync", async () => {
     try {
 		const resp = await axios.get("/ContactType");
@@ -79,11 +104,6 @@ export const loadProvincesAsync = createAsyncThunk("/vendors/loadProvincesAsync"
 	} catch (err) {
 		toast.error(err.toString());
 	}
-});
-
-export const updatePhoneAsync = createAsyncThunk("/vendors/updatePhoneAsync", async data => {
-    console.log("Running phone update");
-    console.log(data);
 });
 
 export default vendorSlice.reducer;

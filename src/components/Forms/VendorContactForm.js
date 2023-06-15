@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadContactTypesAsync } from "../../store/slices/vendorSlice";
+import { loadContactTypesAsync, updateContactAsync, updateEmailAsync } from "../../store/slices/vendorSlice";
 import ContactFieldset from "./ContactFieldset";
 import { updateVendorAsync } from "../../store/slices/vendorSlice";
 
 function phoneToNumber(phone) {
-	// 859-555-0100
+	// phone should be a string field in a format of 859-555-0100
     if (typeof phone == "string") {
         let area = phone.substring(0, 3);
         let firstSet = phone.substring(4, 7);
@@ -14,14 +14,19 @@ function phoneToNumber(phone) {
     
         return +combinedNumber;
     }
+
+    // the phone number is already in a number format, so send it back
     else {
         return phone;
     }
 };
 
 function numberToPhone(providedNumber) {
-	// 8595550100
+	// providedNumber should be a phone number without any additional characters such as 8595550100
 	let convertedString = providedNumber.toString();
+
+    // this function could be run every time a character is removed.
+    // characters should only be added when the phone is a complete number.
     if (convertedString.length === 10) {
         let area = convertedString.substring(0, 3);
         let firstSet = convertedString.substring(3, 6);
@@ -29,21 +34,35 @@ function numberToPhone(providedNumber) {
         let phone = area + "-" + firstSet + "-" + secondSet;
         return phone;
     }
+
+    // if the phone is not a complete number, just apply a conversion from a number to a string
     else {
-        return;
+        return convertedString;
     }
 }
 
-const VendorContactFormRedo = props => {
-    const {vendor, contacts, toggleEditView} = props;
+const VendorContactForm = props => {
+    const {vendor, toggleEditView} = props;
     const {contactTypes} = useSelector(state => state.vendors);
-    const [updatedContacts, setUpdatedContacts] = useState(contacts);
-    const [saving, setSaving] = useState(false);
+    const [contacts, setContacts] = useState(vendor.contacts);
+    const [phoneNumbers, setPhoneNumbers] = useState([]);
+    const [emailAddresses, setEmailAddresses] = useState([]);
+
     const dispatch = useDispatch();
+    const getEmailsFromContacts = () => {
+        let allEmails = [];
+        contacts.forEach(contact => {
+            contact.emailAddresses.forEach(email => {
+                allEmails.push(email);
+            })
+        });
+        return allEmails;
+    };
 
     useEffect(() => {
         if (!contactTypes.length) {
             dispatch(loadContactTypesAsync);
+            setEmailAddresses(getEmailsFromContacts());
         }
     }, [contactTypes, dispatch]);
 
@@ -61,15 +80,17 @@ const VendorContactFormRedo = props => {
     const handleInputChanges = evt => {
         evt.preventDefault();
 
-        setSaving(true);
+        // update contacts
+        contacts.forEach(contact => {
+            dispatch(updateContactAsync(contact));
+        });
 
-        let data = {
-            ...vendor,
-			contacts: contacts
-		};
+        // update phone numbers (Blocked until Drew fixes API)
 
-        // update the database
-		dispatch(updateVendorAsync(data));
+        // update emaila addresses
+        emailAddresses.forEach(email => {
+            dispatch(updateEmailAsync(email));
+        });
 
 		// exit the editing UI
 		toggleEditView();
@@ -80,15 +101,19 @@ const VendorContactFormRedo = props => {
             {contacts.map(contact => {
                 return (
                    <ContactFieldset 
+                        key={contact.personId}
                         contact={contact}
                         phoneTypes={phoneTypes}
                         titles={titles}
                         phoneToNumber={phoneToNumber}
                         numberToPhone={numberToPhone}
                         contactTypes={contactTypes}
-                        saving={saving}
-                        updatedContacts={updatedContacts}
-                        setUpdatedContacts={setUpdatedContacts}
+                        contacts={contacts}
+                        setContacts={setContacts}
+                        phoneNumbers={phoneNumbers}
+                        setPhoneNumbers={setPhoneNumbers}
+                        emailAddresses={emailAddresses}
+                        setEmailAddresses={setEmailAddresses}
                    />
                 );
             })}
@@ -97,4 +122,4 @@ const VendorContactFormRedo = props => {
     );
 };
 
-export default VendorContactFormRedo;
+export default VendorContactForm;

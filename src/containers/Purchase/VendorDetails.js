@@ -15,8 +15,6 @@ function VendorDetails() {
     const { id } = useParams();
 
     const [vendor, setVendor] = useState({});
-    const [contacts, setContacts] = useState([]);
-    const [addresses, setAddresses] = useState([]);
 
     const [editingName, setEditingName] = useState(false);
     const [editingContacts, setEditingContacts] = useState(false);
@@ -27,8 +25,6 @@ function VendorDetails() {
         axios.get(`https://api.bootcampcentral.com/api/Vendor/${id}`)
             .then(resp => {
                 setVendor(resp.data);
-                setContacts(resp.data.contacts);
-                setAddresses(resp.data.addresses);
             });
     }, [id]);
 
@@ -101,7 +97,7 @@ function VendorDetails() {
                         </div>
                         {!editingContacts && 
                             <ol>
-                                {contacts.map(contact => {
+                                {vendor.contacts.map(contact => {
                                     return (
                                         <Contact
                                             key={contact.personId}
@@ -122,7 +118,6 @@ function VendorDetails() {
                             <div>
                                 <VendorContactForm
                                     vendor={vendor}
-                                    contacts={contacts} 
                                     toggleEditView={toggleEditContacts}
                                 />
                                 <button className={styles.cancelBtn} onClick={toggleEditContacts}>Cancel</button>

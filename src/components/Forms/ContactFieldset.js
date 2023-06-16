@@ -18,6 +18,7 @@ const ContactFieldset = props => {
     const [contactEmails, setContactEmails] = useState([]);
     const [contactTypeOptions, setContactTypeOptions] = useState([]);
 
+    // creates the options for the contact type select in the fieldset
     useEffect(() => {
         setContactTypeOptions(contactTypes.map(contactType => {
             return <option value={contactType.contactTypeId} key={contactType.contactTypeId}>{contactType.contactTypeName}</option>;

@@ -92,8 +92,7 @@ const VendorContactForm = props => {
         // update contacts
         console.log("submitting contacts...")
         contacts.forEach(contact => {
-            // dispatch(updateContactAsync(contact));
-            console.log(contact);
+            dispatch(updateContactAsync(contact));
         });
 
         // update phone numbers (Blocked until Drew fixes API)

@@ -8,7 +8,8 @@ import Address from "../../components/Purchase/Adress";
 import VendorForm from "../../components/Forms/VendorForm";
 import VendorContactForm from "../../components/Forms/VendorContactForm";
 import { useDispatch, useSelector } from "react-redux";
-import { loadVendorAsync, toggleContactEdit, toggleNameEdit } from "../../store/slices/vendorSlice";
+import VendorAddressForm from "../../components/Forms/VendorAddressForm";
+import { loadProvincesAsync, loadVendorAsync, toggleContactEdit, toggleNameEdit } from "../../store/slices/vendorSlice";
 
 function VendorDetails() {
     const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function VendorDetails() {
     const [contacts, setContacts] = useState([]);
     const [emails, setEmails] = useState([]);
     const [addresses, setAddresses] = useState([]);
+
 
     const [editingName, setEditingName] = useState(false);
     const [editingContacts, setEditingContacts] = useState(false);
@@ -56,9 +58,26 @@ function VendorDetails() {
 
                 setEmails(allEmails);
 
-                setAddresses(resp.data.addresses)
+                setAddresses(resp.data.addresses.map(address => {
+                    return {
+                        businessEntityId: address.businessEntityId,
+                        addressId: address.addressId,
+                        addressTypeId: address.addressTypeId,
+                        addressTypeName: address.addressTypeName,
+                        addressLine1: address.addressLine1,
+                        addressLine2: address.addressLine2,
+                        city: address.city,
+                        stateProvinceId: address.stateProvinceId,
+                        stateProvinceCode: address.stateProvinceCode,
+                        stateProvinceName: address.stateProvinceCode,
+                        postalCode: address.postalCode,
+                        countryRegionCode: address.countryRegionCode,
+                        countryRegionName: address.countryRegionCode
+                    }
+                }));
             });
     }, [id]);
+
 
     // close the edit view after the vendor changes are processed
     useEffect(() => {
@@ -76,10 +95,6 @@ function VendorDetails() {
     const toggleEditAddresses = () => {
         setEditingAddresses(!editingAddresses);
     }
-
-    const handleContactBlockSubmit = evt => {
-
-    };
 
     return (
         <section className={styles.detailSection}>
@@ -158,7 +173,7 @@ function VendorDetails() {
                     <section>
                         <div className={styles.headerRow}>
                             <h3>Addresses</h3>
-                            <button className={styles.editBtn}>
+                            <button className={styles.editBtn} onClick={toggleEditAddresses}>
                                 <img src="../../images/Pencilicon.png" alt="edit vendor"/>
                             </button>
                         </div>
@@ -183,50 +198,16 @@ function VendorDetails() {
                             </ol>
                         }
 
-                        {/* {editingAddresses &&
-                            <form className={styles.addressForm}>
-                                {vendor.addresses.map(address => {
-                                    return (
-                                        <fieldset key={address.addressId}>
-                                            <input type="text" defaultValue={address.addressTypeName} className={styles.addressInput} />
-                                            <input type="text" defaultValue={address.addressLine1} className={styles.addressInput} />
-                                            <input type="text" defaultValue={address.addressLine2} className={styles.addressInput} />
-                                            <div className={styles.locationRow}>
-                                                <input type="text" defaultValue={address.city} className={styles.addressInput} />
-                                                <select className={styles.addressInput} >
-                                                    <option value="">State/Province</option>
-                                                    {address.countryRegionCode === "US" &&
-                                                        USStates.map(USState => {
-                                                            return (
-                                                                <option value={USState.stateProvinceCode} key={USState.stateProvinceId}>{USState.stateProvinceCode}</option>
-                                                            )
-                                                        })
-                                                    }
-                                                    {address.countryRegionCode === "CA" &&
-                                                        CAProvinces.map(province => {
-                                                            return (
-                                                                <option value={province.stateProvinceCode} key={province.stateProvinceId}>{province.stateProvinceCode}</option>
-                                                            )
-                                                        })
-                                                    }
-                                                    {address.countryRegionCode === "FR" &&
-                                                        FRProvinces.map(province => {
-                                                            return (
-                                                                <option value={province.stateProvinceCode} key={province.stateProvinceId}>{province.stateProvinceCode}</option>
-                                                            )
-                                                        })
-                                                    }
-                                                </select>
-                                            </div>
-                                            <input type="text" defaultValue={address.postalCode} className={styles.addressInput} />
-                                            <input type="text" defaultValue={address.countryRegionCode} className={styles.addressInput} />
-                                        </fieldset>
-                                    );
-                                })}
-                                <input type="submit" defaultValue="Save Changes" className={styles.saveBtn} />
-                                <input type="button" defaultValue="Cancel" className={styles.addressCancelBtn} />
-                            </form>
-                        } */}
+                        {editingAddresses &&
+                            <div>
+                                <VendorAddressForm  
+                                    addresses={addresses}
+                                    setAddresses={setAddresses}
+                                    toggleEditView={toggleEditAddresses}
+                                />
+                                <input type="button" defaultValue="Cancel" className={styles.addressCancelBtn} onClick={toggleEditAddresses} />
+                            </div>
+                        }
 
                     </section>
                 </div>     

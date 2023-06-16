@@ -8,6 +8,8 @@ const AddressFieldset = props => {
     const [addressLine2, setAddressLine2] = useState(address.addressLine2);
     const [city, setCity] = useState(address.city);
     const [provinceId, setProvinceId] = useState(address.stateProvinceId);
+    const [provinceCode, setProvinceCode] = useState(address.stateProvinceCode);
+    const [provinceName, setProvinceName] = useState(address.provinceName);
     const [postalCode, setPostalCode] = useState(address.postalCode);
     const [countryCode, setCountryCode] = useState(address.countryRegionCode);
     const [addressProvinces, setAddressProvinces] = useState([]);
@@ -31,16 +33,28 @@ const AddressFieldset = props => {
             addressLine2: addressLine2,
             city: city,
             stateProvinceId: provinceId,
-            // stateProvinceCode: stateProvinceCode,
-            // stateProvinceName: stateProvinceName,
+            stateProvinceCode: provinceCode,
+            stateProvinceName: provinceName,
             postalCode: postalCode,
             countryRegionCode: countryCode
             // countryRegionName: countryName
         };
 
         setAddresses(tempAddresses);
-    }, [addressTypeName, addressLine1, addressLine2, city, provinceId, postalCode, countryCode]);
+    }, [addressTypeName, addressLine1, addressLine2, city, provinceId, postalCode, countryCode, provinceCode, provinceName]);
 
+    const handleProvinceChange = evt => {
+        setProvinceId(evt.target.value);
+        if (typeof addressProvinces !== "undefined" && addressProvinces.length !== 0) {
+            let provinceIndex = addressProvinces.findIndex(province => {
+                return province.stateProvinceId === evt.target.value;
+            });
+
+            let addressProvince = addressProvinces[provinceIndex];
+            setProvinceCode(addressProvince.stateProvinceCode);
+            setProvinceName(addressProvince.stateProvinceName);
+        }
+    };
 
     return (
         <fieldset key={address.addressId}>

@@ -6,15 +6,32 @@ const vendorSlice = createSlice({
     name:"vendors",
     initialState:{
         vendors: [],
+        displayVendors: [],
         provinces: [],
         contactTypes: [],
-        countries: []
+        countries: [],
+        filter: ""
     },
     reducers:
     {
-        loadVendors: (state, action) => {
-            state.vendors = action.payload;
-        }
+        // I believe this is no longer used. Will remove if nothing breaks.
+        // loadVendors: (state, action) => {
+        //     state.vendors = action.payload;
+        // },
+        setVendorFilter: (state,action) =>
+		{
+			return { ...state, filter: action.payload }
+		},
+        applyVendorFilter: (state) =>
+		{
+            console.log(`Applying filter of '${state.filter}' on ${state.vendors.length} vendors.`);
+
+            // search vendors
+			state.displayVendors =  state.vendors
+                .filter(vendor => state.filter === "" || // if there is no filter set, display everything
+                    (vendor.vendorName.toLowerCase())
+                        .includes(state.filter.toLowerCase())); // if there is a filter, return matching vendor names
+		},
     },
     extraReducers: builder => {
         builder
@@ -45,7 +62,7 @@ const vendorSlice = createSlice({
     }
 });
 
-export const { loadVendors } = vendorSlice.actions;
+export const { setVendorFilter, applyVendorFilter } = vendorSlice.actions;
 
 export const loadVendorsAsync = createAsyncThunk("/vendors/loadVendorsAsync", async () => {
 	try {

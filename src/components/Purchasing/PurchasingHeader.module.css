@@ -41,3 +41,8 @@ input {
     margin-block-end: 0.5rem;
 }
 
+.searchBtn {
+    border: none;
+    background: none;
+}
+

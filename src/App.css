@@ -1,3 +1,7 @@
+.mobile
+{
+    display: none;
+}
 .App {
   text-align: center;
 }
@@ -36,6 +40,7 @@
     transform: rotate(360deg);
   }
 }
+
 /*************************************************
 modal css
 ***************************************************/
@@ -57,4 +62,21 @@ border-radius: 5px;
   position: absolute;
   top: 2%;
   right: 2%;
+}
+
+.modalHeaderMobile{
+  display: none;
+}
+
+@media screen and (max-width: 600px){
+  .modal
+  {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .modalHeaderMobile{
+    display: contents;
+  }
 }

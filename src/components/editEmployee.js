@@ -12,7 +12,7 @@ import { updateEmployee } from "../store/slices/employeeSlice";
 //default forms
 const topEditFormBuilder = {
   name: formBuilder.configInput("input", "text", "Name", null, { required: true, minLength: 2 }),
-  title: formBuilder.configInput("input", "text", "Title", null, { required: true }),
+  title: formBuilder.configInput("input", "text", "Title", null,),
   emplyeeId: formBuilder.configInput("input", "number", "employee id",null,{})
 };
 
@@ -43,8 +43,6 @@ function EditEmployee(props) {
     const [topEditForm, setTopEditForm] = useState(topEditFormBuilder);
     const [personalEditForm, setPersonalEditForm] = useState(personalEditFormBuilder);
     const [employmentEditForm, setEmploymentEditForm] = useState(employmentEditFormBuilder);
-    const [department,setDepartment] = useState(0);
-    const [shift, setShift] = useState(0);
     //get based on the id
     const id = props.id;
     //misc
@@ -62,7 +60,8 @@ function EditEmployee(props) {
           .then((resp) => {
             let tmp = resp.data;
             let emp = {
-              id: tmp.employeeNumber,
+              id: id,
+              employeeId: tmp.employeeNumber,
               name: tmp.firstName + " " + tmp.lastName,
               title: tmp.title,
               firstName: tmp.firstName,
@@ -76,8 +75,6 @@ function EditEmployee(props) {
               endDate: tmp.shiftHistory[0].endDate,
             };
             setEmployee(emp);
-            setDepartment(emp.department);
-            setShift(emp.shift)
           });
       } 
       catch (err) 
@@ -85,7 +82,7 @@ function EditEmployee(props) {
         toast.error(err);
       }
       
-    },[id,shift]);
+    },[id]);
     let name = employee.firstName + " " + employee.lastName
     //formbuilders
     
@@ -95,9 +92,9 @@ function EditEmployee(props) {
 
         const editCardTopFormBuilder =
         {
-         name: formBuilder.configInput("input", "text", "", null, { required: true, minLength: 2 }, name),
+         name: formBuilder.configInput("input", "text", "", null, { required: true, minLength: 2 }, employee.name),
          title: formBuilder.configInput("input", "text", "", null, { required: true },employee.title),
-         emplyeeId: formBuilder.configInput("input", "number", "",null,{},employee.employeeId)
+         emplyeeId: formBuilder.configInput("input", "number", "",null,{},employee.emplyeeId)
         }
         setTopEditForm(editCardTopFormBuilder)
       }
@@ -136,12 +133,13 @@ function EditEmployee(props) {
       setPersonalEditForm(updatedForm);
     };
 
+    
     const handleChangeShift = (e) => {
-      setShift(e.target.value);
+      employee.shift = e.target.value
     }
 
     const handleChangeDepartment = (e) => {
-      setDepartment(e.target.value);
+      employee.department = e.target.value
     }
 
 
@@ -149,12 +147,12 @@ function EditEmployee(props) {
       let departments = 
       (
        
-        <select name="shifts" defaultValue={employee.department} onChange={handleChangeDepartment} >
+        <select name="departments" defaultValue={employee.department} onChange={handleChangeDepartment} >
           <option value={7}>Production</option>
           <option value={2}>inventory</option>
           <option value={1}>shipping</option>
           <option value={3}>packaging</option>
-          <option value={0}></option>
+          <option value={0}>{employee.departmentName}</option>
         </select>
       );
       let shifts = 
@@ -179,7 +177,7 @@ function EditEmployee(props) {
         }
         setEmploymentEditForm(editCardEmploymentFormBuilder)
       }
-    },[editCEmploymentInfo,employee,])
+    })
     
     const handleEmploymentInputChange = (evt, id) => {
       const updatedForm = { ...employmentEditForm };
@@ -211,7 +209,7 @@ function EditEmployee(props) {
       }
 
       //make data format from table
-      const data = {
+      let data = {
         firstName: personalEditForm.firstName.value,
         lastName: personalEditForm.lastName.value,
         middleName: personalEditForm.middleName.value,
@@ -223,6 +221,7 @@ function EditEmployee(props) {
       .then(resp => {
         if(resp)
         {
+          data = {...data,name:data.firstName + " " + data.lastName}
           setEmployee({...employee,...data})
           dispatch(updateEmployee(data))
         }
@@ -255,6 +254,7 @@ function EditEmployee(props) {
       //make data format from table
       const personalData = {
         firstName: tmp[0],
+        name: topEditForm.name.value,
         lastName: tmp[1],
         middleName: employee.middleName,
         suffix: employee.suffix,
@@ -271,6 +271,7 @@ function EditEmployee(props) {
       .then(resp => {
         if(resp)
         {
+          employee.name = name;
           setEmployee({...employee,...personalData})
           dispatch(updateEmployee(personalData))
           axios.put(`/Employee/Employment/${id}`,employmentData)
@@ -314,14 +315,14 @@ function EditEmployee(props) {
       const data = {
         title: employmentEditForm.title.value,
         employeeId: employmentEditForm.employeeId.value,
-        department: department,
-        shift: shift,
+        department: employee.department,
+        shift: employee.shift,
         start: employmentEditForm.start.value,
         endDate: employmentEditForm.end.value,
         id: id
       };
       //put data into database
-      axios.put(`/Employee/Employment/${12}`,data,{crossDomain:true})
+      axios.put(`/Employee/Employment/${id}`,data,{crossDomain:true})
       .then(resp => {
         if(resp)
         {
@@ -358,7 +359,7 @@ function EditEmployee(props) {
         <>
           <div className={styles.modalHeader}>
             <h2>{employee.name}</h2>
-            <button className={styles.editButtonTop} onClick={() => { 
+            <button className={[styles.editButtonTop, styles.desktop].join(" ")} onClick={() => { 
               setEditCardTop(true)
               setEditPersonalInfo(false)
               setEmploymentInfo(false)

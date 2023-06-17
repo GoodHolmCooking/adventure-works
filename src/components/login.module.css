@@ -49,6 +49,12 @@
     background: rgba(253, 231, 76, 0.2);
     border-radius: 5px;
     margin-top: 67px;
+    margin-bottom: 17px;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 22px;
 }
 
 .loginForm
@@ -60,4 +66,21 @@
 .loginForm a
 {
  margin-top: 26px;
+ font-family: 'Open Sans';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+letter-spacing: 0.43px;
+text-decoration-line: underline;
+
+/* Primary/black */
+
+color: #212121;
+}
+
+.havingTroubles
+{
+    text-align: center;
+    margin-bottom: 100px;
 }

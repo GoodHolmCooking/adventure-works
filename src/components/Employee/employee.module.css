@@ -1,16 +1,35 @@
+.mobile
+{
+    display: none;
+}
+
 .employee
 {
     width: 95%;
     margin-inline: 2.5%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
     border-bottom: solid 3px orange;
 }
 
-.employee > *
+.employee > div:first-child
 {
-  width: 14%;
+  padding-inline-start: 0;
+  margin-inline-start: 0;
+  width: 87%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.employee > div:nth-child(2)
+{
+  /* margin-inline-start: 5%; */
+}
+
+.employee > div  p
+{
+  width: 20%;
   text-align: left;
 }
 
@@ -25,4 +44,42 @@
 .faButton:hover
 {
  cursor: pointer;
+}
+
+/***************************************************
+mobile view
+*****************************************************/
+
+@media screen and  (max-width: 600px){
+  .mobile
+  {
+      display: contents;
+  }
+
+  .desktop
+  {
+      display: none;
+  }
+  .employee
+  {
+    margin-top: 14px;
+    display: flex;
+  }
+  .employee div:first-child
+  {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+
+  .employee div:first-child p
+  {
+    width: 60%;
+    padding: 0;
+    margin: 0;
+    height: 29px;
+  }
 }

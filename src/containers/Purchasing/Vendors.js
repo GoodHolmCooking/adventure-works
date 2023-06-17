@@ -3,6 +3,7 @@ import Vendor from "../../components/Purchasing/Vendor";
 import { useDispatch, useSelector } from "react-redux";
 import { loadVendorsAsync} from "../../store/slices/vendorSlice";
 import PurchasingHeader from "../../components/Purchasing/PurchasingHeader";
+import styles from "./Vendors.module.css";
 
 function Vendors() {
     const {vendors} = useSelector(state => state.vendors);
@@ -16,8 +17,8 @@ function Vendors() {
     }, [dispatch, vendors]);
 
     return (
-        <div>
-            <PurchasingHeader />
+        <div className={styles.purchasingPage}>
+            <PurchasingHeader area="vendors" />
             <section>
                 {!vendors.length && <h3>Loading...</h3>}
                 {vendors && vendors.map(vendor => {

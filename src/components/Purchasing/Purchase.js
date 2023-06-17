@@ -1,6 +1,15 @@
 import { Link } from "react-router-dom";
 import styles from "./Purchase.module.css";
 
+const convertDate = date => {
+    let tempDate = new Date(date);
+    let month = tempDate.getMonth();
+    let day = tempDate.getDay();
+    let year = tempDate.getFullYear();
+    let formattedDate = `${month}/${day}/${year}`;
+    return formattedDate;
+};
+
 const Purchase = props => {
     const {purchase} = props;
 
@@ -9,7 +18,7 @@ const Purchase = props => {
         <div className={styles.purchaseBlock}>
             <div>
                 <p className={styles.productName}>{purchase.productName}</p>
-                <p>{purchase.orderDate}</p>
+                <p>{convertDate(purchase.orderDate)}</p>
             </div>
             <div>{purchase.quantity}</div>
             <div>

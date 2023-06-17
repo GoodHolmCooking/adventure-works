@@ -42,8 +42,8 @@ const PurchaseDetails = props => {
     }, [id]);
 
     return (
-        <div>
-            <PurchasingHeader />
+        <div className={styles.purchasingPage}>
+            <PurchasingHeader area="orders" />
             <section className={styles.purchaseSection}>
 
                 {Object.keys(purchase).length === 0 && <h3>Loading...</h3>}

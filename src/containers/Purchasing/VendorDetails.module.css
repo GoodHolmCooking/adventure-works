@@ -1,6 +1,9 @@
 .detailSection {
     color: #212121;
-    margin-inline: 5%;
+}
+
+.purchasingPage {
+    padding: 5%;
 }
 
 .row {

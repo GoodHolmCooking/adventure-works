@@ -102,8 +102,8 @@ function VendorDetails() {
     }
 
     return (
-        <div>
-            <PurchasingHeader />
+        <div className={styles.purchasingPage}>
+            <PurchasingHeader area="vendors" />
             <section className={styles.detailSection}>
                 {Object.keys(vendor).length === 0 && <h3>Loading...</h3>}
                 {Object.keys(vendor).length !== 0 && 

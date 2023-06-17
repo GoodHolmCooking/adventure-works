@@ -4,8 +4,9 @@ import Purchase from "../../components/Purchasing/Purchase";
 import { useDispatch, useSelector } from "react-redux";
 import { loadPurchasesAsync } from "../../store/slices/purchaseSlice";
 import PurchasingHeader from "../../components/Purchasing/PurchasingHeader";
+import styles from "./Purchases.module.css"
 
-function Purchases() {
+const Purchases = props => {
     const {purchases} = useSelector(state => state.purchases);
     const dispatch = useDispatch();
 
@@ -16,8 +17,8 @@ function Purchases() {
     }, [dispatch]);
 
     return (
-        <div>
-            <PurchasingHeader />
+        <div className={styles.purchasingPage}>
+            <PurchasingHeader area="orders" />
             <section>
                 {!purchases.length && <h3>Loading...</h3>}
                 {purchases && purchases.map(purchase => {

@@ -16,6 +16,11 @@ import { LoginContext } from "./context/loginContext";
 import { useContext } from 'react';
 import Dashboard from './components/dashboard/dashboard';
 import { ToastContainer } from 'react-toastify';
+import Vendors from './containers/Purchasing/Vendors';
+import VendorDetails from './containers/Purchasing/VendorDetails';
+import Purchases from './containers/Purchasing/Purchases';
+import PurchaseDetails from './containers/Purchasing/PurchaseDetails';
+
 
 function App() {
   let key = "dashboardLoginStatus"
@@ -34,6 +39,8 @@ function App() {
         <Route path="/employees" element={<Employees/>} />
         <Route path="/vendors" element={<Vendors />}/>
         <Route path="/vendors/:id" element={<VendorDetails />}/>
+        <Route path="/purchases" element={<Purchases />}/>
+        <Route path="/purchases/:id" element={<PurchaseDetails />}/>
       </Routes>
           
       </BrowserRouter>

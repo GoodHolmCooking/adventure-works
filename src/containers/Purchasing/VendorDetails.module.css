@@ -142,3 +142,20 @@ input, select {
     flex-direction: column;
     align-items: flex-start;
 }
+
+.scrollRow {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.toTopBtn {
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.toTopBtn img {
+    margin-inline-end: 0.5rem;
+}

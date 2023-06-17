@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import employeeSlice from './store/slices/employeeSlice';
 import vendorSlice from './store/slices/vendorSlice';
+import purchaseSlice from './store/slices/purchaseSlice';
 
 axios.defaults.baseURL = "https://api.bootcampcentral.com/api";
 axios.defaults.headers.common["Authorization"] = "MY AUTH TOKEN";
@@ -18,7 +19,8 @@ const store = configureStore({
   reducer: {
     employees: employeeSlice,
     displayEmployees: employeeSlice,
-    vendors: vendorSlice
+    vendors: vendorSlice,
+    purchases: purchaseSlice
   },
   middleware: [thunk],
 })

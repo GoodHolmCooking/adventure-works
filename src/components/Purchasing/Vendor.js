@@ -1,7 +1,7 @@
 import styles from "./Vendor.module.css";
 import { Link } from "react-router-dom";
 
-function Vendor(props) {
+const Vendor = props => {
     return (
         <Link to={`/vendors/${props.id}`} className={styles.vendorLink}>
             <div className={styles.vendorBlock}>

@@ -4,14 +4,11 @@
     padding: 0;
 }
 
-.purchasingPage {
-    padding: 5%;
-}
 
 .purchaseSection {
     display: flex;
     flex-direction: column;
-
+    padding-inline: 5%;
 }
 
 .backBtn {

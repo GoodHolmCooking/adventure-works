@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import Vendor from "../../components/Purchasing/Vendor";
 import { useDispatch, useSelector } from "react-redux";
-import { applyVendorFilter, loadVendorsAsync} from "../../store/slices/vendorSlice";
+import { applyVendorFilter, loadProvincesAsync, loadVendorsAsync} from "../../store/slices/vendorSlice";
 import PurchasingHeader from "../../components/Purchasing/PurchasingHeader";
 import styles from "./Vendors.module.css";
+import { useState } from "react";
 
 function Vendors() {
-    const {vendors, displayVendors} = useSelector(state => state.vendors);
+    const {vendors, displayVendors, provinces} = useSelector(state => state.vendors);
+    const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
 
     // Load vendors
@@ -20,22 +22,45 @@ function Vendors() {
         };
     }, [dispatch, vendors]);
 
-    return (
-        <div className={styles.purchasingPage}>
-            <PurchasingHeader area="vendors" />
-            <section>
-                {!displayVendors.length && <h3>Loading...</h3>}
-                {displayVendors && displayVendors.map(vendor => {
+    useEffect(() => {
+        if (!provinces.length) {
+            dispatch(loadProvincesAsync());
+        }
+    }, [dispatch, provinces]);
 
+    useEffect(() => {
+        if (displayVendors.length) {
+            setLoading(false);
+        }
+    }, [displayVendors])
+
+    return (
+        <div>
+            <PurchasingHeader area="vendors" />
+            <section className={styles.purchasingPage}>
+                {loading && <h3>Loading...</h3>}
+                {!loading && 
+                    <div className={styles.desktopHeader}>
+                        <h3>Vendor Name</h3>
+                        <h3>Phone</h3>
+                        <h3>Business ID</h3>
+                        <h3>Primary Contact</h3>
+                        <h3>Email</h3>
+                        <h3>Billing Address</h3>
+                        <h3>Options</h3>           
+                    </div>
+                }
+
+                {!loading && displayVendors.map(vendor => {
                     return (
                         <Vendor 
                             key={vendor.businessEntityId}
-                            id={vendor.businessEntityId}
-                            name={vendor.vendorName}
-                            phone={vendor.contactPhone}
+                            vendor={vendor}
+                            provinces={provinces}
                         />
                     );
                 })}
+
             </section>
         </div>
     );

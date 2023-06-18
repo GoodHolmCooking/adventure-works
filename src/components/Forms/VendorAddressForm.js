@@ -9,12 +9,6 @@ const VendorAddressForm = props => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!provinces.length) {
-            dispatch(loadProvincesAsync());
-        }
-    }, [dispatch, provinces]);
-
-    useEffect(() => {
         if (!countries.length) {
             dispatch(loadCountriesAsync());
         }

@@ -1,11 +1,7 @@
 .detailSection {
     color: #212121;
+    padding-inline: 5%;
 }
-
-.purchasingPage {
-    padding: 5%;
-}
-
 .row {
     display: flex;
     align-items: center;

@@ -3,5 +3,29 @@
 }
 
 .purchasingPage {
-    padding: 5%;
+    padding-inline: 5%;
+}
+
+.desktopHeader {
+    display: none;
+}
+
+/* If in mobile view, render default styling */
+.desktopContainer {
+    display: block;
+}
+
+/* Desktop View */
+@media (min-width: 999px) {
+    .desktopHeader {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .desktopHeader > h3 {
+        width: 14rem;
+        margin-inline-start: 6rem;
+        display: flex;
+    }
+    
 }

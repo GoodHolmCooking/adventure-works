@@ -8,10 +8,12 @@ import styles from "./Purchases.module.css"
 
 const Purchases = props => {
     const {purchases, displayPurchases} = useSelector(state => state.purchases);
+    const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (!purchases.length) {
+            console.log("Did not crash. Authentically loading...")
             dispatch(loadPurchasesAsync())
                 .then(() => {
                     dispatch(applyPurchasingFilter());
@@ -19,12 +21,29 @@ const Purchases = props => {
         }
     }, [dispatch]);
 
+    useEffect(() => {
+        if (displayPurchases.length) {
+            setLoading(false);
+        }
+    }, [displayPurchases])
+
     return (
-        <div className={styles.purchasingPage}>
+        <div>
             <PurchasingHeader area="orders" />
-            <section>
-                {!displayPurchases.length && <h3>Loading...</h3>}
-                {displayPurchases && displayPurchases.map(purchase => {
+            <section className={styles.purchasingPage}>
+                {loading && <h3>Loading...</h3>}
+                {!loading && 
+                    <div className={styles.desktopHeader}>
+                        <h3>Product Name</h3>
+                        <h3>Vendor Name</h3>
+                        <h3>Order Date</h3>
+                        <h3>Order Qty</h3>
+                        <h3>Total Due</h3>
+                        <h3>Ship Date</h3>  
+                        <h3>&nbsp;</h3>     
+                    </div>
+                }
+                {!loading && displayPurchases.map(purchase => {
 
                     return (
                         <Purchase 

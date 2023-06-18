@@ -1,8 +1,26 @@
+* {
+    box-sizing: border-box;
+    color: #212121;
+}
+
+.headerSection {
+    padding-inline: 5%;
+}
+
 .searchBlock {
     display: flex;
     align-items: center;
     border: 1px solid #212121;
     border-radius: 2px;
+    height: 2.4rem;
+}
+
+.titleContainer {
+    display: flex;
+    justify-content: flex-start;
+    background-color: #9BC53D;
+    padding-block: 0.8rem;
+    padding-inline-start: 1rem;
 }
 
 input {
@@ -25,6 +43,7 @@ input {
 .linkRow {
     display: flex;
     justify-content: space-between;
+    margin-block-start: 1rem;
 }
 
 .purchasingLink {
@@ -44,5 +63,31 @@ input {
 .searchBtn {
     border: none;
     background: none;
+}
+
+/* Desktop View */
+@media (min-width: 999px) {
+    .titleContainer {
+        background: none;
+        
+    }
+
+    .titleContainer h1 {
+        font-size: 50px;
+    }
+
+    .headerSection {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .linkRow {
+        justify-content: flex-start;
+        gap: 1rem;
+    }
+
+    .searchBlock {
+        width: 20%;
+    }
 }
 

@@ -5,10 +5,13 @@ import { applyVendorFilter, loadProvincesAsync, loadVendorsAsync} from "../../st
 import PurchasingHeader from "../../components/Purchasing/PurchasingHeader";
 import styles from "./Vendors.module.css";
 import { useState } from "react";
+import PurchasingModal from "../../components/Purchasing/PurchasingModal";
 
 function Vendors() {
     const {vendors, displayVendors, provinces} = useSelector(state => state.vendors);
     const [loading, setLoading] = useState(true);
+    const [expandedVendor, setExpandedVendor] = useState({});
+    // const [openModal, setOpenModal] = useState(false);
     const dispatch = useDispatch();
 
     // Load vendors
@@ -32,7 +35,16 @@ function Vendors() {
         if (displayVendors.length) {
             setLoading(false);
         }
-    }, [displayVendors])
+    }, [displayVendors]);
+
+    // useEffect(() => {
+    //     if (Object.keys(expandedVendor).length !== 0) {
+    //         setOpenModal(true);
+    //     }
+    //     else {
+    //         setOpenModal(false);
+    //     }
+    // }, [expandedVendor]);
 
     return (
         <div>
@@ -56,10 +68,15 @@ function Vendors() {
                         <Vendor 
                             key={vendor.businessEntityId}
                             vendor={vendor}
+                            setExpandedVendor={setExpandedVendor}
                             provinces={provinces}
                         />
                     );
                 })}
+
+                {Object.keys(expandedVendor).length !== 0 && 
+                    <PurchasingModal vendor={expandedVendor} setExpandedVendor={setExpandedVendor} area="vendors" />
+                }
 
             </section>
         </div>

@@ -16,6 +16,7 @@
     border: none;
 }
 
+
 /* Desktop View */
 @media (min-width: 999px) {
     .vendorBlockMobile {
@@ -40,8 +41,8 @@
         display: inline-block;
     }
 
-    .optionsContainer {
-        display: flex;
-    }
     
+    .btn:hover {
+        cursor: pointer;
+    }
  }

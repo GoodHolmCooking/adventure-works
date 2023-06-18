@@ -1,0 +1,193 @@
+h1 {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+ol {
+    margin-block: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+li {
+    text-align: start;
+}
+
+.modalArea {
+    background-color: #FDFDFD;
+    box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.25);
+    padding: 3%;
+    position: relative;
+}
+
+.detailSection {
+    color: #212121;
+    padding-inline: 5%;
+}
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.headerRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-block-end: 0.4rem;
+}
+
+.headerRow h1 {
+    margin: 0;
+}
+
+.backBtn {
+    margin-inline-start: 4px;
+
+}
+
+.mainContent {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mainContent > section {
+    width: 40%;
+}
+
+.contentBlock {
+    margin-block: 1rem;
+    padding-inline-start: 0.6rem;
+}
+
+.contentBlock > p {
+    margin-block: 0.2rem;
+}
+
+.contentBlock li {
+    list-style-type: none;
+}
+
+.contentBlock ul {
+    padding: 0;
+}
+
+.nameBlock {
+    margin-block: 0;
+    text-align: start;
+}
+
+.nameBlock p {
+    margin-block: 0.2rem;
+}
+
+.nameInput {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.saveBtn {
+    display: block;
+    width: 100%;
+    padding-block: 8px;
+    margin-block: 8px;
+    border-radius: 5px;
+    background-color: #9BC53D;
+    border: 1px solid #212121;
+}
+
+.cancelBtn {
+    /* display: block; */
+    text-decoration: underline;
+    border: none;
+    background: none;
+    margin-block-start: 6rem;
+}
+
+.editBtn {
+    border: none;
+    background: none;
+}
+
+
+.contactForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.phoneContainer {
+    display: flex;
+}
+
+.phoneContainer select {
+    margin-inline-end: 12px;
+}
+
+.phoneInput {
+    flex: 1;
+}
+
+fieldset {
+    border: none;
+}
+
+input, select {
+    margin-block: 6px;
+    padding-block: 4px;
+}
+
+.addressInput {
+    width: 100%;
+}
+
+.addressForm select {
+    margin-inline-start: 12px;
+}
+
+.locationRow {
+    display: flex;
+}
+
+.locationRow > * {
+    width: 50%;
+}
+
+.addressCancelBtn {
+    text-decoration: underline;
+    border: none;
+    background: none;
+}
+
+.blockSubContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.scrollRow {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.toTopBtn {
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.toTopBtn img {
+    margin-inline-end: 0.5rem;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}

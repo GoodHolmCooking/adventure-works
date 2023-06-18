@@ -2,17 +2,20 @@ import { useEffect, useState } from "react";
 
 import Purchase from "../../components/Purchasing/Purchase";
 import { useDispatch, useSelector } from "react-redux";
-import { loadPurchasesAsync } from "../../store/slices/purchaseSlice";
+import { applyPurchasingFilter, loadPurchasesAsync } from "../../store/slices/purchaseSlice";
 import PurchasingHeader from "../../components/Purchasing/PurchasingHeader";
 import styles from "./Purchases.module.css"
 
 const Purchases = props => {
-    const {purchases} = useSelector(state => state.purchases);
+    const {purchases, displayPurchases} = useSelector(state => state.purchases);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (!purchases.length) {
-            dispatch(loadPurchasesAsync());
+            dispatch(loadPurchasesAsync())
+                .then(() => {
+                    dispatch(applyPurchasingFilter());
+                });
         }
     }, [dispatch]);
 
@@ -20,8 +23,8 @@ const Purchases = props => {
         <div className={styles.purchasingPage}>
             <PurchasingHeader area="orders" />
             <section>
-                {!purchases.length && <h3>Loading...</h3>}
-                {purchases && purchases.map(purchase => {
+                {!displayPurchases.length && <h3>Loading...</h3>}
+                {displayPurchases && displayPurchases.map(purchase => {
 
                     return (
                         <Purchase 

@@ -31,6 +31,7 @@ const Purchase = props => {
                 <p>{purchase.productName}</p>
                 <p>{purchase.vendorName}</p>
                 <p>{convertDate(purchase.orderDate)}</p>
+                <p>{purchase.quantity}</p>
                 <p>${purchase.totalDue.toFixed(2)}</p>
                 <p>{convertDate(purchase.shipDate)}</p>
                 <div>

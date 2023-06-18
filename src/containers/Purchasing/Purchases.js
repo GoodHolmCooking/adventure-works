@@ -34,13 +34,12 @@ const Purchases = props => {
                 {loading && <h3>Loading...</h3>}
                 {!loading && 
                     <div className={styles.desktopHeader}>
-                        <h3>Product Name</h3>
-                        <h3>Vendor Name</h3>
-                        <h3>Order Date</h3>
-                        <h3>Order Qty</h3>
-                        <h3>Total Due</h3>
-                        <h3>Ship Date</h3>  
-                        <h3>&nbsp;</h3>     
+                        <h3 className={styles.productNameHeading}>Product Name</h3>
+                        <h3 className={styles.vendorNameHeading}>Vendor Name</h3>
+                        <h3 className={styles.orderDateHeading}>Order Date</h3>
+                        <h3 className={styles.orderQtyHeading}>Order Qty</h3>
+                        <h3 className={styles.totalHeading}>Total Due</h3>
+                        <h3 className={styles.shipDateHeading}>Ship Date</h3>  
                     </div>
                 }
                 {!loading && displayPurchases.map(purchase => {

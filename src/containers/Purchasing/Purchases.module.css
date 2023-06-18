@@ -2,15 +2,44 @@
     box-sizing: border-box;
 }
 
+.desktopHeader {
+    display: none;
+}
+
 @media (min-width: 999px) {
     .desktopHeader {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
     }
 
     .desktopHeader > h3 {
-        width: 14rem;
         margin-inline-start: 6rem;
         display: flex;
+    }
+
+    /* Refactoring this to a grid would put the project beyond scope for the provided budget */
+    /* Manually adjusting for expedient delivery */
+    .productNameHeading {
+        padding-inline-start: 1.5%;
+    }
+
+    .vendorNameHeading {
+        padding-inline-start: 2%;
+    }
+
+    .orderDateHeading {
+        padding-inline-start: 2.5%;
+    }
+
+    .orderQtyHeading {
+        padding-inline-start: 3.5%;
+    }
+
+    .totalHeading {
+        padding-inline-start: 3.5%;
+    }
+
+    .shipDateHeading {
+        padding-inline-start: 4%;
     }
 }

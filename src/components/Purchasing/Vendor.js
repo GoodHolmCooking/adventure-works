@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./Vendor.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useCallback } from "react";
 
@@ -8,6 +8,7 @@ const Vendor = props => {
     const {vendor, provinces} = props;
     const [primaryContact, setPrimaryContact] = useState("");
     const [billingAddress, setBillingAddress] = useState("");
+    const navigate = useNavigate();
 
     const truncateProvince = useCallback(
         (searchValue) => {
@@ -44,14 +45,24 @@ const Vendor = props => {
         setPrimaryContact(combinedName);
     }, [vendor]);
 
+    const handleNavigate = () => {
+        navigate(`/vendors/${vendor.businessEntityId}`);
+    }
+
+    const handleModal = () => {
+        console.log("Opening modal");
+    }
+
     return (
-        <Link to={`/vendors/${vendor.businessEntityId}`} className={styles.vendorLink}>
+        <div>
             <div className={styles.vendorBlockMobile}>
                 <div>
                     <div>{vendor.vendorName}</div>
                     <div>{vendor.contactPhone}</div>
                 </div>
-                <img src="./images/ArrowRight.png" alt="expand product" />
+                <button className={styles.btn} onClick={handleNavigate}>
+                    <img src="./images/ArrowRight.png" alt="expand product" />
+                </button>
             </div>
 
             <div className={styles.vendorBlockDesktop}>
@@ -61,12 +72,15 @@ const Vendor = props => {
                 <p>{primaryContact}</p>
                 <p>{vendor.contactEmail}</p>
                 <p>{billingAddress}</p>
-                <div>
-                    <img src="./images/ArrowRight.png" alt="expand product" />
+                <div className={styles.optionsContainer}>
+                    <button className={styles.btn} onClick={handleModal}>
+                        <img src="../../images/Pencilicon.png" alt="edit vendor"/>
+                    </button>
                 </div>
             </div>
-        </Link>
-    );
+        </div>
+
+);
 }
 
 export default Vendor;

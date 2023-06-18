@@ -41,13 +41,13 @@ function Vendors() {
                 {loading && <h3>Loading...</h3>}
                 {!loading && 
                     <div className={styles.desktopHeader}>
-                        <h3>Vendor Name</h3>
-                        <h3>Phone</h3>
-                        <h3>Business ID</h3>
-                        <h3>Primary Contact</h3>
-                        <h3>Email</h3>
-                        <h3>Billing Address</h3>
-                        <h3>Options</h3>           
+                        <h3 className={styles.nameHeading}>Vendor Name</h3>
+                        <h3 className={styles.phoneHeading}>Phone</h3>
+                        <h3 className={styles.idHeading}>Business ID</h3>
+                        <h3 className={styles.contactHeading}>Primary Contact</h3>
+                        <h3 className={styles.emailHeading}>Email</h3>
+                        <h3 className={styles.addressHeading}>Billing Address</h3>
+                        <h3 className={styles.optionsHeading}>Options</h3>           
                     </div>
                 }
 

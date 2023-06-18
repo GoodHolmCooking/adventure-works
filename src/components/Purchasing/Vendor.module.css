@@ -11,8 +11,9 @@
     display: none;
 }
 
-.vendorLink {
-    text-decoration: none;
+.btn {
+    background: none;
+    border: none;
 }
 
 /* Desktop View */
@@ -34,6 +35,13 @@
     .vendorBlockDesktop > p {
         width: 12rem;
         flex-wrap: wrap;
+    }
+    .desktopHeading {
+        display: inline-block;
+    }
+
+    .optionsContainer {
+        display: flex;
     }
     
  }

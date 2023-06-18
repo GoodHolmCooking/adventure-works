@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadCountriesAsync, loadProvincesAsync, updateAddressAsync } from "../../store/slices/vendorSlice";
 import AddressFieldset from "./AddressFieldSet";
+import styles from "./VendorAddressForm.module.css"
 
 const VendorAddressForm = props => {
     const {addresses, setAddresses, toggleEditView} = props;
@@ -40,7 +41,7 @@ const VendorAddressForm = props => {
                     />
                 );
             })}
-            <input type="submit" />
+            <input type="submit" className={styles.saveBtn} />
         </form>
     );
 };

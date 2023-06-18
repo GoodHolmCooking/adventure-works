@@ -130,7 +130,7 @@ const VendorDetailsModal = props => {
                         }
 
                         { editingName &&
-                            <div>
+                            <div className={styles.formContainer}>
                                 <VendorForm 
                                     vendor={vendor}
                                     setVendor={setVendor}
@@ -164,7 +164,7 @@ const VendorDetailsModal = props => {
                                     </ol>
                                 }
                                 {editingContacts &&
-                                    <div>
+                                    <div className={styles.formContainer}>
                                         <VendorContactForm
                                             vendor={vendor}
                                             contacts={contacts}
@@ -208,13 +208,13 @@ const VendorDetailsModal = props => {
                                 }
 
                                 {editingAddresses &&
-                                    <div>
+                                    <div className={styles.formContainer}>
                                         <VendorAddressForm  
                                             addresses={addresses}
                                             setAddresses={setAddresses}
                                             toggleEditView={toggleEditAddresses}
                                         />
-                                        <input type="button" defaultValue="Cancel" className={styles.addressCancelBtn} onClick={toggleEditAddresses} />
+                                        <input type="button" defaultValue="Cancel" className={styles.cancelBtn} onClick={toggleEditAddresses} />
                                     </div>
                                 }
                             </section>

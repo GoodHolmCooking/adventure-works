@@ -31,7 +31,7 @@ const Purchase = props => {
                 <p>{purchase.productName}</p>
                 <p>{purchase.vendorName}</p>
                 <p>{convertDate(purchase.orderDate)}</p>
-                <p>${purchase.totalDue}</p>
+                <p>${purchase.totalDue.toFixed(2)}</p>
                 <p>{convertDate(purchase.shipDate)}</p>
                 <div>
                     <img src="./images/ArrowRight.png" alt="expand product" />

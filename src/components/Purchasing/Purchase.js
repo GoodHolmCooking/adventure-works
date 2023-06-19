@@ -19,18 +19,20 @@ const Purchase = props => {
     };
 
     const handleNavigate = () => {
-        navigate(`/purchase/${purchase.purchaseOrderDetailId}`);
+        navigate(`/purchases/${purchase.purchaseOrderDetailId}`);
     };
 
     return (
     <>
         <div className={styles.purchaseBlockMobile}>
-            <div>
-                <p className={styles.productName}>{purchase.productName}</p>
-                <p>{convertDate(purchase.orderDate)}</p>
+            <div className={styles.productContentContainer}>
+                <div className={styles.productNameContainer}>
+                    <p className={styles.productName}>{purchase.productName}</p>
+                    <p>{convertDate(purchase.orderDate)}</p>
+                </div>
+                <div>x {purchase.quantity}</div>
             </div>
-            <div>{purchase.quantity}</div>
-            <button clasName={styles.btn} onClick={handleNavigate}>
+            <button className={styles.btn} onClick={handleNavigate}>
                 <img src="./images/ArrowRight.png" alt="expand purchase order" />
             </button>
         </div>

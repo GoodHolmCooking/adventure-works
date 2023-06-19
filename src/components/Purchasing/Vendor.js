@@ -76,9 +76,7 @@ const Vendor = props => {
                 <button className={styles.btn} onClick={handleModal}>
                     <img src="./images/ArrowRight.png" alt="expand product" />
                 </button>
-
             </div>
-
         </div>
 
 );

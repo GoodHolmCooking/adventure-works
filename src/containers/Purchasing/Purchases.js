@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { applyPurchasingFilter, loadPurchasesAsync } from "../../store/slices/purchaseSlice";
 import PurchasingHeader from "../../components/Purchasing/PurchasingHeader";
 import styles from "./Purchases.module.css"
+import PurchasingModal from "../../components/Purchasing/PurchasingModal";
 
 const Purchases = props => {
     const {purchases, displayPurchases} = useSelector(state => state.purchases);
     const [loading, setLoading] = useState(true);
+    const [expandedPurchase, setExpandedPurchase] = useState({});
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -48,9 +50,14 @@ const Purchases = props => {
                         <Purchase 
                             key={purchase.purchaseOrderDetailId}
                             purchase={purchase}
+                            setExpandedPurchase={setExpandedPurchase}
                         />
                     );
                 })}
+
+                {Object.keys(expandedPurchase).length !== 0 && 
+                    <PurchasingModal model={expandedPurchase} expandFunction={setExpandedPurchase} area="orders" />
+                }
             </section>
         </div>
     );

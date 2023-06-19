@@ -47,7 +47,8 @@ function Vendors() {
     // }, [expandedVendor]);
 
     return (
-        <div>
+        // I don't know what to call this, but I need something for the modal to connect to
+        <div className={styles.overhead}>
             <PurchasingHeader area="vendors" />
             <section className={styles.purchasingPage}>
                 {loading && <h3>Loading...</h3>}
@@ -75,7 +76,7 @@ function Vendors() {
                 })}
 
                 {Object.keys(expandedVendor).length !== 0 && 
-                    <PurchasingModal vendor={expandedVendor} setExpandedVendor={setExpandedVendor} area="vendors" />
+                    <PurchasingModal model={expandedVendor} expandFunction={setExpandedVendor} area="vendors" />
                 }
 
             </section>

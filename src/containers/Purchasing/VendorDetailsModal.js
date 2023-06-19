@@ -18,7 +18,7 @@ const scrollToTop = () => {
 
 const VendorDetailsModal = props => {
     const dispatch = useDispatch();
-    const { id, setExpandedVendor } = props;
+    const { id, expandFunction } = props;
 
     const [vendor, setVendor] = useState({});
     const [contacts, setContacts] = useState([]);
@@ -102,7 +102,7 @@ const VendorDetailsModal = props => {
     }
 
     const handleClose = () => {
-        setExpandedVendor({});
+        expandFunction({});
     }
 
     return (

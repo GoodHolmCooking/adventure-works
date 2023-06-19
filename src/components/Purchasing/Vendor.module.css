@@ -1,13 +1,52 @@
-.vendorBlock {
+.vendorBlockMobile {
     border-block-end: 3px solid #9BC53D;
     display: flex;
     justify-content: space-between;
-    margin-inline: 5%;
     margin-block: 1rem;
     padding-block-end: 1rem;
     color: #212121;
 }
 
-.vendorLink {
-    text-decoration: none;
+.vendorBlockDesktop {
+    display: none;
 }
+
+.btn {
+    background: none;
+    border: none;
+}
+
+.vendorContent {
+    text-align: start;
+}
+
+
+/* Desktop View */
+@media (min-width: 999px) {
+    .vendorBlockMobile {
+        display: none; 
+    }
+
+    .vendorBlockDesktop {
+        border-block-end: 3px solid #9BC53D;
+        display: flex;
+        justify-content: space-evenly;
+        margin-block: 1rem;
+        padding-block-end: 1rem;
+        color: #212121;
+        align-items: center;
+    }
+
+    .vendorBlockDesktop > p {
+        width: 12rem;
+        flex-wrap: wrap;
+    }
+    .desktopHeading {
+        display: inline-block;
+    }
+
+    
+    .btn:hover {
+        cursor: pointer;
+    }
+ }

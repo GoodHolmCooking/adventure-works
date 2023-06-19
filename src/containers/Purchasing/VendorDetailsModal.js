@@ -1,4 +1,4 @@
-import styles from "./VendorDetails.module.css";
+import styles from "./VendorDetailsModal.module.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
@@ -16,9 +16,9 @@ const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-function VendorDetails() {
+const VendorDetailsModal = props => {
     const dispatch = useDispatch();
-    const { id } = useParams();
+    const { id, expandFunction } = props;
 
     const [vendor, setVendor] = useState({});
     const [contacts, setContacts] = useState([]);
@@ -101,17 +101,16 @@ function VendorDetails() {
         setEditingAddresses(!editingAddresses);
     }
 
+    const handleClose = () => {
+        expandFunction({});
+    }
+
     return (
-        <div>
-            <PurchasingHeader area="vendors" />
+        <div className={styles.modalArea}>
             <section className={styles.detailSection}>
                 {Object.keys(vendor).length === 0 && <h3>Loading...</h3>}
                 {Object.keys(vendor).length !== 0 && 
                     <div>
-                        <Link to="/vendors" className={styles.row} style={{textDecoration: 'none', color: '#212121'}}>
-                            <img src="../../images/ArrowLeft.png" alt="navigate back" />
-                            <p className={styles.backBtn}>Back</p>
-                        </Link>
 
                         {/* Name Section */}
                         {!editingName && 
@@ -121,12 +120,12 @@ function VendorDetails() {
                                     <button className={styles.editBtn} onClick={toggleEditName}>
                                         <img src="../../images/Pencilicon.png" alt="edit vendor"/>
                                     </button>
-                                    
                                 </div>
                                 <div className={styles.blockSubContainer}>
                                     {/* <p>{vendor.contacts[0].phoneNumbers[0].phoneNumber}</p> */}
                                     <p>{id}</p>
                                 </div>
+
                             </div>
                         }
 
@@ -141,88 +140,91 @@ function VendorDetails() {
                             </div>
                         }
 
-                        <section>
-                            <div className={styles.headerRow}>
-                                <h3>Contacts</h3>
-                                <button className={styles.editBtn} onClick={toggleEditContacts}>
-                                    <img src="../../images/Pencilicon.png" alt="edit vendor"/>
-                                </button>
-                            </div>
-                            {!editingContacts && 
-                                <ol className={styles.contentContainer}>
-                                    {contacts.map(contact => {
-                                        return (
-                                            <Contact
-                                                key={contact.personId}
-                                                contact={contact}
-                                                emails={emails}
-                                            />
-                                        );
-                                    })}
-                                </ol>
-                            }
-                            {editingContacts &&
-                                <div className={styles.formContainer}>
-                                    <VendorContactForm
-                                        vendor={vendor}
-                                        contacts={contacts}
-                                        setContacts={setContacts}
-                                        emails={emails}
-                                        setEmails={setEmails}
-                                        toggleEditView={toggleEditContacts}
-                                    />
-                                    <button className={styles.cancelBtn} onClick={toggleEditContacts}>Cancel</button>
+                        
+                        <div className={styles.mainContent}>
+                            {/* Contact Section */}
+                            <section>
+                                <div className={styles.headerRow}>
+                                    <h3>Contacts</h3>
+                                    <button className={styles.editBtn} onClick={toggleEditContacts}>
+                                        <img src="../../images/Pencilicon.png" alt="edit vendor"/>
+                                    </button>
                                 </div>
-                            } 
-                        </section>
-
-                        <section>
-                            <div className={styles.headerRow}>
-                                <h3>Addresses</h3>
-                                <button className={styles.editBtn} onClick={toggleEditAddresses}>
-                                    <img src="../../images/Pencilicon.png" alt="edit vendor"/>
-                                </button>
-                            </div>
-
-                            {!editingAddresses &&
-                                <ol className={styles.contentContainer}>
-                                    {addresses.map(address => {
-                                        return (
-                                        <Address 
-                                            key={address.addressId}
-                                            addressId={address.addressId}
-                                            addressTypeName={address.addressTypeName}
-                                            addressLine1={address.addressLine1}
-                                            addressLine2={address.addressLine2}
-                                            city={address.city}
-                                            stateProvinceCode={address.stateProvinceCode}
-                                            postalCode={address.postalCode}
-                                            countryRegionCode={address.countryRegionCode}
+                                {!editingContacts && 
+                                    <ol className={styles.contactList}>
+                                        {contacts.map(contact => {
+                                            return (
+                                                <Contact
+                                                    key={contact.personId}
+                                                    contact={contact}
+                                                    emails={emails}
+                                                />
+                                            );
+                                        })}
+                                    </ol>
+                                }
+                                {editingContacts &&
+                                    <div className={styles.formContainer}>
+                                        <VendorContactForm
+                                            vendor={vendor}
+                                            contacts={contacts}
+                                            setContacts={setContacts}
+                                            emails={emails}
+                                            setEmails={setEmails}
+                                            toggleEditView={toggleEditContacts}
                                         />
-                                        );
-                                    })}
-                                </ol>
-                            }
+                                        <button className={styles.cancelBtn} onClick={toggleEditContacts}>Cancel</button>
+                                    </div>
+                                } 
+                            </section>
 
-                            {editingAddresses &&
-                                <div className={styles.formContainer}>
-                                    <VendorAddressForm  
-                                        addresses={addresses}
-                                        setAddresses={setAddresses}
-                                        toggleEditView={toggleEditAddresses}
-                                    />
-                                    <input type="button" defaultValue="Cancel" className={styles.cancelBtn} onClick={toggleEditAddresses} />
+                            {/* Address Section */}
+                            <section>
+                                <div className={styles.headerRow}>
+                                    <h3>Addresses</h3>
+                                    <button className={styles.editBtn} onClick={toggleEditAddresses}>
+                                        <img src="../../images/Pencilicon.png" alt="edit vendor"/>
+                                    </button>
                                 </div>
-                            }
 
-                        <div className={styles.scrollRow}>
-                            <button onClick={scrollToTop} className={styles.toTopBtn}>
-                                <img src="../../images/ArrowUp.png" alt="scroll to top" />
-                                <p>Back to Top</p>
+                                {!editingAddresses &&
+                                    <ol>
+                                        {addresses.map(address => {
+                                            return (
+                                            <Address 
+                                                key={address.addressId}
+                                                addressId={address.addressId}
+                                                addressTypeName={address.addressTypeName}
+                                                addressLine1={address.addressLine1}
+                                                addressLine2={address.addressLine2}
+                                                city={address.city}
+                                                stateProvinceCode={address.stateProvinceCode}
+                                                postalCode={address.postalCode}
+                                                countryRegionCode={address.countryRegionCode}
+                                            />
+                                            );
+                                        })}
+                                    </ol>
+                                }
+
+                                {editingAddresses &&
+                                    <div className={styles.formContainer}>
+                                        <VendorAddressForm  
+                                            addresses={addresses}
+                                            setAddresses={setAddresses}
+                                            toggleEditView={toggleEditAddresses}
+                                        />
+                                        <input type="button" defaultValue="Cancel" className={styles.cancelBtn} onClick={toggleEditAddresses} />
+                                    </div>
+                                }
+                            </section>
+
+                            {/* X Button */}
+                            <button onClick={handleClose} className={styles.closeBtn}>
+                                <img src="../../images/XIcon.png" alt="close modal"/>
                             </button>
-                        </div>
 
-                        </section>
+                        </div>
                     </div>     
                 }         
             </section>
@@ -230,4 +232,4 @@ function VendorDetails() {
     );
 }
 
-export default VendorDetails;
+export default VendorDetailsModal;

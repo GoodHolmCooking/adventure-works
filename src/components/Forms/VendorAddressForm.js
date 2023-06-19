@@ -2,17 +2,12 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadCountriesAsync, loadProvincesAsync, updateAddressAsync } from "../../store/slices/vendorSlice";
 import AddressFieldset from "./AddressFieldSet";
+import styles from "./VendorAddressForm.module.css"
 
 const VendorAddressForm = props => {
     const {addresses, setAddresses, toggleEditView} = props;
     const {provinces, countries} = useSelector(state => state.vendors);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (!provinces.length) {
-            dispatch(loadProvincesAsync());
-        }
-    }, [dispatch, provinces]);
 
     useEffect(() => {
         if (!countries.length) {
@@ -46,7 +41,7 @@ const VendorAddressForm = props => {
                     />
                 );
             })}
-            <input type="submit" />
+            <input type="submit" className={styles.saveBtn} />
         </form>
     );
 };

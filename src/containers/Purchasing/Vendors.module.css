@@ -2,6 +2,58 @@
     box-sizing: border-box;
 }
 
+.overhead {
+    position: relative;
+}
+
 .purchasingPage {
-    padding: 5%;
+    padding-inline: 5%;
+}
+
+.desktopHeader {
+    display: none;
+}
+
+/* If in mobile view, render default styling */
+.desktopContainer {
+    display: block;
+}
+
+/* Desktop View */
+@media (min-width: 999px) {
+    .desktopHeader {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    /* Refactoring this to a grid would put the project beyond scope for the provided budget */
+    /* Manually adjusting for expedient delivery */
+    .nameHeading {
+        padding-inline-start: 6%;
+    }
+    
+    .phoneHeading {
+        padding-inline-start: 10%;
+    }
+
+    .idHeading {
+        padding-inline-start: 10.5%;
+    }
+
+    .contactHeading {
+        padding-inline-start: 8%;
+    }
+
+    .emailHeading {
+        padding-inline-start: 9%;
+    }
+
+    .addressHeading {
+        padding-inline-start: 10.5%;
+    }
+
+    .optionsHeading {
+        padding-inline-start: 4.5%;
+    }
+
 }

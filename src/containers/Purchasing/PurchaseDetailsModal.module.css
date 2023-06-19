@@ -4,7 +4,16 @@
     padding: 0;
 }
 
-
+.modalArea {
+    background-color: #FDFDFD;
+    box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.25);
+    padding: 3%;
+    min-width: 1000px;
+    position: absolute;
+    top: 2%;
+    left: 25%;
+    z-index: 2;
+}
 .purchaseSection {
     display: flex;
     flex-direction: column;
@@ -22,8 +31,9 @@
 
 .nameRow {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    gap: 8rem;
 }
 
 .nameSubHeadings {
@@ -65,4 +75,23 @@
 
 .toTopBtn img {
     margin-inline-end: 0.5rem;
+}
+
+.mainContent {
+    display: flex;
+    gap: 6rem;
+}
+
+.contentColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
 }

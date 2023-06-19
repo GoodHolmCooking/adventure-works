@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Purchase.module.css";
 
 const convertDate = date => {
@@ -11,22 +11,44 @@ const convertDate = date => {
 };
 
 const Purchase = props => {
-    const {purchase} = props;
+    const {purchase, setExpandedPurchase} = props;
+    const navigate = useNavigate();
+
+    const handleModal = () => {
+        setExpandedPurchase(purchase);
+    };
+
+    const handleNavigate = () => {
+        navigate(`/purchases/${purchase.purchaseOrderDetailId}`);
+    };
 
     return (
-    <Link to={`/purchases/${purchase.purchaseOrderId}`} className={styles.purchaseLink}>
-        <div className={styles.purchaseBlock}>
-            <div>
-                <p className={styles.productName}>{purchase.productName}</p>
-                <p>{convertDate(purchase.orderDate)}</p>
+    <>
+        <div className={styles.purchaseBlockMobile}>
+            <div className={styles.productContentContainer}>
+                <div className={styles.productNameContainer}>
+                    <p className={styles.productName}>{purchase.productName}</p>
+                    <p>{convertDate(purchase.orderDate)}</p>
+                </div>
+                <div>x {purchase.quantity}</div>
             </div>
-            <div>{purchase.quantity}</div>
-            <div>
-                <img src="./images/ArrowRight.png" alt="expand product" />
-            </div>
-            
+            <button className={styles.btn} onClick={handleNavigate}>
+                <img src="./images/ArrowRight.png" alt="expand purchase order" />
+            </button>
         </div>
-    </Link>
+
+        <div className={styles.purchaseBlockDesktop}>
+            <p>{purchase.productName}</p>
+            <p>{purchase.vendorName}</p>
+            <p>{convertDate(purchase.orderDate)}</p>
+            <p>{purchase.quantity}</p>
+            <p>${purchase.totalDue.toFixed(2)}</p>
+            <p>{convertDate(purchase.shipDate)}</p>
+            <button className={styles.btn} onClick={handleModal}>
+                <img src="./images/ArrowRight.png" alt="expand purchase order" />
+            </button>
+        </div>
+    </>
     );
 };
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import styles from "./ContactFieldset.module.css";
 
 const ContactFieldset = props => {
     const {
@@ -89,16 +90,16 @@ const ContactFieldset = props => {
             </select>
 
             {/* First name */}
-            <input type="text" defaultValue={contact.firstName} onChange={evt => setFirstName(evt.target.value)} />
+            <input type="text" defaultValue={contact.firstName} onChange={evt => setFirstName(evt.target.value)} className={styles.formInput}/>
 
             {/* Middle name */}
-            <input type="text" defaultValue={contact.middleName} onChange={evt => setMiddleName(evt.target.value)} />
+            <input type="text" defaultValue={contact.middleName} onChange={evt => setMiddleName(evt.target.value)} className={styles.formInput} />
 
             {/* Last Name */}
-            <input type="text" defaultValue={contact.lastName} onChange={evt => setLastName(evt.target.value)} />
+            <input type="text" defaultValue={contact.lastName} onChange={evt => setLastName(evt.target.value)} className={styles.formInput} />
 
             {/* Job Title */}
-            <select value={contact.contactTypeId} onChange={evt => setContactTypeId(evt.target.value)}>{contactTypeOptions}</select>
+            <select value={contact.contactTypeId} onChange={evt => setContactTypeId(evt.target.value)} className={styles.formInput}>{contactTypeOptions}</select>
 
             {/* Phone numbers */}
             {/* {contact.phoneNumbers.map(phoneEntry => {
@@ -119,6 +120,7 @@ const ContactFieldset = props => {
                         defaultValue={emailEntry.emailAddress} 
                         key={emailEntry.emailAddressId} 
                         onChange={evt => handleEmailChange(evt, emailEntry.emailAddressId)} 
+                        className={styles.formInput}
                     />
                 );
             })}

@@ -1,4 +1,4 @@
-.purchaseBlock {
+.purchaseBlockMobile {
     border-block-end: 3px solid #9BC53D;
     display: flex;
     justify-content: space-between;
@@ -8,10 +8,48 @@
     color: #212121;
 }
 
+.purchaseBlockDesktop {
+    display: none;
+}
+
 .purchaseLink {
     text-decoration: none;
 }
 
-.productName {
-    
+.btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.productContentContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-inline-end: 1rem;
+}
+
+.productNameContainer {
+    text-align: start;
+}
+
+@media (min-width: 999px) {
+    .purchaseBlockMobile {
+        display: none; 
+    }
+
+    .purchaseBlockDesktop {
+        border-block-end: 3px solid #9BC53D;
+        display: flex;
+        justify-content: space-evenly;
+        margin-block: 1rem;
+        padding-block-end: 1rem;
+        color: #212121;
+        align-items: center;
+    }
+
+    .purchaseBlockDesktop > * {
+        width: 8rem;
+        flex-wrap: wrap;
+    }
 }

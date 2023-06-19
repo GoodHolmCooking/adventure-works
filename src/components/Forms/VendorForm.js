@@ -94,7 +94,7 @@ const VendorForm = props => {
     return (
         <form onSubmit={handlePostData}>
             {formContent}
-            <button>Save Changes</button>
+            <button className={styles.saveBtn}>Save Changes</button>
         </form>
     );
 };

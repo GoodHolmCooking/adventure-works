@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadContactTypesAsync, updateContactAsync, updateEmailAsync } from "../../store/slices/vendorSlice";
 import ContactFieldset from "./ContactFieldset";
 import { updateVendorAsync } from "../../store/slices/vendorSlice";
+import styles from "./VendorContactForm.module.css";
 
 function phoneToNumber(phone) {
 	// phone should be a string field in a format of 859-555-0100
@@ -128,7 +129,7 @@ const VendorContactForm = props => {
                    />
                 );
             })}
-            <input type="submit" />
+            <input type="submit" className={styles.saveBtn} />
         </form>
     );
 };

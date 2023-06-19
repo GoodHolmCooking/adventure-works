@@ -6,6 +6,22 @@ import deleteIcon from "../../images/delete.png";
 import expand from "../../images/expand.png";
 function Employee(props) {
 	
+  const convertDate = date => {
+
+    if(date === null)
+    {
+      return null;
+    }
+
+    let tempDate = new Date(date);
+    let month = tempDate.getMonth();
+    let day = tempDate.getDay();
+    let year = tempDate.getFullYear();
+    let formattedDate = `${month}/${day}/${year}`;
+    return formattedDate;
+};
+
+
 	return (
     <div className={styles.employee} >
       <div>
@@ -14,7 +30,7 @@ function Employee(props) {
       <p>{props.title}</p>
       <p className={ styles.desktop}>{props.department}</p>
       <p className={ styles.desktop} >{props.id}</p>
-      <p className={ styles.desktop} >{props.start}</p>
+      <p className={ styles.desktop} >{convertDate(props.start)}</p>
       </div>
       <div>
         <button className={`${styles.faButton} ${styles.desktop}`} onClick={props.edit}> <img src={edit} alt="edit"></img> </button>

@@ -1,0 +1,15 @@
+.headerSection {
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 6px;
+    padding-block-start: 32px;
+    padding-block-end: 6px;
+    align-items: center;
+    border-block-end: 1px solid #212121;
+    margin-block-end: 24px;
+}
+
+.menuBtn {
+    background: none;
+    border: none;
+}

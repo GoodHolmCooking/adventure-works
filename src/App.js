@@ -18,6 +18,7 @@ import Dashboard from './components/dashboard/dashboard';
 import { ToastContainer } from 'react-toastify';
 import Purchases from './containers/Purchasing/Purchases';
 import PurchaseDetails from './containers/Purchasing/PurchaseDetails';
+import Navigation from './components/Navigation';
 
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
     content = (
       <div className="App">
       <BrowserRouter>
-
+      <Navigation />
       <Routes>
         <Route path="/" element={<Dashboard/>}></Route>
         <Route path="/employees" element={<Employees/>} />

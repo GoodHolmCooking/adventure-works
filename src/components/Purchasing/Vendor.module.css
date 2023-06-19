@@ -16,6 +16,10 @@
     border: none;
 }
 
+.vendorContent {
+    text-align: start;
+}
+
 
 /* Desktop View */
 @media (min-width: 999px) {

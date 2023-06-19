@@ -57,7 +57,7 @@ const Vendor = props => {
     return (
         <div>
             <div className={styles.vendorBlockMobile}>
-                <div>
+                <div className={styles.vendorContent}>
                     <div>{vendor.vendorName}</div>
                     <div>{vendor.contactPhone}</div>
                 </div>

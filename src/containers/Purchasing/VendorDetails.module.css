@@ -71,11 +71,18 @@ ol {
 }
 
 .cancelBtn {
-    /* display: block; */
     text-decoration: underline;
     border: none;
     background: none;
-    margin-block-start: 6rem;
+    margin-block-start: 1rem;
+    text-align: start;
+    margin-inline-start: 0.8rem;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .editBtn {
@@ -91,6 +98,10 @@ h1 {
 .contactForm {
     display: flex;
     flex-direction: column;
+}
+
+.contentContainer {
+    margin-inline-start: 5%;
 }
 
 .phoneContainer {

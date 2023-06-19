@@ -127,12 +127,11 @@ function VendorDetails() {
                                     {/* <p>{vendor.contacts[0].phoneNumbers[0].phoneNumber}</p> */}
                                     <p>{id}</p>
                                 </div>
-
                             </div>
                         }
 
                         { editingName &&
-                            <div>
+                            <div className={styles.formContainer}>
                                 <VendorForm 
                                     vendor={vendor}
                                     setVendor={setVendor}
@@ -150,7 +149,7 @@ function VendorDetails() {
                                 </button>
                             </div>
                             {!editingContacts && 
-                                <ol>
+                                <ol className={styles.contentContainer}>
                                     {contacts.map(contact => {
                                         return (
                                             <Contact
@@ -163,7 +162,7 @@ function VendorDetails() {
                                 </ol>
                             }
                             {editingContacts &&
-                                <div>
+                                <div className={styles.formContainer}>
                                     <VendorContactForm
                                         vendor={vendor}
                                         contacts={contacts}
@@ -186,7 +185,7 @@ function VendorDetails() {
                             </div>
 
                             {!editingAddresses &&
-                                <ol>
+                                <ol className={styles.contentContainer}>
                                     {addresses.map(address => {
                                         return (
                                         <Address 
@@ -206,13 +205,13 @@ function VendorDetails() {
                             }
 
                             {editingAddresses &&
-                                <div>
+                                <div className={styles.formContainer}>
                                     <VendorAddressForm  
                                         addresses={addresses}
                                         setAddresses={setAddresses}
                                         toggleEditView={toggleEditAddresses}
                                     />
-                                    <input type="button" defaultValue="Cancel" className={styles.addressCancelBtn} onClick={toggleEditAddresses} />
+                                    <input type="button" defaultValue="Cancel" className={styles.cancelBtn} onClick={toggleEditAddresses} />
                                 </div>
                             }
 

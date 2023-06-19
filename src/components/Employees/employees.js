@@ -174,7 +174,7 @@ function Employees(props) {
             key={employee.employeeId}
             firstName={employee.firstName}
             lastName={employee.lastName}
-            title={checkIfNull(employee.title)}
+            title={checkIfNull(employee.jobTitle)}
             id={employee.employeeId}
             //employment information
             department={checkIfNull(employee.department)}

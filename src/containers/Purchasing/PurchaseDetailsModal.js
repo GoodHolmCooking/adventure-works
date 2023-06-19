@@ -56,7 +56,7 @@ const PurchaseDetails = props => {
                             </div>
                             <div className={styles.nameSubHeadings}>
                                 <p>{purchase.vendorName}</p>
-                                <p>{purchase.orderDate}</p>
+                                <p>{convertDate(purchase.orderDate)}</p>
                             </div>
                         </div>
 

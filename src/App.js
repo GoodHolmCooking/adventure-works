@@ -16,6 +16,12 @@ import { LoginContext } from "./context/loginContext";
 import { useContext } from 'react';
 import { ToastContainer } from 'react-toastify';
 
+import InventoryProducts from './containers/Products/InventoryProducts';
+import inventoryDetails from './containers/Products/InventoryDetails';
+import catalogDetails from './containers/Products/catalogDetails';
+import CatalogProducts from './containers/Products/catalogProducts';
+
+
 function App() {
   let key = "dashboardLoginStatus"
   const loginContext = useContext(LoginContext);
@@ -32,6 +38,11 @@ function App() {
         <Route path="/employees" element={<Employees/>} />
         <Route path="/vendors" element={<Vendors />}/>
         <Route path="/vendors/:id" element={<VendorDetails />}/>
+        <Route path="/inventory" element={<InventoryProducts />}/>
+        {/* <Route path="/inventory/:id" element={<InventoryDetails />}/> */}
+        <Route path="/catalog" element={<CatalogProducts />}/>
+        <Route path="/catalog/:id" element={<catalogDetails />}/>
+
       </Routes>
           
       </BrowserRouter>

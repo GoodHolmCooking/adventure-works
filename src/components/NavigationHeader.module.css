@@ -102,3 +102,41 @@
 .settingsLink {
     border-block-end: 1px solid #C4C4C4;
 }
+.mainLogo {
+    display: block;
+}
+
+.mobileAccount {
+    display: block;
+}
+
+.desktopAccount {
+    display: none;
+}
+
+.navigationAside {
+    display: none;
+}
+
+/* Desktop View */
+@media (min-width: 999px) {
+    .dropDown {
+        display: none;
+    }
+
+    .mainLogo {
+        display: none;
+    }
+
+    .mobileAccount {
+        display: none;
+    }
+
+    .menuBtn {
+        display: none;
+    }
+
+    .desktopAccount {
+        display: block;
+    }
+}

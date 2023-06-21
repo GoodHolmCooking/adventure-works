@@ -18,7 +18,9 @@ import Dashboard from './components/dashboard/dashboard';
 import { ToastContainer } from 'react-toastify';
 import Purchases from './containers/Purchasing/Purchases';
 import PurchaseDetails from './containers/Purchasing/PurchaseDetails';
-import Navigation from './components/Navigation';
+import NavigationHeader from './components/NavigationHeader';
+import NavigationAside from './components/NavigationAside';
+import TestComponent from './components/TestComponent';
 
 
 function App() {
@@ -31,20 +33,21 @@ function App() {
   {
     content = (
       <div className="App">
-      <BrowserRouter>
-      <Navigation />
-      <Routes>
-        <Route path="/" element={<Dashboard/>}></Route>
-        <Route path="/employees" element={<Employees/>} />
-        <Route path="/vendors" element={<Vendors />}/>
-        <Route path="/vendors/:id" element={<VendorDetails />}/>
-        <Route path="/purchases" element={<Purchases />}/>
-        <Route path="/purchases/:id" element={<PurchaseDetails />}/>
-      </Routes>
-          
-      </BrowserRouter>
-     {/* <Employees></Employees> */}
-    </div>
+        <TestComponent />
+        <div>
+          <NavigationHeader />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Dashboard/>}></Route>
+              <Route path="/employees" element={<Employees/>} />
+              <Route path="/vendors" element={<Vendors />}/>
+              <Route path="/vendors/:id" element={<VendorDetails />}/>
+              <Route path="/purchases" element={<Purchases />}/>
+              <Route path="/purchases/:id" element={<PurchaseDetails />}/>
+            </Routes> 
+          </BrowserRouter>
+        </div>
+      </div>
     )
   }
   else{

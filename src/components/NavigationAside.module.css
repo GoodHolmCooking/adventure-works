@@ -1,0 +1,49 @@
+.navigationAside {
+    display: block;
+}
+
+/* Desktop View */
+@media (min-width: 999px) {
+    .navigationAside {
+        background-color: red;
+    }
+
+    .desktopAccount img {
+        height: 50px;
+        width: 50px;
+    }
+
+    .headerSection {
+        justify-content: flex-end;
+    }
+
+    .navigationAside {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background-color: #3C3C3C;
+    }
+
+    .imgContainer, .genericBox {
+        display: flex;
+        justify-content: center;
+    }
+
+    .imgContainer img, 
+    .genericBox img, 
+    .dashboardBox img,
+    .employeesBox img,
+    .productsBox img,
+    .purchasingBox img,
+    .salesBox img {
+        padding-inline: 0.5rem;
+        padding-block: 1rem;
+    }
+
+    .dashboardLink, .employeesLink, .menuLink {
+        cursor: pointer;
+        pointer-events: none;
+    }
+}

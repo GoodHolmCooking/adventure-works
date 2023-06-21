@@ -1,13 +1,14 @@
 import { useState } from "react";
-import styles from "./Navigation.module.css";
-import { Link } from "react-router-dom";
+import styles from "./NavigationHeader.module.css";
+import { Link, useNavigate } from "react-router-dom";
 
-const Navigation = () => {
+const NavigationHeader = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
+
 
     return (
         <>
@@ -15,14 +16,18 @@ const Navigation = () => {
                 <button className={styles.menuBtn} onClick={toggleMenu}>
                     <img src="./images/MenuIcon.png" alt="Navigate" />
                 </button>
-                <div>
+                <div className={styles.mainLogo}>
                     <img src="./images/BikeLogo.png" alt="Logo" />
                 </div>
-                <div>
+                <div className={styles.mobileAccount}>
                     <img src="./images/Account.png" alt="User icon" />
+                </div>
+                <div className={styles.desktopAccount}>
+                    <img src="./images/BigAccount.svg" alt="User icon" />
                 </div>
             </section>
 
+            {/* Mobile Header */}
             {menuOpen && 
                 <ul className={styles.dropDown}>
                     {/* Dashboard */}
@@ -86,20 +91,21 @@ const Navigation = () => {
                     </Link>
                     
                     {/* Settings */}
-                    <li className={styles.settingsLink}>
+                    {/* <li className={styles.settingsLink}>
                         <div className={styles.settingsBox}>
                             <img src="./images/Settings.png" alt="settings" />
                         </div>
                         <div className={styles.linkBox}>
                             <p>Settings</p>
                         </div>
-                    </li>
+                    </li> */}
                 </ul>
-            }
-            
+            } {/* End of Mobile Header */}
+
+     
         </>
 
     );
 };
 
-export default Navigation;
+export default NavigationHeader;

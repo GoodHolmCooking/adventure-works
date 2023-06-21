@@ -3,6 +3,7 @@
 }
 .App {
   text-align: center;
+  display: flex;
 }
 
 .App-logo {
@@ -78,4 +79,9 @@ border-radius: 5px;
   .modalHeaderMobile{
     display: contents;
   }
+}
+
+.mainRouter {
+  display: flex;
+  flex-direction: column;
 }

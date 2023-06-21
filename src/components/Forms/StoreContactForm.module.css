@@ -1,0 +1,11 @@
+.saveBtn {
+    border: none;
+    background: none;
+    background-color: #9BC53D;
+    width: 300px;
+    height: 45px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-inline-start: 12px;
+}

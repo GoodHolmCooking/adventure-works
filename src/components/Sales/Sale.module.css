@@ -1,0 +1,55 @@
+.saleBlockMobile {
+    border-block-end: 3px solid #9BC53D;
+    display: flex;
+    justify-content: space-between;
+    margin-inline: 5%;
+    margin-block: 1rem;
+    padding-block-end: 1rem;
+    color: #212121;
+}
+
+.saleBlockDesktop {
+    display: none;
+}
+
+.saleLink {
+    text-decoration: none;
+}
+
+.btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.productContentContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-inline-end: 1rem;
+}
+
+.productNameContainer {
+    text-align: start;
+}
+
+@media (min-width: 999px) {
+    .purchaseBlockMobile {
+        display: none; 
+    }
+
+    .saleBlockDesktop {
+        border-block-end: 3px solid #9BC53D;
+        display: flex;
+        justify-content: space-evenly;
+        margin-block: 1rem;
+        padding-block-end: 1rem;
+        color: #212121;
+        align-items: center;
+    }
+
+    .saleBlockDesktop > * {
+        width: 8rem;
+        flex-wrap: wrap;
+    }
+}

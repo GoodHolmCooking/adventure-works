@@ -2,7 +2,7 @@ import styles from "../dashboard/dashboard.module.css"
 import axios from "axios"
 import React, { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
-import CanvasJSReact from '@canvasjs/react-charts';
+import CanvasJSReact from "@canvasjs/react-charts";
 import path from "../../images/Path.png"
 import expand from "../../images/expand.png"
 import back from "../../images/back.png"
@@ -188,7 +188,7 @@ function Dashboard() {
       }
   
       profitLine = (
-            <CanvasJSChart className={styles.profitLineCanvas} options={profitLineSettings} />
+            < CanvasJSChart className={styles.profitLineCanvas} options={profitLineSettings} />
       )
   
 

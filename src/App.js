@@ -18,6 +18,10 @@ import Dashboard from './components/dashboard/dashboard';
 import { ToastContainer } from 'react-toastify';
 import Purchases from './containers/Purchasing/Purchases';
 import PurchaseDetails from './containers/Purchasing/PurchaseDetails';
+import Customers from './containers/Sales/Customers';
+import CustomerDetails from './containers/Sales/CustomerDetails';
+import Stores from './containers/Sales/Stores';
+import StoreDetails from './containers/Sales/StoreDetails';
 
 
 function App() {
@@ -39,6 +43,10 @@ function App() {
         <Route path="/vendors/:id" element={<VendorDetails />}/>
         <Route path="/purchases" element={<Purchases />}/>
         <Route path="/purchases/:id" element={<PurchaseDetails />}/>
+        <Route path="/stores" element={<Stores />}/>
+        <Route path="/stores/:id" element={<StoreDetails />}/>
+        <Route path="/customers" element={<Customers />}/>
+        <Route path="/customers/:id" element={<CustomerDetails />}/>
       </Routes>
           
       </BrowserRouter>

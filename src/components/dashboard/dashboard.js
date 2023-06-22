@@ -314,8 +314,6 @@ function Dashboard() {
        fontColor: "#212121",
         fontSize: 20,
       },
-      height: 250,
-      width: 200,
       animationEnabled: true,
       subtitles: [{
         maxWidth: 60,
@@ -346,8 +344,6 @@ function Dashboard() {
        fontColor: "#212121",
         fontSize: 20,
       },
-      height: 250,
-      width: 200,
       animationEnabled: true,
       subtitles: [{
         maxWidth: 60,
@@ -370,23 +366,27 @@ function Dashboard() {
 			}]
     }
 
-         Circle1 = 
-        (
-            <div className={styles.cirleGraphContainer} >
-                <div className={styles.border}>
-                <CanvasJSChart options = {circleSetup1}/>
-                </div>
-                <p>{bestWorst[0].productName}</p>  
-                <p>Qty in stock: {bestWorst[0].unitsInStock}</p>
-            </div>
-            
-        )
+         Circle1 = (
+           <div className={styles.cirleGraphContainer}>
+             <div className={styles.border}>
+               <CanvasJSChart
+                 className={styles.circleGraph}
+                 options={circleSetup1}
+               />
+             </div>
+             <p>{bestWorst[0].productName}</p>
+             <p>Qty in stock: {bestWorst[0].unitsInStock}</p>
+           </div>
+         );
 
         Circle2 = (
-          <div className={styles.cirleGraphContainer} >
-                <div className={styles.border}>
-                <CanvasJSChart options = {circleSetup2}/>
-                </div>
+          <div className={styles.cirleGraphContainer}>
+            <div className={styles.border}>
+              <CanvasJSChart
+                className={styles.circleGraph}
+                options={circleSetup2}
+              />
+            </div>
             <p>{bestWorst[1].productName}</p>
             <p>Qty in stock: {bestWorst[1].unitsInStock}</p>
           </div>
@@ -502,7 +502,8 @@ if(lowStock.length)
         <section className={styles.products}>{lowProducts}</section>
         <section className={styles.sellers}>
           <div className={styles.circles}>
-            {Circle1} {Circle2}
+            {Circle1}
+            {Circle2}
           </div>
         </section>
         <section className={styles.profits}>{profits}</section>

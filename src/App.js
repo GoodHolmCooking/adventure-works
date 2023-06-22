@@ -17,10 +17,9 @@ import { useContext } from 'react';
 import { ToastContainer } from 'react-toastify';
 
 import InventoryProducts from './containers/Products/InventoryProducts';
-import inventoryDetails from './containers/Products/InventoryDetails';
-import catalogDetails from './containers/Products/catalogDetails';
+import InventoryDetails from './containers/Products/InventoryDetails';
+import CatalogDetails from './containers/Products/CatalogDetails';
 import CatalogProducts from './containers/Products/catalogProducts';
-
 
 function App() {
   let key = "dashboardLoginStatus"
@@ -39,9 +38,9 @@ function App() {
         <Route path="/vendors" element={<Vendors />}/>
         <Route path="/vendors/:id" element={<VendorDetails />}/>
         <Route path="/inventory" element={<InventoryProducts />}/>
-        {/* <Route path="/inventory/:id" element={<InventoryDetails />}/> */}
+        <Route path="/inventory/:id" element={<InventoryDetails />}/>
         <Route path="/catalog" element={<CatalogProducts />}/>
-        <Route path="/catalog/:id" element={<catalogDetails />}/>
+        <Route path="/catalog/:id" element={<CatalogDetails />}/>
 
       </Routes>
           

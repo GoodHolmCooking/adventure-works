@@ -1,23 +1,17 @@
-import styles from "./inventoryDetails.module.css";
-import { Link, useParams } from "react-router-dom";
-// import CatalogForm from "../../components/Forms/catalogForm"
-import { useEffect, useState } from "react";
+import styles from "./inventoryDetailsModal.module.css";
 import axios from "axios";
-import ProductsToolbar from "../../components/Products/productsToolbar";
-
+import { useState, useEffect } from "react";
 
 const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-function InventoryDetails() {
+const InventoryDetailsModal = props => {
+    const { id, expandFunction } = props;
 
-    const { id } = useParams();
     const [inventory, setInventory] = useState({});
-    // const [catalog, setCatalog] = useState({});
 
-    const [editInventory, setEditInventory] = useState(false);
-
+    // initial load
     useEffect(() => {
         axios.get(`https://api.bootcampcentral.com/api/Inventory/${id}`)
             .then(resp => {
@@ -36,28 +30,16 @@ function InventoryDetails() {
             });
     }, [id]);
 
-
-    useEffect(() => {
-        toggleEditProduct();
-    }, [inventory]);
-
-    const toggleEditProduct = () => {
-        setEditInventory(!editInventory);
-    };
+    const handleClose = () => {
+        expandFunction({});
+    }
 
     return (
         <div>
-            <ProductsToolbar area="inventory" />
             <section>
-
                 {Object.keys(inventory).length === 0 }
-                {Object.keys(inventory).length !== 0 &&
+                {Object.keys(inventory).length !== 0 && 
                     <div>
-                        <Link to="/inventory">
-                            <img src="../../images/ArrowLeft.png" alt="navigate back" />
-                            <p>Back</p>
-                        </Link>         
-
                         <div>
                             <h1>{inventory.productName}</h1>
                             <p>Quantity</p>
@@ -70,7 +52,7 @@ function InventoryDetails() {
                             <p>{inventory.shelf}</p>
                         </div>
                         <div>
-                            <p>{inventory.bin}</p>
+                            <p>${inventory.bin}</p>
                             <img src="../../images/delete.png" alt="trash icon">Delete Item</img> {/* I think this works? */}
                         </div>
 
@@ -127,20 +109,15 @@ function InventoryDetails() {
                         </div>
 
                         
-                        <div>
-                            <button onClick={scrollToTop}>
-                                <img src="../../images/ArrowUp.png" alt="scroll to top" />
-                                <p>Back to Top</p>
-                            </button>
-                        </div>
-                        
-                    </div>
-                
-                }
+                        <button onClick={handleClose}>
+                            <img src="../../images/XIcon.png" alt="close modal"/>
+                        </button>
 
+                    </div>   
+                }         
             </section>
         </div>
     );
-};
+}
 
-export default InventoryDetails;
+export default InventoryDetailsModal;

@@ -12,14 +12,14 @@ const productSlice = createSlice({
 
     reducers: {
 
-        setProductFilter: (state,action) =>
+        setProductFilter: (state, action) =>
 		{
 			return { ...state, filter: action.payload }
 		},
 
         applyProductFilter: (state) =>
 		{
-            console.log(`Applying filter of '${state.filter}' on ${state.products.length} products.`);
+            console.log(`Applying filter: '${state.filter}' on ${state.products.length} products.`);
 
 			state.displayProducts =  state.products
                 .filter(product => state.filter === "" || // if there is no filter set, display everything
@@ -50,12 +50,12 @@ export const loadProductsAsync = createAsyncThunk("/products/loadProductsAsync",
 	}
 });
 
-export const updateProductAsync = createAsyncThunk("/vendors/updateVendorAsync", async data => {
+export const updateProductAsync = createAsyncThunk("/products/updateProductAsync", async data => {
     try {
-		axios.put(`/Vendor/${data.vendorUpdate.businessEntityId}`, data.vendorUpdate)
+		axios.put(`/Product/${data.productUpdate.productId}`, data.productUpdate)
             .then(resp => {
                 console.log(`Status: ${resp.status}`);
-                data.callbacks.setVendor(data.vendorUpdate);
+                data.callbacks.setProduct(data.productUpdate);
             });
 	} catch (err) {
 		toast.error(err.toString());

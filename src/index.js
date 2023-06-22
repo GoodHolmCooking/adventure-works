@@ -9,6 +9,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import employeeSlice from './store/slices/employeeSlice';
+import productSlice from './store/slices/productSlice';
+import inventorySlice from './store/slices/inventorySlice';
 // import { configureStore } from "@reduxjs/toolkit";
 
 axios.defaults.baseURL = "https://api.bootcampcentral.com/api";
@@ -18,6 +20,10 @@ const store = configureStore({
   reducer: {
     employees: employeeSlice,
     displayEmployees: employeeSlice,
+    products: productSlice,
+    displayProducts: productSlice,
+    inventory: inventorySlice,
+    displayInventory: inventorySlice,
   },
   middleware: [thunk],
 })

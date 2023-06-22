@@ -1,27 +1,24 @@
-import { Link, useParams } from "react-router-dom";
-import styles from "./catalogDetails.module.css";
-import CatalogForm from "../../components/Forms/catalogForm"
-import { useEffect, useState } from "react";
+import styles from "./catalogDetailsModal.module.css";
 import axios from "axios";
-import ProductsToolbar from "../../components/Products/productsToolbar";
-
+import { useState, useEffect } from "react";
+import CatalogForm from "../../components/Forms/catalogForm";
 
 const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-function CatalogDetails() {
+const CatalogDetailsModal = props => {
+    const { id, expandFunction } = props;
 
-    const { id } = useParams();
-    const [product, setProduct] = useState({});
-    // const [catalog, setCatalog] = useState({});
+    const [catalog, setCatalog] = useState({});
 
-    const [editProduct, setEditProduct] = useState(false);
+    const [editCatalog, setEditCatalog] = useState(false);
 
+    // initial load
     useEffect(() => {
         axios.get(`https://api.bootcampcentral.com/api/Product/${id}`)
             .then(resp => {
-                setProduct({
+                setCatalog({
                     productId: resp.data.productId,
                     productName: resp.data.productName,
                     productNumber: resp.data.productNumber,
@@ -53,55 +50,48 @@ function CatalogDetails() {
             });
     }, [id]);
 
-
     useEffect(() => {
-        toggleEditProduct();
-    }, [product]);
+        toggleEditCatalog();
+    }, [catalog]);
 
-    const toggleEditProduct = () => {
-        setEditProduct(!editProduct);
+    const toggleEditCatalog = () => {
+        setEditCatalog(!editCatalog);
     };
+
+    const handleClose = () => {
+        expandFunction({});
+    }
 
     return (
         <div>
-            <ProductsToolbar area="products" />
             <section>
-
-                {Object.keys(product).length === 0 && <h3>Loading...</h3>}
-                {Object.keys(product).length !== 0 &&
+                {Object.keys(catalog).length === 0 }
+                {Object.keys(catalog).length !== 0 && 
                     <div>
-                        <Link to="/catalog">
-                            <img src="../../images/ArrowLeft.png" alt="navigate back" />
-                            <p>Back</p>
-                        </Link>
-
-                        
-
-
-                        {!editProduct &&
+                        {!editCatalog &&
                             <div>
                                 <div>
-                                    <h1>{product.productName}</h1>
-                                    <button onClick={toggleEditProduct}>
+                                    <h1>{catalog.productName}</h1>
+                                    <button onClick={toggleEditCatalog}>
                                         <img src="../../images/Pencilicon.png" alt="edit catalog"/>
                                     </button>
                                 </div>
                                 <div>
-                                    <p>{product.productNumber}</p>
-                                    <p>{product.color}</p>
-                                    <p>${product.listPrice}</p>
+                                    <p>{catalog.productNumber}</p>
+                                    <p>{catalog.color}</p>
+                                    <p>${catalog.listPrice}</p>
                                 </div>
                             </div>
                         }
 
-                        {editProduct &&
+                        {editCatalog &&
                             <div>
                                 <CatalogForm
-                                    product={product}
-                                    setProduct={setProduct}
-                                    toggleEdit={toggleEditProduct}
+                                    product={catalog}
+                                    setProduct={setCatalog}
+                                    toggleEdit={toggleEditCatalog}
                                     />
-                                    <button onClick={toggleEditProduct}>Cancel</button>
+                                    <button onClick={toggleEditCatalog}>Cancel</button>
                             </div>
                         }
 
@@ -111,35 +101,35 @@ function CatalogDetails() {
                             </div>
                             <div>
                                 <p>Summary</p>
-                                <p>{product.summary}</p>
+                                <p>{catalog.summary}</p>
                             </div>
                             <div>
                                 <p>Product Model ID</p>
-                                <p>{product.productModelId}</p>
+                                <p>{catalog.productModelId}</p>
                             </div>
                             <div>
                                 <p>Manufacturer</p>
-                                <p>{product.manufacturer}</p>
+                                <p>{catalog.manufacturer}</p>
                             </div>
                             <div>
                                 <p>Bike Frame</p>
-                                <p>{product.bikeFrame}</p>
+                                <p>{catalog.bikeFrame}</p>
                             </div>
                             <div>
                                 <p>Crankset</p>
-                                <p>{product.crankset}</p>
+                                <p>{catalog.crankset}</p>
                             </div>
                             <div>
                                 <p>Material</p>
-                                <p>{product.material}</p>
+                                <p>{catalog.material}</p>
                             </div>
                             <div>
                                 <p>Product Line</p>
-                                <p>{product.productLine}</p>
+                                <p>{catalog.productLine}</p>
                             </div>
                             <div>
                                 <p>Style</p>
-                                <p>{product.style}</p>
+                                <p>{catalog.style}</p>
                             </div>
                         </div>
 
@@ -149,19 +139,19 @@ function CatalogDetails() {
                             </div>
                             <div>
                                 <p>Wheel Description</p>
-                                <p>{product.wheelDescription}</p>
+                                <p>{catalog.wheelDescription}</p>
                             </div>
                             <div>
                                 <p>Saddle Description</p>
-                                <p>{product.saddleDescription}</p>
+                                <p>{catalog.saddleDescription}</p>
                             </div>
                             <div>
                                 <p>Pedal Description</p>
-                                <p>{product.pedalDescription}</p>
+                                <p>{catalog.pedalDescription}</p>
                             </div>
                             <div>
                                 <p>Rider Experience</p>
-                                <p>{product.riderExperience}</p>
+                                <p>{catalog.riderExperience}</p>
                             </div>
                         </div>
 
@@ -171,15 +161,15 @@ function CatalogDetails() {
                             </div>
                             <div>
                                 <p>Warranty Period</p>
-                                <p>{product.warrantyPeriod}</p>
+                                <p>{catalog.warrantyPeriod}</p>
                             </div>
                             <div>
                                 <p>Warranty Description</p>
-                                <p>{product.warrantyDescription}</p>
+                                <p>{catalog.warrantyDescription}</p>
                             </div>
                             <div>
                                 <p>Maintenance Description</p>
-                                <p>{product.maintenanceDescription}</p>
+                                <p>{catalog.maintenanceDescription}</p>
                             </div>
                         </div>
 
@@ -189,56 +179,52 @@ function CatalogDetails() {
                             </div>
                             <div>
                                 <p>Manufacturer</p>
-                                <p>{product.manufacturer}</p>
+                                <p>{catalog.manufacturer}</p>
                             </div>
                             <div>
                                 <p>Model Name</p>
-                                <p>{product.productModelName}</p>
+                                <p>{catalog.productModelName}</p>
                             </div>
                             <div>
                                 <p>Model ID</p>
-                                <p>{product.productModelId}</p>
+                                <p>{catalog.productModelId}</p>
                             </div>
                             <div>
                                 <p>Step</p>
-                                <p>{product.numberOfSteps}</p>
+                                <p>{catalog.numberOfSteps}</p>
                             </div>
                             <div>
                                 <p>Set Up Hours</p>
-                                <p>{product.setupHours}</p>
+                                <p>{catalog.setupHours}</p>
                             </div>
                             <div>
                                 <p>Machine Hours</p>
-                                <p>{product.machineHours}</p>
+                                <p>{catalog.machineHours}</p>
                             </div>
                             <div>
                                 <p>Labor Hours</p>
-                                <p>{product.laborHours}</p>
+                                <p>{catalog.laborHours}</p>
                             </div>
                             <div>
                                 <p>Lot Size</p>
-                                <p>{product.lotSize}</p>
+                                <p>{catalog.lotSize}</p>
                             </div>
 
                              <div>
                                 <p>instructions</p>
-                                <p>{product.instructions}</p>
+                                <p>{catalog.instructions}</p>
                             </div>
                         </div>
-                        <div>
-                            <button onClick={scrollToTop}>
-                                <img src="../../images/ArrowUp.png" alt="scroll to top" />
-                                <p>Back to Top</p>
-                            </button>
-                        </div>
                         
-                    </div>
-                
-                }
+                        <button onClick={handleClose}>
+                            <img src="../../images/XIcon.png" alt="close modal"/>
+                        </button>
 
+                    </div>   
+                }         
             </section>
         </div>
     );
-};
+}
 
-export default CatalogDetails;
+export default CatalogDetailsModal;

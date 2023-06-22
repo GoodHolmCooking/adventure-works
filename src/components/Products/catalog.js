@@ -1,20 +1,57 @@
+
+import { useState } from "react";
 import styles from "./catalog.module.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-//summary.js, productDescription.js, warranty.js, manufacturing.js, photo.js
 
-function catalogList(props) {
+const Catalog = props => {
+    const {product, setExpandedProduct} = props;
+    const [primaryProduct, setPrimaryProduct] = useState("");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        let productNumber = product.productNumber;
+        let color = product.color;
+        let listPrice = product.listPrice;
+
+        setPrimaryProduct({productNumber, color, listPrice});
+    }, [product]);
+
+    const handleNavigate = () => {
+        navigate(`/catalog/${product.productId}`);
+    }
+
+    const handleModal = () => {
+        setExpandedProduct(product);
+    }
+
     return (
-        <Link to={`/catalog/${props.id}`}>
+        <div>
             <div>
                 <div>
-                    <div>{props.name}</div>
-                    <div>{props.number}</div>
+                    <div>{product.productName}</div>
+                    <div>{product.productNumber}</div>
                 </div>
-                <img src="./images/ArrowRight.png" alt="" />
+                <button onClick={handleNavigate}>
+                    <img src="./images/ArrowRight.png" alt="expand product" />
+                </button>
             </div>
-        </Link>
-    );
+
+            <div>
+                <p>{product.thumbnailPhoto}</p>
+                <p>{product.productName}</p>
+                <p>{product.productNumber}</p>
+                <p>{product.color}</p>
+                <p>{product.listPrice}</p>
+                <p>{product.warranty}</p>
+                <button onClick={handleModal}>
+                    <img src="./images/ArrowRight.png" alt="expand product" />
+                </button>
+            </div>
+        </div>
+
+);
 }
 
-export default catalogList;
+export default Catalog;

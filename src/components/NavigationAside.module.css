@@ -1,0 +1,114 @@
+.navigationAside {
+    display: none;
+}
+
+.expandedNavigationAside {
+    display: none;
+}
+
+.removeDecoration {
+    text-decoration: none;
+}
+
+/* Desktop View */
+@media (min-width: 999px) {
+    .desktopAccount img {
+        height: 50px;
+        width: 50px;
+    }
+
+    .headerSection {
+        justify-content: flex-end;
+    }
+
+    .navigationAside {
+        display: block;
+        position: fixed;
+        height: 100%;
+        background-color: #3C3C3C;
+        width: 50px;
+        z-index: 1;
+    }
+
+    .expandedNavigationAside {
+        display: block;
+        position: fixed;
+        height: 100%;
+        background-color: #3C3C3C;
+        width: 150px;
+        z-index: 1;
+    }
+
+    .linkBox {
+        margin-inline-start: 10px;
+    }
+
+    .linkBox p {
+        color: #FDFDFD;
+    }
+
+    .expandedNavigationAside li {
+        display: flex;
+        align-items: center;
+    }
+
+    .imgContainer, .genericBox {
+        display: flex;
+        justify-content: center;
+    }
+
+    .imgContainer img, 
+    .genericBox img, 
+    .dashboardBox img,
+    .employeesBox img,
+    .productsBox img,
+    .purchasingBox img,
+    .salesBox img {
+        padding-inline: 0.5rem;
+        padding-block: 1rem;
+    }
+
+    .dashboardBox {
+        background-color: #FDE74C;
+    }
+    
+    .dashboardLink {
+        border-block-end: 1px solid #FDE74C;
+    }
+    
+    .employeesBox {
+        background-color: #FDA14C;
+    }
+    
+    .employeesLink {
+        border-block-end: 1px solid #FDA14C;
+    }
+    
+    .productsBox {
+        background-color: #5BC0EB;
+    }
+    
+    .productsLink {
+        border-block-end: 1px solid #5BC0EB;
+    }
+    
+    .purchasingBox {
+        background-color: #9BC53D;
+    }
+    
+    .purchasingLink {
+        border-block-end: 1px solid #9BC53D;
+    }
+    
+    .salesBox {
+        background-color: #EE66A0;
+    }
+    
+    .salesLink {
+        border-block-end: 1px solid #EE66A0;
+    }
+
+    .menuLink {
+        cursor: pointer;
+    }
+}

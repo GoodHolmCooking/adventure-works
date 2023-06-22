@@ -32,6 +32,7 @@
     align-items: flex-start;
     padding-left: 2.5%;
     margin-bottom: 55px;
+    margin-top: 50px;
 }
 
 .header > h1
@@ -41,6 +42,7 @@
     font-weight: 700;
     font-size: 50px;
     line-height: 22px;
+    margin-bottom: 50px;
 }
 
 
@@ -79,7 +81,7 @@
 {
     align-self: center;
     width: 296px;
-    height: 30px;
+    height: 38px;
     border: none;
     background-color: transparent;
 }
@@ -126,8 +128,8 @@
 }
 .circleTwo
 {
-    height: 15px;
-    width: 15px;
+    height: 10px;
+    width: 10px;
     background-color: orange;
     border-radius: 50%;
 }
@@ -181,6 +183,7 @@ mobile view
         display: flex;
         align-items: center;
         padding-inline-start: 24px;
+        margin-bottom: 0;
     }
     .header
     {
@@ -202,8 +205,10 @@ mobile view
     }
     .headerInteractables > button
     {
+        margin-top: 30px;
         align-self: flex-start;
         margin-left: 25px;
+        padding: 15px 20px;
         /* margin-block-end: 5em; */
     }
     .headerInteractables > .searchbar
@@ -248,6 +253,7 @@ mobile view
 {
     margin-inline-start: 2.5%;   
     margin-top: 40px;
+    margin-bottom: 50px;
 }
 
 .searchbar > input

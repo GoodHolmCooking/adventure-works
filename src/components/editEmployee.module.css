@@ -54,6 +54,7 @@
     width: 100%;
     height: fit-content;
 }
+
 .personalInfo
 {
     height: fit-content;
@@ -80,17 +81,17 @@ styling items that arent encumpased by layout
 {
     position: relative;
     margin: 0;
+    padding-left: 19.5px;
+    display: flex;
+    /* gap: 24px; */
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 22px;
+    color: #212121;
+    outline: 0;
     padding: 0;
- padding-left: 19.5px;
- display: flex;
- /* gap: 24px; */
- font-family: 'Open Sans';
-font-style: normal;
-font-weight: 700;
-font-size: 22px;
-line-height: 22px;
-color: #212121;
-outline: 0;
 }
 
 .modalHeader > h2
@@ -200,6 +201,10 @@ form styling
     line-height: 22px;
 }
 
+.cardTop > form > * 
+{
+    width: 50% !important;
+}
 
 .modalWindow p
 {
@@ -282,8 +287,22 @@ form button:hover
 
 .editButton
 {
-   position: absolute;
-   right: 0;
+    position: absolute;
+    right: 2%;
+}
+
+.displayBlock
+{
+    width: 100vw;
+}
+
+.cardTop
+{
+    width: 100%;
+}
+.personalInfo
+{
+    max-width: 75%;
 }
 
 }

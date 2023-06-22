@@ -2,6 +2,14 @@
     display: none;
 }
 
+.expandedNavigationAside {
+    display: none;
+}
+
+.removeDecoration {
+    text-decoration: none;
+}
+
 /* Desktop View */
 @media (min-width: 999px) {
     .desktopAccount img {
@@ -20,6 +28,28 @@
         background-color: #3C3C3C;
         width: 50px;
         z-index: 1;
+    }
+
+    .expandedNavigationAside {
+        display: block;
+        position: fixed;
+        height: 100%;
+        background-color: #3C3C3C;
+        width: 150px;
+        z-index: 1;
+    }
+
+    .linkBox {
+        margin-inline-start: 10px;
+    }
+
+    .linkBox p {
+        color: #FDFDFD;
+    }
+
+    .expandedNavigationAside li {
+        display: flex;
+        align-items: center;
     }
 
     .imgContainer, .genericBox {
@@ -76,5 +106,9 @@
     
     .salesLink {
         border-block-end: 1px solid #EE66A0;
+    }
+
+    .menuLink {
+        cursor: pointer;
     }
 }

@@ -21,11 +21,13 @@ import PurchaseDetails from './containers/Purchasing/PurchaseDetails';
 import NavigationHeader from './components/NavigationHeader';
 import NavigationAside from './components/NavigationAside';
 import TestComponent from './components/TestComponent';
+import { useSelector } from 'react-redux';
 
 
 function App() {
   let key = "dashboardLoginStatus"
   const loginContext = useContext(LoginContext);
+  const {expanded} = useSelector(state => state.navigation);
   let content;
   // let loginstatus = window.sessionStorage.getItem(key)
   let loginstatus = true; 
@@ -35,7 +37,7 @@ function App() {
       <div className="App">
           <BrowserRouter>
             <NavigationAside />
-            <div className="routeContainer">
+            <div className={expanded ? "expandedRouteContainer" : "routeContainer"}>
               <NavigationHeader />
               <Routes>
                 <Route path="/" element={<Dashboard/>}></Route>

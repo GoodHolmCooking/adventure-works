@@ -3,11 +3,12 @@
     justify-content: space-between;
     padding-block-start: 32px;
     padding-block-end: 6px;
-    /* height: 96px; */
     align-items: center;
     border-block-end: 1px solid #212121;
     margin-block-end: 24px;
     position: relative;
+    padding-inline-end: 10%;
+    padding-inline-start: 5%;
 }
 
 .menuBtn {
@@ -136,10 +137,11 @@
 
     .desktopAccount {
         display: block;
-        margin-inline-end: 5%; 
+        margin-inline-end: 10%; 
     }
 
     .headerSection {
         justify-content: flex-end;
+        padding-inline: 0;
     }
 }

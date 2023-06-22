@@ -18,11 +18,16 @@ import Dashboard from './components/dashboard/dashboard';
 import { ToastContainer } from 'react-toastify';
 import Purchases from './containers/Purchasing/Purchases';
 import PurchaseDetails from './containers/Purchasing/PurchaseDetails';
+import NavigationHeader from './components/NavigationHeader';
+import NavigationAside from './components/NavigationAside';
+import TestComponent from './components/TestComponent';
+import { useSelector } from 'react-redux';
 
 
 function App() {
   let key = "dashboardLoginStatus"
   const loginContext = useContext(LoginContext);
+  const {expanded} = useSelector(state => state.navigation);
   let content;
   // let loginstatus = window.sessionStorage.getItem(key)
   let loginstatus = true; 
@@ -30,20 +35,21 @@ function App() {
   {
     content = (
       <div className="App">
-      <BrowserRouter>
-
-      <Routes>
-        <Route path="/" element={<Dashboard/>}></Route>
-        <Route path="/employees" element={<Employees/>} />
-        <Route path="/vendors" element={<Vendors />}/>
-        <Route path="/vendors/:id" element={<VendorDetails />}/>
-        <Route path="/purchases" element={<Purchases />}/>
-        <Route path="/purchases/:id" element={<PurchaseDetails />}/>
-      </Routes>
-          
-      </BrowserRouter>
-     {/* <Employees></Employees> */}
-    </div>
+          <BrowserRouter>
+            <NavigationAside />
+            <div className={expanded ? "expandedRouteContainer" : "routeContainer"}>
+              <NavigationHeader />
+              <Routes>
+                <Route path="/" element={<Dashboard/>}></Route>
+                <Route path="/employees" element={<Employees/>} />
+                <Route path="/vendors" element={<Vendors />}/>
+                <Route path="/vendors/:id" element={<VendorDetails />}/>
+                <Route path="/purchases" element={<Purchases />}/>
+                <Route path="/purchases/:id" element={<PurchaseDetails />}/>
+              </Routes> 
+            </div>
+          </BrowserRouter>
+      </div>
     )
   }
   else{

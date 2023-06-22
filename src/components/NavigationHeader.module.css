@@ -3,6 +3,7 @@
     justify-content: space-between;
     padding-block-start: 32px;
     padding-block-end: 6px;
+    /* height: 96px; */
     align-items: center;
     border-block-end: 1px solid #212121;
     margin-block-end: 24px;
@@ -16,7 +17,7 @@
 
 .dropDown {
     position: absolute;
-    top: 0;
+    top: 108px;
     left: 0;
     z-index: 1;
     background-color: white;

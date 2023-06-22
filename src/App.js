@@ -33,20 +33,20 @@ function App() {
   {
     content = (
       <div className="App">
-        <TestComponent />
-        <div>
-          <NavigationHeader />
           <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Dashboard/>}></Route>
-              <Route path="/employees" element={<Employees/>} />
-              <Route path="/vendors" element={<Vendors />}/>
-              <Route path="/vendors/:id" element={<VendorDetails />}/>
-              <Route path="/purchases" element={<Purchases />}/>
-              <Route path="/purchases/:id" element={<PurchaseDetails />}/>
-            </Routes> 
+            <NavigationAside />
+            <div className="routeContainer">
+              <NavigationHeader />
+              <Routes>
+                <Route path="/" element={<Dashboard/>}></Route>
+                <Route path="/employees" element={<Employees/>} />
+                <Route path="/vendors" element={<Vendors />}/>
+                <Route path="/vendors/:id" element={<VendorDetails />}/>
+                <Route path="/purchases" element={<Purchases />}/>
+                <Route path="/purchases/:id" element={<PurchaseDetails />}/>
+              </Routes> 
+            </div>
           </BrowserRouter>
-        </div>
       </div>
     )
   }

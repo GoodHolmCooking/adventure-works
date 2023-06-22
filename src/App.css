@@ -81,7 +81,14 @@ border-radius: 5px;
   }
 }
 
-.mainRouter {
+.routeContainer {
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+@media (min-width: 999px) { 
+  .routeContainer {
+    margin-inline-start: 50px;
+  }
 }

@@ -1,20 +1,23 @@
 import { useState } from "react";
-import styles from "./NavigationHeader.module.css";
+import styles from "./NavigationAside.module.css";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
 const NavigationAside = () => {
     const [area, setArea] = useState("dashboard");
+    const [expand, setExpand] = useState(false);
     const navigate = useNavigate();
 
     const handleDashboard = () => {
         setArea("dashboard");
         navigate("/");
+        console.log("dashboard");
     };
 
     const handleEmployees = () => {
         setArea("employees");
         navigate("/employees");
+        // console.log("employees");
     };
 
     const handleProducts = () => {
@@ -47,38 +50,42 @@ const NavigationAside = () => {
                 </li>
 
                 {/* Dashboard */}
-                <li className={styles.dashboardLink} onClick={handleDashboard}>
-                    <div className={area === "dashboard" ? styles.dashboardBox : styles.genericBox}>
-                        {area === "dashboard" && 
-                            <img src="./images/Aside/DashboardDark.png" alt="dashboard" />
-                        }
-                        {area !== "dashboard" && 
-                            <img src="./images/Aside/DashboardLight.png" alt="dashboard" />
-                        }
-                    </div>
-                    <div className={styles.linkBox}>
-                        <p>Dashboard</p>
-                    </div>
-                </li>
+                <Link to="/" onClick={() => setArea("dashboard")}>
+                    <li className={styles.dashboardLink}>
+                        <div className={area === "dashboard" ? styles.dashboardBox : styles.genericBox}>
+                            {area === "dashboard" && 
+                                <img src="./images/Aside/DashboardDark.png" alt="dashboard" />
+                            }
+                            {area !== "dashboard" && 
+                                <img src="./images/Aside/DashboardLight.png" alt="dashboard" />
+                            }
+                        </div>
+                        {/* <div className={styles.linkBox}>
+                            <p>Dashboard</p>
+                        </div> */}
+                    </li>
+                </Link>
 
 
                 {/* Employees */}
-                <li className={styles.employeesLink} onClick={handleEmployees}>
-                    <div className={area === "employees" ? styles.employeesBox : styles.genericBox}>
-                        {area === "employees" &&
-                            <img src="./images/Aside/EmployeesDark.png" alt="employee" />
-                        }
-                        {area !== "employees" &&
-                            <img src="./images/Aside/EmployeesLight.png" alt="employee" />
-                        } 
-                    </div>
-                    <div className={styles.linkBox}>
-                        <p>Employees</p>
-                    </div>
-                </li>
+                <Link to="/employees"onClick={() => setArea("employees")}>
+                    <li className={styles.employeesLink}>
+                        <div className={area === "employees" ? styles.employeesBox : styles.genericBox}>
+                            {area === "employees" &&
+                                <img src="./images/Aside/EmployeesDark.png" alt="employee" />
+                            }
+                            {area !== "employees" &&
+                                <img src="./images/Aside/EmployeesLight.png" alt="employee" />
+                            } 
+                        </div>
+                        {/* <div className={styles.linkBox}>
+                            <p>Employees</p>
+                        </div> */}
+                    </li>
+                </Link>
 
                 {/* Products */}
-                <Link to="/products" onClick={() => setArea("products")} className={styles.clickableLink}>
+                <Link to="/products" onClick={handleProducts}>
                     <li className={styles.productsLink}>
                         <div className={area === "products" ? styles.productsBox : styles.genericBox}>
                             {area === "products" && 
@@ -88,31 +95,31 @@ const NavigationAside = () => {
                                 <img src="./images/Aside/ProductsLight.png" alt="products" />
                             }
                         </div>    
-                        <div className={styles.linkBox}>
+                        {/* <div className={styles.linkBox}>
                             <p>Products</p>
-                        </div>
+                        </div> */}
                     </li>
                 </Link>
                 
                 {/* Purchasing */}
-                <Link to="/vendors" onClick={() => setArea("vendors")} className={styles.clickableLink}>
+                <Link to="/vendors" onClick={handlePurchasing}>
                     <li className={styles.purchasingLink}>
                         <div className={area === "purchasing" ? styles.purchasingBox : styles.genericBox}>
                             {area === "purchasing" && 
-                                <img src="./images/Navigation/PurchasingDark.png" alt="purchasing" />
+                                <img src="./images/Aside/PurchasingDark.png" alt="purchasing" />
                             }
                             {area !== "purchasing" && 
                                 <img src="./images/Aside/PurchasingLight.png" alt="purchasing" />
                             } 
                         </div>
-                        <div className={styles.linkBox}>
+                        {/* <div className={styles.linkBox}>
                             <p>Purchasing</p>
-                        </div>
+                        </div> */}
                     </li>
                 </Link>
                 
                 {/* Sales */}
-                <Link to="/sales" onClick={() => setArea("sales")} className={styles.clickableLink}>
+                <Link to="/sales" onClick={handleSales}>
                     <li className={styles.salesLink}>
                         <div className={area === "sales" ? styles.salesBox : styles.genericBox}>
                             {area === "sales" &&
@@ -122,9 +129,9 @@ const NavigationAside = () => {
                                 <img src="./images/Aside/SalesLight.png" alt="sales" />
                             }
                         </div>
-                        <div className={styles.linkBox}>
+                        {/* <div className={styles.linkBox}>
                             <p>Sales</p>
-                        </div>
+                        </div> */}
                     </li>
                 </Link>
                 

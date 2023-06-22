@@ -1,7 +1,6 @@
 .headerSection {
     display: flex;
     justify-content: space-between;
-    padding-inline: 6px;
     padding-block-start: 32px;
     padding-block-end: 6px;
     align-items: center;
@@ -17,6 +16,8 @@
 
 .dropDown {
     position: absolute;
+    top: 0;
+    left: 0;
     z-index: 1;
     background-color: white;
     margin-block-start: -25px;
@@ -114,10 +115,6 @@
     display: none;
 }
 
-.navigationAside {
-    display: none;
-}
-
 /* Desktop View */
 @media (min-width: 999px) {
     .dropDown {
@@ -138,5 +135,10 @@
 
     .desktopAccount {
         display: block;
+        margin-inline-end: 5%; 
+    }
+
+    .headerSection {
+        justify-content: flex-end;
     }
 }

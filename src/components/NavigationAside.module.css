@@ -1,13 +1,9 @@
 .navigationAside {
-    display: block;
+    display: none;
 }
 
 /* Desktop View */
 @media (min-width: 999px) {
-    .navigationAside {
-        background-color: red;
-    }
-
     .desktopAccount img {
         height: 50px;
         width: 50px;
@@ -20,10 +16,10 @@
     .navigationAside {
         display: block;
         position: fixed;
-        top: 0;
-        left: 0;
         height: 100%;
         background-color: #3C3C3C;
+        width: 50px;
+        z-index: 1;
     }
 
     .imgContainer, .genericBox {
@@ -42,8 +38,43 @@
         padding-block: 1rem;
     }
 
-    .dashboardLink, .employeesLink, .menuLink {
-        cursor: pointer;
-        pointer-events: none;
+    .dashboardBox {
+        background-color: #FDE74C;
+    }
+    
+    .dashboardLink {
+        border-block-end: 1px solid #FDE74C;
+    }
+    
+    .employeesBox {
+        background-color: #FDA14C;
+    }
+    
+    .employeesLink {
+        border-block-end: 1px solid #FDA14C;
+    }
+    
+    .productsBox {
+        background-color: #5BC0EB;
+    }
+    
+    .productsLink {
+        border-block-end: 1px solid #5BC0EB;
+    }
+    
+    .purchasingBox {
+        background-color: #9BC53D;
+    }
+    
+    .purchasingLink {
+        border-block-end: 1px solid #9BC53D;
+    }
+    
+    .salesBox {
+        background-color: #EE66A0;
+    }
+    
+    .salesLink {
+        border-block-end: 1px solid #EE66A0;
     }
 }

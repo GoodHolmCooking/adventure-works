@@ -16,11 +16,12 @@ const customerSlice = createSlice({
 		},
         applySalesFilter: (state) =>
 		{
+            console.log(`Applying filter of '${state.filter}' on ${state.customers.length} customers.`);
             // search customers
 			state.displayCustomers =  state.customers
                 .filter(customer => state.filter === "" || // if there is no filter set, display everything
-                    (customer.customer.toLowerCase())
-                        .includes(state.filter.toLowerCase())); // if there is a filter, search the product name
+                    (customer.firstName + " " + customer.lastName.toLowerCase())
+                        .includes(state.filter.toLowerCase())); // if there is a filter, search the customer
 		},
     },
     extraReducers: builder => {
@@ -38,7 +39,7 @@ export const { setSalesFilter, applySalesFilter } = customerSlice.actions;
 
 export const loadSalesAsync = createAsyncThunk("/orders/loadSalesAsync", async () => {
 	try {
-		const resp = await axios.get("/Customer");
+		const resp = await axios.get("/Order/customer");
 		return resp.data;
 	} catch (err) {
 		toast.error(err.toString());

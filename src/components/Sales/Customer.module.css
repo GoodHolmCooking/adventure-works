@@ -1,5 +1,5 @@
-.saleBlockMobile {
-    border-block-end: 3px solid #9BC53D;
+.customerBlockMobile {
+    border-block-end: 3px solid #EE66A0;
     display: flex;
     justify-content: space-between;
     margin-inline: 5%;
@@ -8,11 +8,11 @@
     color: #212121;
 }
 
-.saleBlockDesktop {
+.customerBlockDesktop {
     display: none;
 }
 
-.saleLink {
+.customerLink {
     text-decoration: none;
 }
 
@@ -29,17 +29,17 @@
     margin-inline-end: 1rem;
 }
 
-.productNameContainer {
+.customerIdContainer {
     text-align: start;
 }
 
 @media (min-width: 999px) {
-    .purchaseBlockMobile {
+    .customerBlockMobile {
         display: none; 
     }
 
-    .saleBlockDesktop {
-        border-block-end: 3px solid #9BC53D;
+    .customerBlockDesktop {
+        border-block-end: 3px solid #EE66A0;
         display: flex;
         justify-content: space-evenly;
         margin-block: 1rem;
@@ -48,7 +48,7 @@
         align-items: center;
     }
 
-    .saleBlockDesktop > * {
+    .customerBlockDesktop > * {
         width: 8rem;
         flex-wrap: wrap;
     }

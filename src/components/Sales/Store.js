@@ -2,40 +2,20 @@ import { useState } from "react";
 import styles from "./Store.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useCallback } from "react";
+
+const convertDate = date => {
+    let tempDate = new Date(date);
+    let month = tempDate.getMonth();
+    let day = tempDate.getDay();
+    let year = tempDate.getFullYear();
+    let formattedDate = `${month}/${day}/${year}`;
+    return formattedDate;
+};
 
 const Store = props => {
-    const {store, provinces, setExpandedStore} = props;
+    const {store, setExpandedStore} = props;
     const [primaryContact, setPrimaryContact] = useState("");
-    const [billingAddress, setBillingAddress] = useState("");
     const navigate = useNavigate();
-
-    const truncateProvince = useCallback(
-        (searchValue) => {
-            let foundProvinceArray = provinces.filter(province => {
-                return province.stateProvinceName === searchValue;
-            });
-
-            if (foundProvinceArray.length === 0) {
-                return searchValue;
-            }
-
-            return foundProvinceArray[0].stateProvinceCode;
-        },
-    [provinces]
-    );
-
-    useEffect(() => {
-        let address1 = store.addressLine1;
-        let address2 = store.addressLine2 == null ? "" : store.addressLine2;
-        let city = store.city;
-        let province = truncateProvince(store.stateProvinceName);
-        let postal = store.postalCode;
-
-        let combinedAddress = `${address1}\n${address2}\n${city}, ${province}\n${postal}`;
-
-        setBillingAddress(combinedAddress);
-    }, [truncateProvince, store])
 
     useEffect(() => {
         let firstName = store.contactFirstName;
@@ -46,7 +26,7 @@ const Store = props => {
     }, [store]);
 
     const handleNavigate = () => {
-        navigate(`/stores/${store.businessEntityId}`);
+        navigate(`/stores/${store.id}`);
     }
 
     const handleModal = () => {
@@ -58,22 +38,23 @@ const Store = props => {
             <div className={styles.storeBlockMobile}>
                 <div className={styles.storeContent}>
                     <div>{store.storeName}</div>
-                    <div>{store.contactPhone}</div>
+                    <div>{convertDate(store.orderDate)}</div>
                 </div>
                 <button className={styles.btn} onClick={handleNavigate}>
-                    <img src="./images/ArrowRight.png" alt="expand product" />
+                    <img src="./images/ArrowRight.png" alt="expand store" />
                 </button>
             </div>
 
-            <div className={styles.store}>
-                <p>{store.store}</p>
-                <p>{store.contactPhone}</p>
-                <p>{store.businessEntityId}</p>
-                <p>{primaryContact}</p>
-                <p>{store.contactEmail}</p>
-                <p>{billingAddress}</p>
+            <div className={styles.storeBlockDesktop}>
+                <p>{store.storeName}</p>
+                <p>{store.orderDate}</p>
+                <p>{store.contactFirstName + " " + store.contactLastName}</p>
+                <p>{store.orderNumber}</p>
+                <p>{store.productName}</p>
+                <p>{store.unitPrice}</p>
+                <p>${store.lineTotal.toFixed(2)}</p>
                 <button className={styles.btn} onClick={handleModal}>
-                    <img src="./images/ArrowRight.png" alt="expand product" />
+                    <img src="./images/ArrowRight.png" alt="expand store" />
                 </button>
             </div>
         </div>

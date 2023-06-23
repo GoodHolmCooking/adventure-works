@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./Purchase.module.css";
 
 const convertDate = date => {
@@ -30,7 +30,7 @@ const Purchase = props => {
                     <p className={styles.productName}>{purchase.productName}</p>
                     <p>{convertDate(purchase.orderDate)}</p>
                 </div>
-                <div>x {purchase.quantity}</div>
+                <div> {purchase.quantity}</div>
             </div>
             <button className={styles.btn} onClick={handleNavigate}>
                 <img src="./images/ArrowRight.png" alt="expand purchase order" />

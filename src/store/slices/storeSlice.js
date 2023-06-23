@@ -7,26 +7,20 @@ const storeSlice = createSlice({
     initialState:{
         stores: [],
         displayStores: [],
-        provinces: [],
         contactTypes: [],
-        countries: [],
         filter: ""
     },
     reducers:
     {
-        // I believe this is no longer used. Will remove if nothing breaks.
-        // loadStores: (state, action) => {
-        //     state.stores = action.payload;
-        // },
         setStoreFilter: (state,action) =>
 		{
 			return { ...state, filter: action.payload }
 		},
         applyStoreFilter: (state) =>
 		{
-
+            console.log(`Applying filter of '${state.filter}' on ${state.stores.length} stores.`);
             // search stores
-			state.displaystores =  state.stores
+			state.displayStores =  state.stores
                 .filter(store => state.filter === "" || // if there is no filter set, display everything
                     (store.storeName.toLowerCase())
                         .includes(state.filter.toLowerCase())); // if there is a filter, return matching store names
@@ -46,18 +40,7 @@ const storeSlice = createSlice({
             .addCase(loadContactTypesAsync.rejected, () => {
                 toast.error("Error loading contact types.");
             })
-            .addCase(loadProvincesAsync.fulfilled, (state, action) => {
-                state.provinces = action.payload;
-            })
-            .addCase(loadProvincesAsync.rejected, () => {
-                toast.error("Error loading provinces.");
-            })
-            .addCase(loadCountriesAsync.fulfilled, (state, action) => {
-                state.countries = action.payload;
-            })
-            .addCase(loadCountriesAsync.rejected, () => {
-                toast.error("Error loading countries.");
-            });
+
     }
 });
 
@@ -65,7 +48,7 @@ export const { setStoreFilter, applyStoreFilter } = storeSlice.actions;
 
 export const loadStoresAsync = createAsyncThunk("/stores/loadStoresAsync", async () => {
 	try {
-		const resp = await axios.get("/Store");
+		const resp = await axios.get("/Order/store");
 		return resp.data;
 	} catch (err) {
 		toast.error(err.toString());
@@ -74,7 +57,7 @@ export const loadStoresAsync = createAsyncThunk("/stores/loadStoresAsync", async
 
 export const updateStoreAsync = createAsyncThunk("/stores/updateStoreAsync", async data => {
     try {
-		axios.put(`/Store/${data.storeUpdate.businessEntityId}`, data.storeUpdate)
+		axios.put(`/Store/${data.storeUpdate.id}`, data.storeUpdate)
             .then(resp => {
                 console.log(`Status: ${resp.status}`);
                 data.callbacks.setStore(data.storeUpdate);
@@ -87,7 +70,7 @@ export const updateStoreAsync = createAsyncThunk("/stores/updateStoreAsync", asy
 export const updateContactAsync = createAsyncThunk("/stores/updateContactAsync", async data => {
     try {
         console.log("Running contact update");
-		axios.put(`/Contact/${data.personId}/${data.businessEntityId}`, data)
+		axios.put(`/Contact/${data.personId}/${data.Id}`, data)
             .then(resp => {
                 console.log(`Status: ${resp.status}`);
             });
@@ -100,7 +83,7 @@ export const updateContactAsync = createAsyncThunk("/stores/updateContactAsync",
 export const updateEmailAsync = createAsyncThunk("/stores/updateEmailAsync", async data => {
     try {
         console.log("Running email update");
-		axios.put(`/Email/${data.emailAddressId}/${data.businessEntityId}`, data)
+		axios.put(`/Email/${data.emailAddressId}/${data.Id}`, data)
             .then(resp => {
                 console.log(`Status: ${resp.status}`);
             });
@@ -113,24 +96,6 @@ export const updateEmailAsync = createAsyncThunk("/stores/updateEmailAsync", asy
 export const loadContactTypesAsync = createAsyncThunk("/stores/loadContactTypesAsync", async () => {
     try {
 		const resp = await axios.get("/ContactType");
-		return resp.data;
-	} catch (err) {
-		toast.error(err.toString());
-	}
-});
-
-export const loadProvincesAsync = createAsyncThunk("/stores/loadProvincesAsync", async () => {
-    try {
-		const resp = await axios.get("/StateProvince");
-		return resp.data;
-	} catch (err) {
-		toast.error(err.toString());
-	}
-});
-
-export const loadCountriesAsync = createAsyncThunk("/stores/loadCountriesAsync", async () => {
-    try {
-		const resp = await axios.get("/CountryRegion");
 		return resp.data;
 	} catch (err) {
 		toast.error(err.toString());

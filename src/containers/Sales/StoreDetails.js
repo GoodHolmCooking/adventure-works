@@ -4,10 +4,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Contact from "../../components/Purchasing/Contact";
-import StoreForm from "../../components/Forms/VendorForm";
-import StoreContactForm from "../../components/Forms/VendorContactForm";
-import { useDispatch, useSelector } from "react-redux";
-import { loadProvincesAsync, loadStoreAsync, toggleContactEdit, toggleNameEdit } from "../../store/slices/storeSlice";
+import StoreContactForm from "../../components/Forms/StoreContactForm";
+import { useDispatch } from "react-redux";
 import SalesHeader from "../../components/Sales/SalesHeader";
 
 const scrollToTop = () => {
@@ -28,34 +26,34 @@ function StoreDetails() {
 
     // initial load
     useEffect(() => {
-        axios.get(`https://api.bootcampcentral.com/api/Store/${id}`)
+        axios.get(`/Order/store/${id}`)
             .then(resp => {
                 setStore({
                     orderDate: resp.data.orderDate,
-                    salesOrderNumber: resp.data.salesOrderNumber,
-                    storeName: resp.data.storeName
+                    orderNumber: resp.data.orderNumber,
+                    Name: resp.data.name
                 });
 
-                setContacts(resp.data.contacts.map(contact => {
-                    return {
-                        personId: contact.businessEntityId,
-                        personalTitle: contact.personalTitle,
-                        firstName: contact.firstName,
-                        middleName: contact.middleName,
-                        lastName: contact.lastName,
-                        suffix: contact.suffix,
-                        contactTypeId: contact.contactTypeId
-                    }
-                }));
+                // setContacts(resp.data.contacts.map(contact => {
+                //     return {
+                //         personId: contact.businessEntityId,
+                //         personalTitle: contact.personalTitle,
+                //         firstName: contact.firstName,
+                //         middleName: contact.middleName,
+                //         lastName: contact.lastName,
+                //         suffix: contact.suffix,
+                //         contactTypeId: contact.contactTypeId
+                //     }
+                // }));
 
-                let allEmails = [];
-                resp.data.contacts.forEach(contact => {
-                    contact.emailAddresses.forEach(email => {
-                        allEmails.push(email);
-                    });
-                });
+                // let allEmails = [];
+                // resp.data.contacts.forEach(contact => {
+                //     contact.emailAddresses.forEach(email => {
+                //         allEmails.push(email);
+                //     });
+                // });
 
-                setEmails(allEmails);
+                // setEmails(allEmails);
 
                 
             });
@@ -87,39 +85,95 @@ function StoreDetails() {
                             <p className={styles.backBtn}>Back</p>
                         </Link>
 
-                        {/* Name Section */}
-                        {!editingName && 
-                            <div className={styles.nameBlock}>
-                                <div className={styles.headerRow}>
-                                    <h1>{store.storeName}</h1>
-                                    <button className={styles.editBtn} onClick={toggleEditName}>
-                                        <img src="../../images/Pencilicon.png" alt="edit vendor"/>
-                                    </button>
-                                    
-                                </div>
-                                <div className={styles.blockSubContainer}>
-                                    
-                                    <p>{id}</p>
-                                </div>
+                        {/* Name Block */}
+                        <div className={styles.nameBlock}>
+                            <div className={styles.nameRow}>
+                                <h1>{store.store}</h1>
                             </div>
-                        }
-
-                        { editingName &&
-                            <div className={styles.formContainer}>
-                                <StoreForm 
-                                    store={store}
-                                    setStore={setStore}
-                                    toggleEdit={toggleEditName}
-                                />
-                                <button className={styles.cancelBtn} onClick={toggleEditName}>Cancel</button>
+                            <div className={styles.nameSubHeadings}>
+                                <p>{store.orderDate}</p>
+                                <p>{store.orderNumber}</p>
                             </div>
-                        }
-
+                        </div>
+                        {/* Sale Details */}
+                        <div className={styles.contentBlock}>
+                            <div>
+                                <h4>Sale Details</h4>
+                            </div>
+                            <div>
+                                <p>Order Number</p>
+                                <p>${store.orderNumber}</p>
+                            </div>
+                            <div>
+                                <p>Tracking Number</p>
+                                <p>{store.trackingNumber}</p>
+                            </div>
+                            <div>
+                                <p>Order Quantity</p>
+                                <p>${store.orderQuantity}</p>
+                            </div>
+                            <div>
+                                <p>Product Name</p>
+                                <p>${store.productName}</p>
+                            </div>
+                            <div>
+                                <p>Product ID</p>
+                                <p>${store.productId}</p>
+                            </div>  
+                            <div>
+                                <p>Unit Price</p>
+                                <p>${store.unitPrice}</p>
+                            </div>
+                            <div>
+                                <p>Unit Price Discount</p>
+                                <p>${store.unitPriceDiscount}</p>
+                            </div>
+                            <div>
+                                <p>Line Total</p>
+                                <p>${store.lineTotal}</p>
+                            </div>                                                                                                              
+                        </div>
+                        {/* Store Information */}
+                        <div className={styles.contentBlock}>
+                            <div>
+                                <h4>Store Information</h4>
+                            </div>
+                            <div>
+                                <p>Annual Sales</p>
+                                <p>${store.annualSales}</p>
+                            </div>
+                            <div>
+                                <p>Bank</p>
+                                <p>{store.bank}</p>
+                            </div>
+                            <div>
+                                <p>Square Footage</p>
+                                <p>${store.squareFootage}</p>
+                            </div>
+                            <div>
+                                <p>Speciality</p>
+                                <p>${store.speciality}</p>
+                            </div>
+                            <div>
+                                <p>Total Employees</p>
+                                <p>${store.totalEmployees}</p>
+                            </div>                                                                                                               
+                        </div>
+                        {/* Previous Sales */}
+                        <div className={styles.contentBlock}>
+                            <div>
+                                <h4>Previous Sales</h4>
+                            </div>
+                            <div>
+                                <p>Order Date</p>
+                                <p>${store.orderDate}</p>
+                            </div>                                                                                                              
+                        </div>                    
                         <section>
                             <div className={styles.headerRow}>
                                 <h3>Contacts</h3>
                                 <button className={styles.editBtn} onClick={toggleEditContacts}>
-                                    <img src="../../images/Pencilicon.png" alt="edit vendor"/>
+                                    <img src="../../images/Pencilicon.png" alt="edit store"/>
                                 </button>
                             </div>
                             {!editingContacts && 
@@ -147,7 +201,13 @@ function StoreDetails() {
                                     />
                                     <button className={styles.cancelBtn} onClick={toggleEditContacts}>Cancel</button>
                                 </div>
-                            } 
+                            }
+                            <div className={styles.scrollRow}>
+                            <button onClick={scrollToTop} className={styles.toTopBtn}>
+                                <img src="../../images/ArrowUp.png" alt="scroll to top" />
+                                <p>Back to Top</p>
+                            </button>
+                        </div>
                         </section>
 
                     </div>     

@@ -19,27 +19,30 @@
 
     /* Refactoring this to a grid would put the project beyond scope for the provided budget */
     /* Manually adjusting for expedient delivery */
-    .productNameHeading {
+    .CustomerNameHeading {
         padding-inline-start: 1.5%;
     }
 
-    .storeNameHeading {
+    .orderDateHeading {
         padding-inline-start: 2%;
     }
 
-    .orderDateHeading {
-        padding-inline-start: 2.5%;
+    .orderNumberHeading {
+        padding-inline-start: 2%;
     }
 
     .orderQtyHeading {
-        padding-inline-start: 3.5%;
-    }
-
-    .totalHeading {
-        padding-inline-start: 3.5%;
+        padding-inline-start: 0%;
     }
 
     .shipDateHeading {
-        padding-inline-start: 4%;
+        padding-inline-start: 1.5%;
+    }
+
+    .unitPriceHeading {
+        padding-inline-start: 2%;
+    }
+    .totalDueHeading {
+        padding-inline-start: 2%;
     }
 }

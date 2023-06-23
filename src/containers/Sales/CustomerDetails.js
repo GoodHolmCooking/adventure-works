@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import styles from "./CustomerDetails.module.css";
+import styles from "../Sales/CustomerDetails.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SalesHeader from "../../components/Sales/SalesHeader";
@@ -18,7 +18,7 @@ const scrollToTop = () => {
 };
 
 const CustomerDetails = props => {
-    const [sale, setSale] = useState({});
+    const [customer, setcustomer] = useState({});
     const [subTotal, setSubTotal] = useState(0);
     const [totalDue, setTotalDue] = useState(0);
     const [orderDate, setOrderDate] = useState(null);
@@ -31,9 +31,9 @@ const CustomerDetails = props => {
 
 
     useEffect(() => {
-        axios.get(`https://api.bootcampcentral.com/api/Customer/${id}`)
+        axios.get(`https://api.bootcampcentral.com/api/Order/customer/${id}`)
             .then(resp => {
-                setSale(resp.data);
+                setcustomer(resp.data);
                 setSubTotal(resp.data.unitPrice * resp.data.quantity);
                 setTotalDue(resp.data.unitPrice * resp.data.quantity + resp.data.freight + resp.data.taxAmt);
                 setOrderDate(convertDate(resp.data.orderDate));
@@ -45,14 +45,14 @@ const CustomerDetails = props => {
     }, [id]);
 
     return (
-        <div className={styles.purchasingPage}>
-            <SalesHeader area="sales" />
-            <section className={styles.saleSection}>
+        <div className={styles.customersPage}>
+            <SalesHeader area="customers" />
+            <section className={styles.customerSection}>
 
-                {Object.keys(sale).length === 0 && <h3>Loading...</h3>}
-                {Object.keys(sale).length !== 0 &&
+                {Object.keys(customer).length === 0 && <h3>Loading...</h3>}
+                {Object.keys(customer).length !== 0 &&
                     <div>
-                        <Link to="/sales" className={styles.backRow} style={{textDecoration: 'none', color: '#212121'}}>
+                        <Link to="/customers" className={styles.backRow} style={{textDecoration: 'none', color: '#212121'}}>
                             <img src="../../images/ArrowLeft.png" alt="navigate back" />
                             <p className={styles.backBtn}>Back</p>
                         </Link>
@@ -60,11 +60,11 @@ const CustomerDetails = props => {
                         {/* Name Block */}
                         <div className={styles.nameBlock}>
                             <div className={styles.nameRow}>
-                                <h1>{sale.sale}</h1>
+                                <h1>{customer.customer}</h1>
                             </div>
                             <div className={styles.nameSubHeadings}>
-                                <p>{sale.orderDate}</p>
-                                <p>{sale.orderNumber}</p>
+                                <p>{customer.orderDate}</p>
+                                <p>{customer.orderNumber}</p>
                             </div>
                         </div>
 
@@ -75,56 +75,56 @@ const CustomerDetails = props => {
                             </div>
                             <div>
                                 <p>Ship Date</p>
-                                <p>${sale.shipDate.toFixed(2)}</p>
+                                <p>${customer.shipDate}</p>
                             </div>
                             <div>
                                 <p>Method</p>
-                                <p>{sale.shipMethodName}</p>
+                                <p>{customer.shipMethodName}</p>
                             </div>
                             <div>
                                 <p>Freight Number</p>
-                                <p>${freightNumber.toFixed(2)}</p>
+                                <p>${customer.freightNumber}</p>
                             </div>
                         </div>
-                        {/* sale Information */}
+                        {/* customer Information */}
                         <div className={styles.contentBlock}>
                             <div>
-                                <h4>sale Information</h4>
+                                <h4>Customer Information</h4>
                             </div>
                             <div>
                                 <p>Suffix First Middle Last Name Title</p>
-                                <p>{sale.sale}</p>
+                                <p>{customer.customerid}</p>
                             </div>
                             <div>
                                 <p>Phone Type: PhoneNumber </p>
-                                <p>{phoneNumber}</p>
+                                <p>{customer.phoneNumber}</p>
                             </div>
                             <div>
                                 <p>Email: EmailAddress</p>
-                                <p>{sale.email}</p>
+                                <p>{customer.email}</p>
                             </div>
                         </div>
 
-                        {/* Sale Details */}
+                        {/* Customer Details */}
                         <div className={styles.contentBlock}>
                             <div>
-                                <h4>Sale Details</h4>
+                                <h4>Customer Details</h4>
                             </div>
                             <div>
                                 <p>Order Number</p>
-                                <p>{sale.orderNumber}</p>
+                                <p>{customer.orderNumber}</p>
                             </div>
                             <div>
                                 <p>Tracking Number</p>
-                                <p>{trackingNumber}</p>
+                                <p>{customer.trackingNumber}</p>
                             </div>
                             <div>
                                 <p>Product Name</p>
-                                <p>${sale.productName.toFixed(2)}</p>
+                                <p>${customer.productName}</p>
                             </div>
                             <div>
                                 <p>Product ID</p>
-                                <p>${sale.productId.toFixed(2)}</p>
+                                <p>${customer.productId}</p>
                             </div>
                         </div>
 
@@ -135,35 +135,35 @@ const CustomerDetails = props => {
                             </div>
                             <div>
                                 <p>Unit Price</p>
-                                <p>{sale.unitPrice}</p>
+                                <p>{customer.unitPrice}</p>
                             </div>
                             <div>
                                 <p>Unit Price Discount</p>
-                                <p>{sale.unitPriceDiscount}</p>
+                                <p>{customer.unitPriceDiscount}</p>
                             </div>
                             <div>
                                 <p>Line Total</p>
-                                <p>{sale.lineTotal}</p>
+                                <p>{customer.lineTotal}</p>
                             </div>
                             <div>
                                 <p>Order Quantity</p>
-                                <p>{sale.orderQuantity}</p>
+                                <p>{customer.orderQuantity}</p>
                             </div>
                             <div>
                                 <p>Subtotal</p>
-                                <p>{sale.subtotal}</p>
+                                <p>{customer.subtotal}</p>
                             </div>
                             <div>
                                 <p>Shipping Cost</p>
-                                <p>{sale.shippingCost}</p>
+                                <p>{customer.shippingCost}</p>
                             </div>
                             <div>
                                 <p>Tax Amount</p>
-                                <p>{sale.taxAmount}</p>
+                                <p>{customer.taxAmount}</p>
                             </div>
                             <div>
                                 <p>Total Due</p>
-                                <p>${totalDue.toFixed(2)}</p>
+                                <p>${customer.totalDue}</p>
                             </div>
                         </div>
                         <div className={styles.scrollRow}>

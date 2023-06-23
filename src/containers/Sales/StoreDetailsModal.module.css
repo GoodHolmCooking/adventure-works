@@ -55,7 +55,7 @@ li {
 .mainContent {
     display: flex;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 5rem;
 }
 
 .mainContent > section {
@@ -95,7 +95,7 @@ li {
     padding-block: 8px;
     margin-block: 8px;
     border-radius: 5px;
-    background-color: #9BC53D;
+    background-color: #EE66A0;
     border: 1px solid #212121;
 }
 
@@ -106,7 +106,6 @@ li {
 }
 
 .cancelBtn {
-    /* display: block; */
     text-decoration: underline;
     border: none;
     background: none;

@@ -1,5 +1,5 @@
-import SaleDetailsModal from "../../containers/Purchasing/PurchaseDetailsModal";
-import StoreDetailsModal from "../../containers/Purchasing/VendorDetailsModal";
+import CustomerDetailsModal from "../../containers/Sales/CustomerDetailsModal";
+import StoreDetailsModal from "../../containers/Sales/StoreDetailsModal";
 import styles from "./SalesModal.module.css";
 
 const SalesModal = props => {
@@ -14,13 +14,13 @@ const SalesModal = props => {
         <div className={styles.whiteOut}></div>
         {area === "stores" && 
             <StoreDetailsModal 
-                id={model.businessEntityId}
+                id={model.id}
                 expandFunction={expandFunction}
             />
         }
         {area === "customers" &&
-            <SaleDetailsModal 
-                id={model.saleOrderDetailId}
+            <CustomerDetailsModal 
+                id={model.id}
                 expandFunction={expandFunction}
             />
         }

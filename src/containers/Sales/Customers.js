@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";   
-import Sale from "../../components/Sales/Sale";
+import Customer from "../../components/Sales/Customer";
 import { useDispatch, useSelector } from "react-redux";
 import { applySalesFilter, loadSalesAsync } from "../../store/slices/customerSlice";
 import SalesHeader from "../../components/Sales/SalesHeader";
@@ -9,7 +9,7 @@ import SalesModal from "../../components/Sales/SalesModal";
 const Customers = props => {
     const {customers, displayCustomers} = useSelector(state => state.customers);
     const [loading, setLoading] = useState(true);
-    const [expandedSale, setExpandedSale] = useState({});
+    const [expandedCustomer, setExpandedCustomer] = useState({});
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -31,15 +31,15 @@ const Customers = props => {
     return (
         <div>
             <SalesHeader area="customers" />
-            <section className={styles.SalesPage}>
+            <section className={styles.salesPage}>
                 {loading && <h3>Loading...</h3>}
                 {!loading && 
                     <div className={styles.desktopHeader}>
-                        <h3 className={styles.SaleHeading}>Sale</h3>
+                        <h3 className={styles.CustomerNameHeading}>Customer</h3>
                         <h3 className={styles.orderDateHeading}>Order Date</h3>
-                        <h3 className={styles.orderNameHeading}>Order Name</h3>
+                        <h3 className={styles.orderNumberHeading}>Order Number</h3>
                         <h3 className={styles.orderQtyHeading}>Order Qty</h3>
-                        <h3 className={styles.shipDateHeadingHeading}>Ship Date</h3>
+                        <h3 className={styles.shipDateHeading}>Ship Date</h3>
                         <h3 className={styles.unitPriceHeading}>Unit Price</h3>  
                         <h3 className={styles.totalDueHeading}>Total Due</h3> 
                     </div>
@@ -47,16 +47,16 @@ const Customers = props => {
                 {!loading && displayCustomers.map(customer => {
 
                     return (
-                        <Sale 
-                            key={Sale.SaleOrderDetailId}
-                            Sale={Sale}
-                            setExpandedSale={setExpandedSale}
+                        <Customer 
+                            key={customer.Id}
+                            customer={customer}
+                            setExpandedCustomer={setExpandedCustomer}
                         />
                     );
                 })}
 
-                {Object.keys(expandedSale).length !== 0 && 
-                    <SalesModal model={expandedSale} expandFunction={setExpandedSale} area="Customers" />
+                {Object.keys(expandedCustomer).length !== 0 && 
+                    <SalesModal model={expandedCustomer} expandFunction={setExpandedCustomer} area="customers" />
                 }
             </section>
         </div>

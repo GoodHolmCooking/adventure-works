@@ -26,28 +26,34 @@
         justify-content: flex-start;
     }
 
-    .nameHeading {
-        padding-inline-start: 6%;
+    /* Refactoring this to a grid would put the project beyond scope for the provided budget */
+    /* Manually adjusting for expedient delivery */
+    .storeNameHeading {
+        padding-inline-start: 4%;
     }
     
-    .phoneHeading {
-        padding-inline-start: 10%;
+    .orderDateHeading {
+        padding-inline-start: 6%;
     }
 
-    .idHeading {
-        padding-inline-start: 10.5%;
-    }
-
-    .contactHeading {
+    .combinedNameHeading {
         padding-inline-start: 8%;
     }
 
-    .emailHeading {
-        padding-inline-start: 9%;
+    .orderNumberHeading {
+        padding-inline-start: 6%;
     }
 
-    .optionsHeading {
-        padding-inline-start: 4.5%;
+    .productNameHeading {
+        padding-inline-start: 6%;
+    }
+
+    .unitPriceHeading {
+        padding-inline-start: 6%;
+    }
+
+    .totalDueHeading {
+        padding-inline-start: 7%;
     }
 
 }

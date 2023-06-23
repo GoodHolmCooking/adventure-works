@@ -3,7 +3,7 @@ import formBuilder from "../../formBuilder";
 import styles from "./StoreForm.module.css";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleNameEdit, updatePhoneAsync, updateStoreAsync } from "../../store/slices/vendorSlice";
+import { toggleNameEdit, updatePhoneAsync, updateStoreAsync } from "../../store/slices/storeSlice";
 import { useNavigate } from "react-router";
 
 function phoneToNumber(phone) {

@@ -21,11 +21,11 @@ const SalesHeader = props => {
             <div className={styles.headerSection}>
                 <div className={styles.linkRow}>
                     <Link to="/stores" className={styles.salesLink}>
-                        {area === 'stores' && <img src="../../images/RadialIcon.png" alt="stores are selected" /> }
+                        {area === 'stores' && <img src="\images\Vector.png" alt="stores are selected" /> }
                         <div>Stores</div>
                     </Link>
                     <Link to="/customers" className={styles.purchasingLink}>
-                        {area === 'customers' && <img src="../../images/RadialIcon.png" alt="customer orders are selected" /> }
+                        {area === 'customers' && <img src="\images\Vector.png" alt="customer orders are selected" /> }
                         <div>Customers</div>
                     </Link>
                 </div>

@@ -1,5 +1,5 @@
 .storeBlockMobile {
-    border-block-end: 3px solid #9BC53D;
+    border-block-end: 3px solid #EE66A0;
     display: flex;
     justify-content: space-between;
     margin-block: 1rem;
@@ -28,7 +28,7 @@
     }
 
     .storeBlockDesktop {
-        border-block-end: 3px solid #9BC53D;
+        border-block-end: 3px solid #EE66A0;
         display: flex;
         justify-content: space-evenly;
         margin-block: 1rem;

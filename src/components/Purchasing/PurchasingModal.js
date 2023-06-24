@@ -5,10 +5,6 @@ import styles from "./PurchasingModal.module.css";
 const PurchasingModal = props => {
     const {model, expandFunction, area} = props;
 
-    const handleClose = () => {
-        expandFunction({});
-    };
-
     return (
         <>
         <div className={styles.whiteOut}></div>
@@ -16,6 +12,7 @@ const PurchasingModal = props => {
             <VendorDetailsModal 
                 id={model.businessEntityId}
                 expandFunction={expandFunction}
+                limitedVendor={model}
             />
         }
         {area === "orders" &&

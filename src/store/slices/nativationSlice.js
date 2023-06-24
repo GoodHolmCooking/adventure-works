@@ -8,7 +8,6 @@ const navigationSlice = createSlice({
     reducers: {
         setExpanded: (state,action) =>
 		{
-            console.log("set expanded run");
 			state.expanded = action.payload;
 		}
     }

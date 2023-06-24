@@ -1,51 +1,40 @@
-
-import { useState } from "react";
 import styles from "./catalog.module.css";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-
 
 const Catalog = props => {
     const {product, setExpandedProduct} = props;
-    const [primaryProduct, setPrimaryProduct] = useState("");
     const navigate = useNavigate();
-
-    useEffect(() => {
-        let productNumber = product.productNumber;
-        let color = product.color;
-        let listPrice = product.listPrice;
-
-        setPrimaryProduct({productNumber, color, listPrice});
-    }, [product]);
 
     const handleNavigate = () => {
         navigate(`/catalog/${product.productId}`);
-    }
+    };
 
     const handleModal = () => {
         setExpandedProduct(product);
-    }
+    };
+    
 
     return (
         <div>
-            <div>
-                <div>
+            <div className={styles.mobileCatalog}>
+                <div className={styles.catalogContent}>
                     <div>{product.productName}</div>
                     <div>{product.productNumber}</div>
                 </div>
-                <button onClick={handleNavigate}>
+                <button className={styles.button} onClick={handleNavigate}>
                     <img src="./images/ArrowRight.png" alt="expand product" />
                 </button>
             </div>
 
-            <div>
-                <p>{product.thumbnailPhoto}</p>
-                <p>{product.productName}</p>
+            <div className={styles.desktopCatalog}>
+                <img src={`data:image/jpeg;base64,${product.thumbnailPhoto}`} alt="" />
+                <p>{product.name}</p>
                 <p>{product.productNumber}</p>
                 <p>{product.color}</p>
-                <p>{product.listPrice}</p>
+                <p>${product.listPrice.toFixed(2)}</p>
+                {/* sometimes there is no warranty, it appears blank, this is okay */}
                 <p>{product.warranty}</p>
-                <button onClick={handleModal}>
+                <button className={styles.button} onClick={handleModal}>
                     <img src="./images/ArrowRight.png" alt="expand product" />
                 </button>
             </div>

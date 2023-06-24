@@ -15,22 +15,23 @@ const ProductsToolbar = props => {
 
     return (
         <section>
-            <div>
+            <div className={styles.titleContainer}>
                 <h1>Products</h1>
             </div>
-            <div>
-                <div>
-                    <Link to="/catalog">
-                        {area === 'catalog' && <img src="../../images/RadialIcon.png" alt="catalog is selected" /> }
+            <div className={styles.toolbar}>
+                <div className={styles.links}>
+                    <Link to="/catalog" className={styles.productsLink}>
+                        {area === 'catalog' && <img src="../../images/blueVector.png" alt="catalog is selected" /> }
                         <div>Catalog</div>
                     </Link>
-                    <Link to="/inventory">
-                        {area === 'inventory' && <img src="../../images/RadialIcon.png" alt="inventory is selected" /> }
+                    <Link to="/inventory" className={styles.productsLink}>
+                        {area === 'inventory' && <img src="../../images/blueVector.png" alt="inventory is selected" /> }
                         <div>Inventory</div>
                     </Link>
                 </div>
 
-                <div>
+                {/* SEARCH STILL BUSTED, FIGURE OUT WHY */}
+                <div className={styles.searchArea}>
                     {area === 'catalog' && 
                         <input 
                             type="text"
@@ -57,9 +58,9 @@ const ProductsToolbar = props => {
                         />
                     }
 
-                    <div>
-                        <button onClick={handleSearch}>
-                            <img src="../../images/SearchIcon.png" alt="search" />
+                    <div className={styles.searchIcon}>
+                        <button className={styles.button} onClick={handleSearch}>
+                            <img src="../../../images/SearchIcon.png" alt="search" />
                         </button>         
                     </div> 
                 </div>

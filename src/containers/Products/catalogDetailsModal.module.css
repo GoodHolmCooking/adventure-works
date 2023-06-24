@@ -1,0 +1,105 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.modalArea {
+    background-color: #FDFDFD;
+    box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.25);
+    padding: 3%;
+    min-width: 1000px;
+    position: absolute;
+    top: 2%;
+    left: 25%;
+    z-index: 2;
+}
+
+.modalDetails {
+    display: flex;
+    flex-direction: column;
+    padding-inline: 5%;
+}
+
+.nameBlock {
+    margin-block: 0;
+    text-align: start;
+}
+
+.nameBlock > p {
+    margin-block: 0.2rem;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-block-end: 0.4rem;
+}
+
+.header > h1 {
+    margin: 0;
+}
+
+.button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.subContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.cancelButton {
+    cursor: pointer;
+    text-decoration: underline;
+    border: none;
+    background: none;
+    margin-block-start: 0.5rem;
+    margin-inline: 12px;
+    margin-block-end: 24px;
+}
+
+.main {
+    display: flex;
+    gap: 6rem;
+}
+
+.columnsRow {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    margin-block-end: 1rem;
+}
+
+.content > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content > p {
+    margin-inline-start: 0.5rem;
+    margin-block: 0.5rem;
+}    
+
+.closeButton {
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+}

@@ -63,20 +63,20 @@ const CatalogDetailsModal = props => {
     }
 
     return (
-        <div>
-            <section>
+        <div className={styles.modalArea}>
+            <section className={styles.modalDetails}>
                 {Object.keys(catalog).length === 0 }
                 {Object.keys(catalog).length !== 0 && 
                     <div>
                         {!editCatalog &&
-                            <div>
-                                <div>
+                            <div className={styles.nameBlock}>
+                                <div className={styles.header}>
                                     <h1>{catalog.productName}</h1>
-                                    <button onClick={toggleEditCatalog}>
-                                        <img src="../../images/Pencilicon.png" alt="edit catalog"/>
+                                    <button className={styles.button} onClick={toggleEditCatalog}>
+                                        <img src="../../../images/Pencilicon.png" alt="edit catalog"/>
                                     </button>
                                 </div>
-                                <div>
+                                <div className={styles.subContent}>
                                     <p>{catalog.productNumber}</p>
                                     <p>{catalog.color}</p>
                                     <p>${catalog.listPrice}</p>
@@ -85,139 +85,145 @@ const CatalogDetailsModal = props => {
                         }
 
                         {editCatalog &&
-                            <div>
+                            <div className={styles.form}>
                                 <CatalogForm
                                     product={catalog}
                                     setProduct={setCatalog}
                                     toggleEdit={toggleEditCatalog}
                                     />
-                                    <button onClick={toggleEditCatalog}>Cancel</button>
+                                    <button className={styles.cancelButton} onClick={toggleEditCatalog}>Cancel</button>
                             </div>
                         }
 
-                        <div>
-                            <div>
-                                <h4>Product Details</h4>
-                            </div>
-                            <div>
-                                <p>Summary</p>
-                                <p>{catalog.summary}</p>
-                            </div>
-                            <div>
-                                <p>Product Model ID</p>
-                                <p>{catalog.productModelId}</p>
-                            </div>
-                            <div>
-                                <p>Manufacturer</p>
-                                <p>{catalog.manufacturer}</p>
-                            </div>
-                            <div>
-                                <p>Bike Frame</p>
-                                <p>{catalog.bikeFrame}</p>
-                            </div>
-                            <div>
-                                <p>Crankset</p>
-                                <p>{catalog.crankset}</p>
-                            </div>
-                            <div>
-                                <p>Material</p>
-                                <p>{catalog.material}</p>
-                            </div>
-                            <div>
-                                <p>Product Line</p>
-                                <p>{catalog.productLine}</p>
-                            </div>
-                            <div>
-                                <p>Style</p>
-                                <p>{catalog.style}</p>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div>
-                                <h4>Product Description</h4>
-                            </div>
-                            <div>
-                                <p>Wheel Description</p>
-                                <p>{catalog.wheelDescription}</p>
-                            </div>
-                            <div>
-                                <p>Saddle Description</p>
-                                <p>{catalog.saddleDescription}</p>
-                            </div>
-                            <div>
-                                <p>Pedal Description</p>
-                                <p>{catalog.pedalDescription}</p>
-                            </div>
-                            <div>
-                                <p>Rider Experience</p>
-                                <p>{catalog.riderExperience}</p>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div>
-                                <h4>Warranty & Maintenance</h4>
-                            </div>
-                            <div>
-                                <p>Warranty Period</p>
-                                <p>{catalog.warrantyPeriod}</p>
-                            </div>
-                            <div>
-                                <p>Warranty Description</p>
-                                <p>{catalog.warrantyDescription}</p>
-                            </div>
-                            <div>
-                                <p>Maintenance Description</p>
-                                <p>{catalog.maintenanceDescription}</p>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div>
-                                <h4>Manufacturing Details</h4>
-                            </div>
-                            <div>
-                                <p>Manufacturer</p>
-                                <p>{catalog.manufacturer}</p>
-                            </div>
-                            <div>
-                                <p>Model Name</p>
-                                <p>{catalog.productModelName}</p>
-                            </div>
-                            <div>
-                                <p>Model ID</p>
-                                <p>{catalog.productModelId}</p>
-                            </div>
-                            <div>
-                                <p>Step</p>
-                                <p>{catalog.numberOfSteps}</p>
-                            </div>
-                            <div>
-                                <p>Set Up Hours</p>
-                                <p>{catalog.setupHours}</p>
-                            </div>
-                            <div>
-                                <p>Machine Hours</p>
-                                <p>{catalog.machineHours}</p>
-                            </div>
-                            <div>
-                                <p>Labor Hours</p>
-                                <p>{catalog.laborHours}</p>
-                            </div>
-                            <div>
-                                <p>Lot Size</p>
-                                <p>{catalog.lotSize}</p>
+                        <div className={styles.main}>
+                            <div className={styles.columnsRow}>
+                                <div className={styles.content}>
+                                    <div>
+                                        <h4>Product Description</h4>
+                                    </div>
+                                    <div>
+                                        <p>Wheel Description</p>
+                                        <p>{catalog.wheelDescription}</p>
+                                    </div>
+                                    <div>
+                                        <p>Saddle Description</p>
+                                        <p>{catalog.saddleDescription}</p>
+                                    </div>
+                                    <div>
+                                        <p>Pedal Description</p>
+                                        <p>{catalog.pedalDescription}</p>
+                                    </div>
+                                    <div>
+                                        <p>Rider Experience</p>
+                                        <p>{catalog.riderExperience}</p>
+                                    </div>
+                                </div>
                             </div>
 
-                             <div>
-                                <p>instructions</p>
-                                <p>{catalog.instructions}</p>
+                            <div className={styles.columnsRow}>
+                                <div className={styles.content}>
+                                    <div>
+                                        <h4>Product Details</h4>
+                                    </div>
+                                    <div>
+                                        <p>Summary</p>
+                                        <p>{catalog.summary}</p>
+                                    </div>
+                                    <div>
+                                        <p>Product Model ID</p>
+                                        <p>{catalog.productModelId}</p>
+                                    </div>
+                                    <div>
+                                        <p>Manufacturer</p>
+                                        <p>{catalog.manufacturer}</p>
+                                    </div>
+                                    <div>
+                                        <p>Bike Frame</p>
+                                        <p>{catalog.bikeFrame}</p>
+                                    </div>
+                                    <div>
+                                        <p>Crankset</p>
+                                        <p>{catalog.crankset}</p>
+                                    </div>
+                                    <div>
+                                        <p>Material</p>
+                                        <p>{catalog.material}</p>
+                                    </div>
+                                    <div>
+                                        <p>Product Line</p>
+                                        <p>{catalog.productLine}</p>
+                                    </div>
+                                    <div>
+                                        <p>Style</p>
+                                        <p>{catalog.style}</p>
+                                    </div>
+                                </div>
+
+                                <div className={styles.content}>
+                                    <div>
+                                        <h4>Manufacturing Details</h4>
+                                    </div>
+                                    <div>
+                                        <p>Manufacturer</p>
+                                        <p>{catalog.manufacturer}</p>
+                                    </div>
+                                    <div>
+                                        <p>Model Name</p>
+                                        <p>{catalog.productModelName}</p>
+                                    </div>
+                                    <div>
+                                        <p>Model ID</p>
+                                        <p>{catalog.productModelId}</p>
+                                    </div>
+                                    <div>
+                                        <p>Step</p>
+                                        <p>{catalog.numberOfSteps}</p>
+                                    </div>
+                                    <div>
+                                        <p>Set Up Hours</p>
+                                        <p>{catalog.setupHours}</p>
+                                    </div>
+                                    <div>
+                                        <p>Machine Hours</p>
+                                        <p>{catalog.machineHours}</p>
+                                    </div>
+                                    <div>
+                                        <p>Labor Hours</p>
+                                        <p>{catalog.laborHours}</p>
+                                    </div>
+                                    <div>
+                                        <p>Lot Size</p>
+                                        <p>{catalog.lotSize}</p>
+                                    </div>
+                                    <div>
+                                        <p>instructions</p>
+                                        <p>{catalog.instructions}</p>
+                                    </div>
+                                </div>
+
+                                <div className={styles.content}>
+                                    <div>
+                                        <h4>Warranty & Maintenance</h4>
+                                    </div>
+                                    <div>
+                                        <p>Warranty Period</p>
+                                        <p>{catalog.warrantyPeriod}</p>
+                                    </div>
+                                    <div>
+                                        <p>Warranty Description</p>
+                                        <p>{catalog.warrantyDescription}</p>
+                                    </div>
+                                    <div>
+                                        <p>Maintenance Description</p>
+                                        <p>{catalog.maintenanceDescription}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         
-                        <button onClick={handleClose}>
-                            <img src="../../images/XIcon.png" alt="close modal"/>
+                        
+                        <button className={styles.closeButton} onClick={handleClose}>
+                            <img src="../../../images/XIcon.png" alt="close modal"/>
                         </button>
 
                     </div>   

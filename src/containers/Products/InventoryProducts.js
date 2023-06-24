@@ -1,49 +1,9 @@
-// import { useEffect, useState } from "react";
-// import Inventory from "../../components/Products/Inventory";
-// import axios from "axios";
-
-// function InventoryProducts() {
-//     const [products, setProducts] = useState([]);
-//     const [productsLoaded, setLoading] = useState(false);
-
-//     useEffect(() => {
-//             axios.get("https://api.bootcampcentral.com/api/inventory")
-//                 .then(resp => {
-//                     setProducts(resp.data);
-//                     setLoading(true);
-//                 })
-//                 .catch(err => {
-//                     console.log(`Error: ${err}`);
-//                 });
-//     }, []);
-
-//     return (
-//         <section>
-//             {!productsLoaded}
-//             {products && products.map(inventory => {
-
-//                 return (
-//                     <Inventory 
-//                         key={inventory.productId}
-//                         // id={inventory.productId}
-//                         name={inventory.productName}
-//                         quantity={inventory.quantity}
-//                         location={inventory.locationName}
-//                     />
-//                 );
-//             })}
-//         </section>
-//     );
-// }
-
-// export default InventoryProducts;
-
+import styles from "./InventoryProducts.module.css"
 import { useEffect, useState } from "react";
 import Inventory from "../../components/Products/Inventory";
 import { useDispatch, useSelector } from "react-redux";
 import { applyInventoryFilter, loadInventoryAsync } from "../../store/slices/inventorySlice";
 import ProductsToolbar from "../../components/Products/productsToolbar";
-import styles from "./InventoryProducts.module.css"
 import ProductModal from "../../components/Products/ProductModal";
 
 const InventoryProducts = props => {
@@ -70,21 +30,21 @@ const InventoryProducts = props => {
     return (
         <div>
             <ProductsToolbar area="inventory" />
-            <section>
+            <section className={styles.inventorySpacing}>
                 {loading}
                 {!loading && 
-                    <div>
-                        <h3>Product Name</h3>
-                        <h3>Qty</h3>
-                        <h3>Product ID</h3>
-                        <h3>Location</h3>
-                        <h3>Shelf</h3>
-                        <h3>Bin</h3>
-                        <h3>Options</h3>
+                    <div className={styles.desktopView}>
+                        <h3 className={styles.name}>Product Name</h3>
+                        <h3 className={styles.quantity}>Qty</h3>
+                        <h3 className={styles.id}>Product ID</h3>
+                        <h3 className={styles.location}>Location</h3>
+                        <h3 className={styles.shelf}>Shelf</h3>
+                        <h3 className={styles.bin}>Bin</h3>
+                        <h3 className={styles.options}>Options</h3>
                     </div>
                 }
-                {!loading && displayInventory.map(inventory => {
 
+                {!loading && displayInventory.map(inventory => {
                     return (
                         <Inventory 
                             key={inventory.productId}

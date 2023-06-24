@@ -1,0 +1,53 @@
+.mobileInventory {
+    display: flex;
+    justify-content: space-between;
+    border-block-end: 3px solid #5BC0EB;
+    color: #212121;
+    margin-inline: 5%;
+    margin-block: 1rem;
+    padding-block-end: 1rem;
+    
+}
+
+.desktopInventory {
+    display: none;
+}
+
+.button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.inventoryContent {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-inline-end: 1rem;
+}
+
+.contentContainer {
+    text-align: start;
+}
+
+@media (min-width: 999px) {
+    .mobileInventory{
+        display: none;
+    }
+
+    .desktopInventory {
+        border-block-end: 3px solid #5BC0EB;
+        display: flex;
+        justify-content: space-evenly;
+        margin-block: 1rem;
+        padding-block-end: 1rem;
+        color: #212121;
+        align-items: center;
+    }
+
+    .desktopInventory > * {
+        width: 8rem;
+        flex-wrap: wrap;
+    }
+
+}

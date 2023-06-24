@@ -1,7 +1,3 @@
-// import { useEffect, useState } from "react";
-// import Catalog from "../../components/Products/catalog";
-// import axios from "axios";
-
 import styles from "./catalogProducts.module.css";
 import { useEffect, useState  } from "react";
 import Catalog from "../../components/Products/catalog";
@@ -9,41 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { applyProductFilter, loadProductsAsync} from "../../store/slices/productSlice";
 import ProductsToolbar from "../../components/Products/productsToolbar";
 import ProductModal from "../../components/Products/ProductModal";
-
-// function CatalogProducts() {
-//     const [products, setProducts] = useState([]);
-//     const [productsLoaded, setLoading] = useState(false);
-
-//     useEffect(() => {
-//             axios.get("https://api.bootcampcentral.com/api/product")
-//                 .then(resp => {
-//                     setProducts(resp.data);
-//                     setLoading(true);
-//                 })
-//                 .catch(err => {
-//                     console.log(`Error: ${err}`);
-//                 });
-//     }, []);
-
-//     return (
-//         <section>
-//             {!productsLoaded}
-//             {products && products.map(product => {
-
-//                 return (
-//                     <Catalog 
-//                         key={product.productId}
-//                         id={product.productId}
-//                         name={product.name}
-//                         number={product.productNumber}
-//                     />
-//                 );
-//             })}
-//         </section>
-//     );
-// }
-
-// export default CatalogProducts;
 
 function CatalogProducts() {
     const {products, displayProducts} = useSelector(state => state.products);
@@ -69,20 +30,20 @@ function CatalogProducts() {
     return (
         <div>
             <ProductsToolbar area="catalog" />
-            <section>
+            <section className={styles.catalogSpacing}>
                 {loading}
                 {!loading && 
-                    <div>
-                        <h3>Image</h3>
-                        <h3>Product Name</h3>
-                        <h3>Number</h3>
-                        <h3>Color</h3>
-                        <h3>List Price</h3>    
-                        <h3>Warranty Period</h3>    
-                        <h3>Options</h3>    
+                    <div className={styles.desktopView}>
+                        <h3 className={styles.photo}>Image</h3>
+                        <h3 className={styles.name}>Product Name</h3>
+                        <h3 className={styles.number}>Number</h3>
+                        <h3 className={styles.color}>Color</h3>
+                        <h3 className={styles.price}>List Price</h3>    
+                        <h3 className={styles.warranty}>Warranty Period</h3>    
+                        <h3 className={styles.options}>Options</h3>    
                     </div>
                 }
-
+                
                 {!loading && displayProducts.map(product => {
                     return (
                         <Catalog 

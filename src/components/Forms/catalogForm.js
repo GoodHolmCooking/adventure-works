@@ -70,7 +70,7 @@ const CatalogForm = props => {
     return (
         <form onSubmit={handlePostData}>
             {formContent}
-            <button>Save Changes</button>
+            <button className={styles.saveButton}>Save Changes</button>
         </form>
     );
 };

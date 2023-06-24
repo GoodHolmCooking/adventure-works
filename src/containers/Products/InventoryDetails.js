@@ -19,7 +19,7 @@ function InventoryDetails() {
     const [editInventory, setEditInventory] = useState(false);
 
     useEffect(() => {
-        axios.get(`https://api.bootcampcentral.com/api/Inventory/${id}`)
+        axios.get(`https://api.bootcampcentral.com/api/Product/${id}`)
             .then(resp => {
                 setInventory({
                     productId: resp.data.productId,
@@ -48,33 +48,36 @@ function InventoryDetails() {
     return (
         <div>
             <ProductsToolbar area="inventory" />
-            <section>
+            <section className={styles.details}>
 
                 {Object.keys(inventory).length === 0 }
                 {Object.keys(inventory).length !== 0 &&
                     <div>
-                        <Link to="/inventory">
+                        <Link to="/inventory" className={styles.row}>
                             <img src="../../images/ArrowLeft.png" alt="navigate back" />
-                            <p>Back</p>
+                            <p className={styles.button}>Back</p>
                         </Link>         
 
-                        <div>
-                            <h1>{inventory.productName}</h1>
-                            <p>Quantity</p>
+                        <div className={styles.detailsContent}>
+                            <div>
+                                <h1>{inventory.productName}</h1>
+                                <p>Quantity</p>
+                            </div>
+                            <div>
+                                <p>{inventory.locationName}</p>
+                                <p>{inventory.quantity}</p>
+                            </div>
+                            <div>
+                                <p>{inventory.shelf}</p>
+                            </div>
+                            <div>
+                                <p>{inventory.bin}</p>
+                                <img src="../../images/delete.png" alt="trash icon">Delete Item</img> {/* I think this works? */}
+                            </div>
                         </div>
-                        <div>
-                            <p>{inventory.locationName}</p>
-                            <p>{inventory.quantity}</p>
-                        </div>
-                        <div>
-                            <p>{inventory.shelf}</p>
-                        </div>
-                        <div>
-                            <p>{inventory.bin}</p>
-                            <img src="../../images/delete.png" alt="trash icon">Delete Item</img> {/* I think this works? */}
-                        </div>
+                        
 
-                        <div>
+                        <div className={styles.detailsContent}>
                             <div>
                                 <h4>Product Details</h4>
                             </div>
@@ -100,7 +103,7 @@ function InventoryDetails() {
                             </div>
                         </div>
 
-                        <div>
+                        <div className={styles.detailsContent}>
                             <div>
                                 <h4>Location Details</h4>
                             </div>
@@ -127,8 +130,8 @@ function InventoryDetails() {
                         </div>
 
                         
-                        <div>
-                            <button onClick={scrollToTop}>
+                        <div className={styles.scroll}>
+                            <button className={styles.scrollButton} onClick={scrollToTop}>
                                 <img src="../../images/ArrowUp.png" alt="scroll to top" />
                                 <p>Back to Top</p>
                             </button>

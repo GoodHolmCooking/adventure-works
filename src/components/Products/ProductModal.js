@@ -11,7 +11,7 @@ const ProductModal = props => {
 
     return (
         <>
-        <div></div>
+        <div className={styles.whiteOut}></div>
         {area === "catalog" && 
             <CatalogDetailsModal 
                 id={model.productId}
@@ -25,7 +25,6 @@ const ProductModal = props => {
             />
         }
         </>
-
     );
 };
 

@@ -1,0 +1,45 @@
+.details {
+    display: flex;
+    flex-direction: column;
+    padding-inline: 5%;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    margin-inline-start: 4px;
+}
+
+.detailsContent {
+    margin-block-end: 1rem;
+}
+
+.detailsContent > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.detailsContent > p {
+    margin-inline-start: 0.5rem;
+    margin-block: 0.5rem;
+}
+
+.scroll {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.scrollButton {
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.scrollButton > img {
+    margin-inline-end: 0.5rem;
+}

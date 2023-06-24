@@ -4,6 +4,7 @@ import CatalogForm from "../../components/Forms/catalogForm"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductsToolbar from "../../components/Products/productsToolbar";
+import Left from "../../images/close.png"
 
 
 const scrollToTop = () => {
@@ -14,7 +15,6 @@ function CatalogDetails() {
 
     const { id } = useParams();
     const [product, setProduct] = useState({});
-    // const [catalog, setCatalog] = useState({});
 
     const [editProduct, setEditProduct] = useState(false);
 
@@ -65,28 +65,26 @@ function CatalogDetails() {
     return (
         <div>
             <ProductsToolbar area="products" />
-            <section>
+            <section className={styles.details}>
 
-                {Object.keys(product).length === 0 && <h3>Loading...</h3>}
+                {Object.keys(product).length === 0 }
                 {Object.keys(product).length !== 0 &&
                     <div>
-                        <Link to="/catalog">
-                            <img src="../../images/ArrowLeft.png" alt="navigate back" />
-                            <p>Back</p>
+                        <Link to="/catalog" className={styles.row}>
+                            <img src={Left} alt="navigate back" />
+                            <p className={styles.button}>Back</p>
                         </Link>
 
                         
-
-
                         {!editProduct &&
-                            <div>
-                                <div>
+                            <div className={styles.productDetailsArea}>
+                                <div className={styles.editRow}>
                                     <h1>{product.productName}</h1>
-                                    <button onClick={toggleEditProduct}>
+                                    <button className={styles.editButton} onClick={toggleEditProduct}>
                                         <img src="../../images/Pencilicon.png" alt="edit catalog"/>
                                     </button>
                                 </div>
-                                <div>
+                                <div className={styles.editColumn}>
                                     <p>{product.productNumber}</p>
                                     <p>{product.color}</p>
                                     <p>${product.listPrice}</p>
@@ -95,17 +93,17 @@ function CatalogDetails() {
                         }
 
                         {editProduct &&
-                            <div>
+                            <div className={styles.form}>
                                 <CatalogForm
                                     product={product}
                                     setProduct={setProduct}
                                     toggleEdit={toggleEditProduct}
                                     />
-                                    <button onClick={toggleEditProduct}>Cancel</button>
+                                    <button className={styles.cancelButton} onClick={toggleEditProduct}>Cancel</button>
                             </div>
                         }
 
-                        <div>
+                        <div className={styles.detailsContent}>
                             <div>
                                 <h4>Product Details</h4>
                             </div>
@@ -143,7 +141,7 @@ function CatalogDetails() {
                             </div>
                         </div>
 
-                        <div>
+                        <div className={styles.detailsContent}>
                             <div>
                                 <h4>Product Description</h4>
                             </div>
@@ -165,7 +163,7 @@ function CatalogDetails() {
                             </div>
                         </div>
 
-                        <div>
+                        <div className={styles.detailsContent}>
                             <div>
                                 <h4>Warranty & Maintenance</h4>
                             </div>
@@ -183,7 +181,7 @@ function CatalogDetails() {
                             </div>
                         </div>
 
-                        <div>
+                        <div className={styles.detailsContent}>
                             <div>
                                 <h4>Manufacturing Details</h4>
                             </div>
@@ -225,8 +223,8 @@ function CatalogDetails() {
                                 <p>{product.instructions}</p>
                             </div>
                         </div>
-                        <div>
-                            <button onClick={scrollToTop}>
+                        <div className={styles.scroll}>
+                            <button className={styles.scrollButton} onClick={scrollToTop}>
                                 <img src="../../images/ArrowUp.png" alt="scroll to top" />
                                 <p>Back to Top</p>
                             </button>

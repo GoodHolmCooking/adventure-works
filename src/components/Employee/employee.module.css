@@ -5,6 +5,7 @@
 
 .employee
 {
+  padding-block: 20px;
     width: 95%;
     margin-inline: 2.5%;
     display: flex;
@@ -62,6 +63,7 @@ mobile view
   }
   .employee
   {
+    padding-block: 0;
     margin-top: 14px;
     display: flex;
   }

@@ -48,6 +48,8 @@ function EditEmployee(props) {
     //misc
     const dispatch = useDispatch();
     const [error, setError] = useState(false);
+    const [tmpshift,settmpShift] = useState(null);
+    const [tmpDept,settmpDept] = useState(null);
     //handle the get one employee here, will need personal information
     //and employment information form 2 different get requests
     useEffect(() => {
@@ -75,6 +77,8 @@ function EditEmployee(props) {
               endDate: tmp.shiftHistory[0].endDate,
             };
             setEmployee(emp);
+            settmpShift({s:emp.shift})
+            settmpDept({id:emp.department, deptName: emp.departmentName})
           });
       } 
       catch (err) 
@@ -135,11 +139,14 @@ function EditEmployee(props) {
 
     
     const handleChangeShift = (e) => {
-      employee.shift = e.target.value
+      // employee.shift = e.target.value
+      settmpShift({s:e.target.value});
     }
 
     const handleChangeDepartment = (e) => {
-      employee.department = e.target.value
+      // employee.department = e.target.value
+      const index = e.nativeEvent.target.selectedIndex;
+      settmpDept({id:e.target.value,deptName:e.nativeEvent.target[index].text})
     }
 
 
@@ -148,11 +155,11 @@ function EditEmployee(props) {
       (
        
         <select name="departments" defaultValue={employee.department} onChange={handleChangeDepartment} >
-          <option value={7}>Production</option>
-          <option value={2}>inventory</option>
-          <option value={1}>shipping</option>
-          <option value={3}>packaging</option>
-          <option value={0}>{employee.departmentName}</option>
+          <option value={employee.department}>{employee.departmentName}</option>
+          <option value={27}>Production</option>
+          <option value={22}>inventory</option>
+          <option value={21}>shipping</option>
+          <option value={23}>packaging</option>
         </select>
       );
       let shifts = 
@@ -315,8 +322,9 @@ function EditEmployee(props) {
       const data = {
         title: employmentEditForm.title.value,
         employeeId: employmentEditForm.employeeId.value,
-        department: employee.department,
-        shift: employee.shift,
+        department: tmpDept.id,
+        departmentName: tmpDept.deptName,
+        shift: tmpshift.s,
         start: employmentEditForm.start.value,
         endDate: employmentEditForm.end.value,
         id: id
@@ -372,6 +380,22 @@ function EditEmployee(props) {
         </>
       );
     }
+
+    const convertDate = date => {
+
+      if(date === null)
+      {
+        return null;
+      }
+      
+
+      let tempDate = new Date(date);
+      let month = tempDate.getMonth();
+      let day = tempDate.getDay();
+      let year = tempDate.getFullYear();
+      let formattedDate = `${month}/${day}/${year}`;
+      return formattedDate;
+  };
   
 
     let personalInfo = null;
@@ -465,11 +489,11 @@ function EditEmployee(props) {
       </div>
       <div className={styles.informationDisplay}>
         <span>Start Date</span>
-        <p>{employee.startDate}</p>
+        <p>{convertDate(employee.startDate)}</p>
       </div>
       <div className={styles.informationDisplay}>
         <span>End Date</span>
-        <p>{employee.endDate}</p>
+        <p>{convertDate(employee.endDate)}</p>
       </div>
         </>
     )

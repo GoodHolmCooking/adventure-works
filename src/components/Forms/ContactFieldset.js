@@ -9,7 +9,8 @@ const ContactFieldset = props => {
         titles,
         contactTypes, 
         contacts, 
-        setContacts
+        setContacts,
+        vendor
     } = props;
     const [firstName, setFirstName] = useState(contact.firstName);
     const [middleName, setMiddleName] = useState(contact.middleName);
@@ -41,7 +42,7 @@ const ContactFieldset = props => {
         });
 
         tempContacts[updateContactIndex] = {
-            businessEntityId: contact.businessEntityId,
+            businessEntityId: vendor.businessEntityId,
             personId: contact.personId,
             personalTitle: personalTitle,
             firstName: firstName,

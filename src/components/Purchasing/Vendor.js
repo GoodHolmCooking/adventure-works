@@ -4,12 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useCallback } from "react";
 import VendorModal from "./PurchasingModal";
+import { setLimitedVendor } from "../../store/slices/vendorSlice";
+import { useDispatch } from "react-redux";
 
 const Vendor = props => {
     const {vendor, provinces, setExpandedVendor} = props;
     const [primaryContact, setPrimaryContact] = useState("");
     const [billingAddress, setBillingAddress] = useState("");
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const truncateProvince = useCallback(
         (searchValue) => {
@@ -47,6 +50,7 @@ const Vendor = props => {
     }, [vendor]);
 
     const handleNavigate = () => {
+        dispatch(setLimitedVendor(vendor));
         navigate(`/vendors/${vendor.businessEntityId}`);
     }
 

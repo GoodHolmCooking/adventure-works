@@ -13,7 +13,8 @@ const VendorNameForm = props => {
         toggleEditView, 
         limitedVendor, 
         numberToPhone,
-        phoneNumbers
+        phoneNumbers,
+        id
     } = props;
     const dispatch = useDispatch();
 
@@ -55,10 +56,13 @@ const VendorNameForm = props => {
     }
 
     return (
-        <form onSubmit={handleInputChanges}>
-            <input type="text" defaultValue={vendorName} onChange={evt => setVendorName(evt.target.value)} className={styles.formInput} />
-            <input type="number" defaultValue={primaryPhone} onChange={evt => setPrimaryPhone(evt.target.value)} className={styles.formInput} />
-            <input type="submit" className={styles.saveBtn} />
+        <form onSubmit={handleInputChanges} className={styles.nameForm}>
+            <input type="text" defaultValue={vendorName} onChange={evt => setVendorName(evt.target.value)} className={styles.nameInput} />
+            <input type="number" defaultValue={primaryPhone} onChange={evt => setPrimaryPhone(evt.target.value)} className={styles.phoneInput} />
+            <div className={styles.idContainer}>
+                <div className={styles.vendorId}>{id}</div>
+            </div>  
+            <input type="submit" className={styles.vendorNameSaveBtn} />
         </form>
     );
 };

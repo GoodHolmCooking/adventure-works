@@ -189,6 +189,7 @@ function VendorDetails() {
                                     limitedVendor={limitedVendor}
                                     numberToPhone={numberToPhone}
                                     phoneNumbers={phoneNumbers}
+                                    id={id}
                                 />
                                 <button className={styles.cancelBtn} onClick={toggleEditName}>Cancel</button>
                             </div>
@@ -209,6 +210,7 @@ function VendorDetails() {
                                                 key={contact.personId}
                                                 contact={contact}
                                                 emails={emails}
+                                                phoneNumbers={phoneNumbers}
                                             />
                                         );
                                     })}
@@ -220,9 +222,13 @@ function VendorDetails() {
                                         vendor={limitedVendor}
                                         contacts={contacts}
                                         setContacts={setContacts}
+                                        phoneNumbers={phoneNumbers}
+                                        setPhoneNumbers={setPhoneNumbers}
                                         emails={emails}
                                         setEmails={setEmails}
                                         toggleEditView={toggleEditContacts}
+                                        phoneToNumber={phoneToNumber}
+                                        numberToPhone={numberToPhone}
                                     />
                                     <button className={styles.cancelBtn} onClick={toggleEditContacts}>Cancel</button>
                                 </div>

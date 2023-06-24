@@ -43,12 +43,6 @@ const vendorSlice = createSlice({
             .addCase(loadVendorsAsync.rejected, () => {
                 toast.error("Error loading vendors.");
             })
-            // .addCase(loadVendorAsync.fulfilled, (state, action) => {
-            //     state.vendor = action.payload;
-            // })
-            // .addCase(loadVendorAsync.rejected, () => {
-            //     toast.error("Error loading vendor.");
-            // })
             .addCase(loadContactTypesAsync.fulfilled, (state, action) => {
                 state.contactTypes = action.payload;
             })
@@ -80,19 +74,6 @@ export const loadVendorsAsync = createAsyncThunk("/vendors/loadVendorsAsync", as
 		toast.error(err.toString());
 	}
 });
-
-// This might not actually be used anymore. After name form is up and running, need to test.
-// export const loadVendorAsync = createAsyncThunk("/vendors/loadVendorAsync", async id => {
-// 	try {
-// 		let data = await axios.get("/Vendor").data;
-// 		let vendorIndex = data.findIndex(vendor => {
-//             return vendor.businessEntityId === id;
-//         });
-//         return data[vendorIndex];
-// 	} catch (err) {
-// 		toast.error(err.toString());
-// 	}
-// });
 
 export const updateVendorAsync = createAsyncThunk("/vendors/updateVendorAsync", async data => {
     try {

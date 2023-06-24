@@ -10,7 +10,11 @@ const ContactFieldset = props => {
         contactTypes, 
         contacts, 
         setContacts,
-        vendor
+        vendor,
+        phoneNumbers,
+        setPhoneNumbers,
+        phoneToNumber,
+        numberToPhone
     } = props;
     const [firstName, setFirstName] = useState(contact.firstName);
     const [middleName, setMiddleName] = useState(contact.middleName);
@@ -18,6 +22,7 @@ const ContactFieldset = props => {
     const [contactTypeId, setContactTypeId] = useState(contact.contactTypeId);
     const [personalTitle, setPersonalTitle] = useState(contact.personalTitle);
     const [contactEmails, setContactEmails] = useState([]);
+    const [contactPhoneNumbers, setContactPhoneNumbers] = useState([]);
     const [contactTypeOptions, setContactTypeOptions] = useState([]);
 
     // creates the options for the contact type select in the fieldset
@@ -32,6 +37,12 @@ const ContactFieldset = props => {
             return email.businessEntityId === contact.personId;
         }));
     }, [emails, contact]);
+
+    useEffect(() => {
+        setContactPhoneNumbers(phoneNumbers.filter(phoneNumber => {
+            return phoneNumber.businessEntityId === contact.personId;
+        }));
+    }, [phoneNumbers, contact]);
 
     // Contacts are saved as an object.
     // This effect handles the logic for changes to the contact object.
@@ -69,17 +80,22 @@ const ContactFieldset = props => {
         setEmails(tempEmailAddresses);
     };
 
-    // Blocked until Drew updates API
-    // const handlePhoneChange = (evt, id) => {
-    //     // phone numbers are stored in a temporary value until change can be applied
-    //     let tempPhoneNumbers = [...phoneNumbers];
-    //     let updatePhoneNumberIndex = tempPhoneNumbers.findIndex(phoneNumber => {
-    //         return phoneNumber.phoneNumberTypeId === id;
-    //     });
+    const handlePhoneChange = evt => {
+        // phone numbers are stored in a temporary value until change can be applied
+        let tempPhoneNumbers = [...phoneNumbers];
+        let updatePhoneNumberIndex = tempPhoneNumbers.findIndex(phoneNumber => {
+            return phoneNumber.businessEntityId === contact.personId;
+        });
 
-    //     tempPhoneNumbers[updatePhoneNumberIndex] = evt.target.value;
-    //     setPhoneNumbers(tempPhoneNumbers);
-    // }
+        tempPhoneNumbers[updatePhoneNumberIndex] = {
+            businessEntityId: 0,
+            newPhoneNumber: "string",
+            originalPhoneNumber: "string",
+            newPhoneNumberTypeId: 0,
+            originalPhoneNumberTypeId: 0
+        };
+        setPhoneNumbers(tempPhoneNumbers);
+    }
 
     return (
         <fieldset key={contact.personId}>
@@ -103,16 +119,16 @@ const ContactFieldset = props => {
             <select value={contact.contactTypeId} onChange={evt => setContactTypeId(evt.target.value)} className={styles.formInput}>{contactTypeOptions}</select>
 
             {/* Phone numbers */}
-            {/* {contact.phoneNumbers.map(phoneEntry => {
+            {contactPhoneNumbers.map(phoneEntry => {
                 return (
                     <input 
                         type="number"
-                        defaultValue={phoneEntry.phoneNumber}
+                        defaultValue={phoneToNumber(phoneEntry.phoneNumber)}
                         key={phoneEntry.phoneNumberTypeId}
-                        onChange={evt => handlePhoneChange(evt, phoneEntry.phoneNumberTypeId)}
+                        onChange={evt => handlePhoneChange(evt)}
                     />
                 );
-            })} */}
+            })}
 
             {contactEmails.map(emailEntry => {
                 return (

@@ -2,15 +2,25 @@
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadContactTypesAsync, updateContactAsync, updateEmailAsync } from "../../store/slices/vendorSlice";
+import { loadContactTypesAsync, updateContactAsync, updateEmailAsync, updatePhoneAsync } from "../../store/slices/vendorSlice";
 import ContactFieldset from "./ContactFieldset";
 import { updateVendorAsync } from "../../store/slices/vendorSlice";
 import styles from "./VendorContactForm.module.css";
 
 const VendorContactForm = props => {
-    const {vendor, toggleEditView, contacts, setContacts, emails, setEmails} = props;
+    const {
+        vendor, 
+        toggleEditView, 
+        contacts, 
+        setContacts, 
+        emails, 
+        setEmails,
+        phoneNumbers,
+        setPhoneNumbers,
+        phoneToNumber,
+        numberToPhone
+    } = props;
     const {contactTypes} = useSelector(state => state.vendors);
-    // const [phoneNumbers, setPhoneNumbers] = useState([]);
 
     const dispatch = useDispatch();
 
@@ -44,10 +54,12 @@ const VendorContactForm = props => {
             dispatch(updateContactAsync(contactData));
         });
 
-        // update phone numbers (Blocked until Drew fixes API)
+        // update phone numbers
+        phoneNumbers.forEach(phoneNumber => {
+            dispatch(updatePhoneAsync(phoneNumber));
+        })
 
-        // update emaila addresses
-        console.log("submitting emails...")
+        // update email addresses
         emails.forEach(email => {
             dispatch(updateEmailAsync(email));
         });
@@ -70,11 +82,11 @@ const VendorContactForm = props => {
                         emails={emails}
                         setEmails={setEmails}
                         vendor={vendor}
-                        // phoneTypes={phoneTypes}
-                        // phoneToNumber={phoneToNumber}
-                        // numberToPhone={numberToPhone}
-                        // phoneNumbers={phoneNumbers}
-                        // setPhoneNumbers={setPhoneNumbers} 
+                        phoneTypes={phoneTypes}
+                        phoneToNumber={phoneToNumber}
+                        numberToPhone={numberToPhone}
+                        phoneNumbers={phoneNumbers}
+                        setPhoneNumbers={setPhoneNumbers} 
                    />
                 );
             })}

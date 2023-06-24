@@ -7,6 +7,7 @@ const vendorSlice = createSlice({
     initialState:{
         vendors: [],
         displayVendors: [],
+        limitedVendor: {},
         provinces: [],
         contactTypes: [],
         countries: [],
@@ -18,20 +19,21 @@ const vendorSlice = createSlice({
         // loadVendors: (state, action) => {
         //     state.vendors = action.payload;
         // },
-        setVendorFilter: (state,action) =>
+        setVendorFilter: (state, action) =>
 		{
 			return { ...state, filter: action.payload }
 		},
         applyVendorFilter: (state) =>
 		{
-            console.log(`Applying filter of '${state.filter}' on ${state.vendors.length} vendors.`);
-
             // search vendors
 			state.displayVendors =  state.vendors
                 .filter(vendor => state.filter === "" || // if there is no filter set, display everything
                     (vendor.vendorName.toLowerCase())
                         .includes(state.filter.toLowerCase())); // if there is a filter, return matching vendor names
 		},
+        setLimitedVendor: (state, action) => {
+            state.limitedVendor = action.payload;
+        }
     },
     extraReducers: builder => {
         builder
@@ -41,6 +43,12 @@ const vendorSlice = createSlice({
             .addCase(loadVendorsAsync.rejected, () => {
                 toast.error("Error loading vendors.");
             })
+            // .addCase(loadVendorAsync.fulfilled, (state, action) => {
+            //     state.vendor = action.payload;
+            // })
+            // .addCase(loadVendorAsync.rejected, () => {
+            //     toast.error("Error loading vendor.");
+            // })
             .addCase(loadContactTypesAsync.fulfilled, (state, action) => {
                 state.contactTypes = action.payload;
             })
@@ -62,24 +70,33 @@ const vendorSlice = createSlice({
     }
 });
 
-export const { setVendorFilter, applyVendorFilter } = vendorSlice.actions;
+export const { setVendorFilter, applyVendorFilter, setLimitedVendor } = vendorSlice.actions;
 
 export const loadVendorsAsync = createAsyncThunk("/vendors/loadVendorsAsync", async () => {
 	try {
-		const resp = await axios.get("/Vendor");
+		let resp = await axios.get("/Vendor");
 		return resp.data;
 	} catch (err) {
 		toast.error(err.toString());
 	}
 });
 
+// This might not actually be used anymore. After name form is up and running, need to test.
+// export const loadVendorAsync = createAsyncThunk("/vendors/loadVendorAsync", async id => {
+// 	try {
+// 		let data = await axios.get("/Vendor").data;
+// 		let vendorIndex = data.findIndex(vendor => {
+//             return vendor.businessEntityId === id;
+//         });
+//         return data[vendorIndex];
+// 	} catch (err) {
+// 		toast.error(err.toString());
+// 	}
+// });
+
 export const updateVendorAsync = createAsyncThunk("/vendors/updateVendorAsync", async data => {
     try {
-		axios.put(`/Vendor/${data.vendorUpdate.businessEntityId}`, data.vendorUpdate)
-            .then(resp => {
-                console.log(`Status: ${resp.status}`);
-                data.callbacks.setVendor(data.vendorUpdate);
-            });
+		axios.put(`/Vendor/${data.businessEntityId}`, data);
 	} catch (err) {
 		toast.error(err.toString());
 	}
@@ -87,11 +104,7 @@ export const updateVendorAsync = createAsyncThunk("/vendors/updateVendorAsync", 
 
 export const updateContactAsync = createAsyncThunk("/vendors/updateContactAsync", async data => {
     try {
-        console.log("Running contact update");
-		axios.put(`/Contact/${data.personId}/${data.businessEntityId}`, data)
-            .then(resp => {
-                console.log(`Status: ${resp.status}`);
-            });
+		axios.put(`/Contact/${data.contactInfo.personId}/${data.vendorId}`, data.contactInfo);
 	} catch (err) {
 		toast.error(err.toString());
 	}
@@ -100,11 +113,15 @@ export const updateContactAsync = createAsyncThunk("/vendors/updateContactAsync"
 
 export const updateEmailAsync = createAsyncThunk("/vendors/updateEmailAsync", async data => {
     try {
-        console.log("Running email update");
-		axios.put(`/Email/${data.emailAddressId}/${data.businessEntityId}`, data)
-            .then(resp => {
-                console.log(`Status: ${resp.status}`);
-            });
+		axios.put(`/Email/${data.emailAddressId}/${data.businessEntityId}`, data);
+	} catch (err) {
+		toast.error(err.toString());
+	}
+});
+
+export const updatePhoneAsync = createAsyncThunk("/vendors/updatePhoneAsync", async data => {
+    try {
+		axios.put(`/Phone/${data.businessEntityId}`, data);
 	} catch (err) {
 		toast.error(err.toString());
 	}
@@ -112,11 +129,7 @@ export const updateEmailAsync = createAsyncThunk("/vendors/updateEmailAsync", as
 
 export const updateAddressAsync = createAsyncThunk("/vendors/updateAddressAsync", async data => {
     try {
-        console.log("Running address update");
-		axios.put(`/Address/${data.addressId}`, data)
-            .then(resp => {
-                console.log(`Status: ${resp.status}`);
-            });
+		axios.put(`/Address/${data.addressId}`, data);
 	} catch (err) {
 		toast.error(err.toString());
 	}

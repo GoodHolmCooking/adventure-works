@@ -24,8 +24,6 @@ const StoreDetailsModal = props => {
     const [emails, setEmails] = useState([]);
     const [orderDate, setOrderDate] = useState(null);
 
-
-    const [editingName, setEditingName] = useState(false);
     const [editingContacts, setEditingContacts] = useState(false);
 
 
@@ -42,39 +40,22 @@ const StoreDetailsModal = props => {
                 setContacts(resp.data.contacts.map(contact => {
                     return {
                         businessEntityId: contact.businessEntityId,
-                        Id: contact.businessEntityId,
+                        personId: contact.businessEntityId,
+                        personalTitle: contact.personalTitle,
                         firstName: contact.firstName,
                         middleName: contact.middleName,
                         lastName: contact.lastName,
+                        specialty: contact.specialty,
                         suffix: contact.suffix,
-                        specialty: contact.contactTypeId,
+                        contacts: contact.contacts
                         
                     }
                 }));
 
                 setOrderDate(convertDate(resp.data.orderDate));
 
-                // let allEmails = [];
-                // resp.data.contacts.forEach(contact => {
-                //     contact.emailAddresses.forEach(email => {
-                //         allEmails.push(email);
-                //     });
-                // });
-
-                // setEmails(allEmails);
-
             });
     }, [id]);
-
-
-    
-    useEffect(() => {
-        toggleEditName();
-    }, [store]);
-
-    const toggleEditName = () => {
-        setEditingName(!editingName);
-    };
 
     const toggleEditContacts = () => {
         setEditingContacts(!editingContacts);
@@ -104,6 +85,7 @@ const StoreDetailsModal = props => {
                         </div>
                         {/* Main Content */}
                         <div className={styles.mainContent}>
+                            <section className="main">
                             {/* Column 1 */}
                             <div className={styles.contentColumn}></div>
                         {/* Sale Details */}
@@ -180,7 +162,7 @@ const StoreDetailsModal = props => {
                                 <p>{convertDate(store.orderDate)}</p>
                             </div>                                                                                                              
                         </div> 
-                
+                        </section>
                         <section>
                         {/* Contact Section */}
                         <div className={styles.contentBlock}>
@@ -195,7 +177,7 @@ const StoreDetailsModal = props => {
                                     {contacts.map(contact => {
                                         return (
                                             <Contact
-                                                key={contact.Id}
+                                                key={contact.personId}
                                                 contact={contact}
                                                 emails={emails}
                                             />
@@ -218,13 +200,14 @@ const StoreDetailsModal = props => {
                             } 
                         </div>
                         </section>
+                        </div>  
 
                             {/* X Button */}
                             <button onClick={handleClose} className={styles.closeBtn}>
                                 <img src="../../images/XIcon.png" alt="close modal"/>
                             </button>
 
-                    </div>  
+                    
                     </div>     
                 }         
             </section>

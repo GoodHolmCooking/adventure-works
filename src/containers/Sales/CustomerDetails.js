@@ -18,14 +18,14 @@ const scrollToTop = () => {
 };
 
 const CustomerDetails = props => {
-    const [customer, setcustomer] = useState({});
+    const [customer, setCustomer] = useState({});
     const [subTotal, setSubTotal] = useState(0);
     const [totalDue, setTotalDue] = useState(0);
     const [orderDate, setOrderDate] = useState(null);
     const [shipDate, setShipDate] = useState(null);
     const [freightNumber, setFreightNumber] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState(null);
-    const [trackingNumber, setTrackingNumber] = useState(null);
+    const [carrierTrackingNumber, setCarrierTrackingNumber] = useState(null);
 
     const { id } = useParams();
 
@@ -33,14 +33,14 @@ const CustomerDetails = props => {
     useEffect(() => {
         axios.get(`https://api.bootcampcentral.com/api/Order/customer/${id}`)
             .then(resp => {
-                setcustomer(resp.data);
+                setCustomer(resp.data);
                 setSubTotal(resp.data.unitPrice * resp.data.quantity);
                 setTotalDue(resp.data.unitPrice * resp.data.quantity + resp.data.freight + resp.data.taxAmt);
                 setOrderDate(convertDate(resp.data.orderDate));
                 setShipDate(convertDate(resp.data.shipDate));
-                setFreightNumber(resp.data);
-                setPhoneNumber(resp.data);
-                setTrackingNumber(resp.data);
+                setFreightNumber(resp.data.freightNumber);
+                setPhoneNumber(resp.data.phoneNumber);
+                setCarrierTrackingNumber(resp.data.carrierTrackingNumber);
             })
     }, [id]);
 
@@ -131,7 +131,7 @@ const CustomerDetails = props => {
                         {/* Pricing Details */}
                         <div className={styles.contentBlock}>
                             <div>
-                                <h4>pricing Details</h4>
+                                <h4>Pricing Details</h4>
                             </div>
                             <div>
                                 <p>Unit Price</p>

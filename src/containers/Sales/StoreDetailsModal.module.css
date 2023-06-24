@@ -1,166 +1,63 @@
-h1 {
-    font-weight: 700;
-    font-size: 24px;
-}
-
-ol {
-    margin-block: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-li {
-    text-align: start;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 .modalArea {
     background-color: #FDFDFD;
     box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.25);
     padding: 3%;
-    min-width: 800px;
+    min-width: 1000px;
     position: absolute;
     top: 2%;
-    left: 30%;
+    left: 25%;
     z-index: 2;
 }
-
-.detailSection {
-    color: #212121;
+.storeSection {
+    display: flex;
+    flex-direction: column;
     padding-inline: 5%;
-}
-.row {
-    display: flex;
-    align-items: center;
-}
-
-.headerRow {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 1rem;
-    margin-block-end: 0.4rem;
-}
-
-.headerRow h1 {
-    margin: 0;
 }
 
 .backBtn {
     margin-inline-start: 4px;
-
 }
 
-.mainContent {
+.backRow {
     display: flex;
-    justify-content: space-between;
-    gap: 5rem;
+    align-items: center;
 }
 
-.mainContent > section {
-    flex: 1;
+.nameRow {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8rem;
 }
 
-.contentBlock {
-    margin-block: 1rem;
-    padding-inline-start: 0.6rem;
-}
-
-.contentBlock li {
-    list-style-type: none;
-}
-
-.contentBlock ul {
-    padding: 0;
+.nameSubHeadings {
+    text-align: start;
+    margin-inline-start: 0.5rem;
 }
 
 .nameBlock {
-    margin-block: 0;
-    text-align: start;
+    margin-block-start: 1rem;
+    margin-block-end: 2rem;
 }
 
-.nameBlock p {
-    margin-block: 0.2rem;
+.contentBlock {
+    margin-block-end: 1rem;
 }
 
-.nameInput {
-    font-weight: 700;
-    font-size: 24px;
-}
-
-.saveBtn {
-    display: block;
-    width: 100%;
-    padding-block: 8px;
-    margin-block: 8px;
-    border-radius: 5px;
-    background-color: #EE66A0;
-    border: 1px solid #212121;
-}
-
-.formContainer {
+.contentBlock > div {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    justify-content: space-between;
 }
 
-.cancelBtn {
-    text-decoration: underline;
-    border: none;
-    background: none;
-    margin-block-start: 0.5rem;
-    margin-inline: 12px;
-    margin-block-end: 24px;
-    cursor: pointer;
-}
-
-.editBtn {
-    border: none;
-    background: none;
-    cursor: pointer;
-}
-
-
-.contactForm {
-    display: flex;
-    flex-direction: column;
-}
-
-.phoneContainer {
-    display: flex;
-}
-
-.phoneContainer select {
-    margin-inline-end: 12px;
-}
-
-.phoneInput {
-    flex: 1;
-}
-
-fieldset {
-    border: none;
-}
-
-input, select {
-    margin-block: 6px;
-    padding-block: 4px;
-}
-
-
-.locationRow {
-    display: flex;
-}
-
-.locationRow > * {
-    width: 50%;
-}
-
-.blockSubContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.contentBlock p {
+    margin-inline-start: 0.5rem;
+    margin-block: 0.5rem;
 }
 
 .scrollRow {
@@ -178,6 +75,16 @@ input, select {
 
 .toTopBtn img {
     margin-inline-end: 0.5rem;
+}
+
+.mainContent {
+    display: flex;
+    gap: 6rem;
+}
+
+.contentColumn {
+    display: flex;
+    flex-direction: column;
 }
 
 .closeBtn {

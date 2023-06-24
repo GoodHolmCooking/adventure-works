@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadContactTypesAsync, updateContactAsync, updateEmailAsync } from "../../store/slices/storeSlice";
 import ContactFieldset from "./ContactFieldset";
-import { updateStoreAsync } from "../../store/slices/storeSlice";
 import styles from "./StoreContactForm.module.css";
 
 function phoneToNumber(phone) {
@@ -69,8 +68,9 @@ const StoreContactForm = props => {
                     firstName: contact.firstName,
                     middleName: contact.middleName,
                     lastName: contact.lastName,
+                    specialty: contact.specialty,
                     suffix: contact.suffix,
-                    contactTypeId: contact.contactTypeId
+                    contacts: contact.contacts
                 }
             }));
         }

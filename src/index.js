@@ -23,7 +23,11 @@ const store = configureStore({
     employees: employeeSlice,
     displayEmployees: employeeSlice,
     vendors: vendorSlice,
-    purchases: purchaseSlice
+    purchases: purchaseSlice,
+    navigation: navigationSlice,
+    customers: customerSlice,
+    stores: storeSlice
+
   },
   middleware: [thunk],
 })

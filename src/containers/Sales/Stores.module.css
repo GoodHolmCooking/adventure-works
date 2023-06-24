@@ -1,0 +1,59 @@
+* {
+    box-sizing: border-box;
+}
+
+.overhead {
+    position: relative;
+}
+
+.salesPage {
+    padding-inline: 5%;
+}
+
+.desktopHeader {
+    display: none;
+}
+
+/* If in mobile view, render default styling */
+.desktopContainer {
+    display: block;
+}
+
+/* Desktop View */
+@media (min-width: 999px) {
+    .desktopHeader {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    /* Refactoring this to a grid would put the project beyond scope for the provided budget */
+    /* Manually adjusting for expedient delivery */
+    .storeNameHeading {
+        padding-inline-start: 4%;
+    }
+    
+    .orderDateHeading {
+        padding-inline-start: 6%;
+    }
+
+    .combinedNameHeading {
+        padding-inline-start: 8%;
+    }
+
+    .orderNumberHeading {
+        padding-inline-start: 6%;
+    }
+
+    .productNameHeading {
+        padding-inline-start: 6%;
+    }
+
+    .unitPriceHeading {
+        padding-inline-start: 6%;
+    }
+
+    .totalDueHeading {
+        padding-inline-start: 7%;
+    }
+
+}

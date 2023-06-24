@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+.storeSection {
+    display: flex;
+    flex-direction: column;
+    padding-inline: 5%;
+}
+
+.backBtn {
+    margin-inline-start: 4px;
+}
+
+.backRow {
+    display: flex;
+    align-items: center;
+}
+
+.nameRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nameSubHeadings {
+    text-align: start;
+    margin-inline-start: 0.5rem;
+}
+
+.nameBlock {
+    margin-block-start: 1rem;
+    margin-block-end: 2rem;
+}
+
+.contentBlock {
+    margin-block-end: 1rem;
+}
+
+.contentBlock > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.contentBlock p {
+    margin-inline-start: 0.5rem;
+    margin-block: 0.5rem;
+}
+
+.scrollRow {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.toTopBtn {
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.toTopBtn img {
+    margin-inline-end: 0.5rem;
+}

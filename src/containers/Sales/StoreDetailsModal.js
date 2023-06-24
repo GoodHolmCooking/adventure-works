@@ -85,7 +85,7 @@ const StoreDetailsModal = props => {
                         </div>
                         {/* Main Content */}
                         <div className={styles.mainContent}>
-                            <section className="main">
+                            <section className={styles.main}>
                             {/* Column 1 */}
                             <div className={styles.contentColumn}></div>
                         {/* Sale Details */}

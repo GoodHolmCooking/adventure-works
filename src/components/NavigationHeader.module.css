@@ -1,0 +1,147 @@
+.headerSection {
+    display: flex;
+    justify-content: space-between;
+    padding-block-start: 32px;
+    padding-block-end: 6px;
+    align-items: center;
+    border-block-end: 1px solid #212121;
+    margin-block-end: 24px;
+    position: relative;
+    padding-inline-end: 10%;
+    padding-inline-start: 5%;
+}
+
+.menuBtn {
+    background: none;
+    border: none;
+}
+
+.dropDown {
+    position: absolute;
+    top: 108px;
+    left: 0;
+    z-index: 1;
+    background-color: white;
+    margin-block-start: -25px;
+}
+
+.dropDown li {
+    display: flex;
+}
+
+.dropDown li > div {
+    display: flex;
+    align-items: center;
+}
+
+.linkBox {
+    background-color: #3C3C3C;
+    width: 10rem;
+}
+
+.linkBox p {
+    display: inline-block;
+    color: #FDFDFD;
+    padding-inline-start: 0.5rem;
+    font-weight: 600;
+}
+
+.dashboardBox {
+    background-color: #FDE74C;
+    padding-block: 0.5rem;
+    padding-inline: 0.1rem;
+}
+
+.dashboardLink {
+    border-block-end: 1px solid #FDE74C;
+}
+
+.employeesBox {
+    background-color: #FDA14C;
+    padding-block: 0.5rem;
+    padding-inline: 0.1rem;
+}
+
+.employeesLink {
+    border-block-end: 1px solid #FDA14C;
+}
+
+.productsBox {
+    background-color: #5BC0EB;
+    padding-block: 0.5rem;
+    padding-inline: 0.1rem;
+}
+
+.productsLink {
+    border-block-end: 1px solid #5BC0EB;
+}
+
+.purchasingBox {
+    background-color: #9BC53D;
+    padding-block: 0.5rem;
+    padding-inline: 0.1rem;
+}
+
+.purchasingLink {
+    border-block-end: 1px solid #9BC53D;
+}
+
+.salesBox {
+    background-color: #EE66A0;
+    padding-block: 0.5rem;
+    padding-inline: 0.1rem;
+}
+
+.salesLink {
+    border-block-end: 1px solid #EE66A0;
+}
+
+.settingsBox {
+    background-color: #C4C4C4;
+    padding-block: 0.5rem;
+    padding-inline: 0.1rem;
+}
+
+.settingsLink {
+    border-block-end: 1px solid #C4C4C4;
+}
+.mainLogo {
+    display: block;
+}
+
+.mobileAccount {
+    display: block;
+}
+
+.desktopAccount {
+    display: none;
+}
+
+/* Desktop View */
+@media (min-width: 999px) {
+    .dropDown {
+        display: none;
+    }
+
+    .mainLogo {
+        display: none;
+    }
+
+    .mobileAccount {
+        display: none;
+    }
+
+    .menuBtn {
+        display: none;
+    }
+
+    .desktopAccount {
+        display: block;
+        margin-inline-end: 10%; 
+    }
+
+    .headerSection {
+        justify-content: flex-end;
+        padding-inline: 0;
+    }
+}

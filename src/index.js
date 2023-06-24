@@ -13,6 +13,7 @@ import vendorSlice from './store/slices/vendorSlice';
 import purchaseSlice from './store/slices/purchaseSlice';
 import customerSlice from './store/slices/customerSlice';
 import storeSlice from './store/slices/storeSlice';
+import navigationSlice from './store/slices/nativationSlice';
 
 axios.defaults.baseURL = "https://api.bootcampcentral.com/api";
 axios.defaults.headers.common["Authorization"] = "MY AUTH TOKEN";
@@ -22,9 +23,7 @@ const store = configureStore({
     employees: employeeSlice,
     displayEmployees: employeeSlice,
     vendors: vendorSlice,
-    purchases: purchaseSlice,
-    customers: customerSlice,
-    stores: storeSlice
+    purchases: purchaseSlice
   },
   middleware: [thunk],
 })

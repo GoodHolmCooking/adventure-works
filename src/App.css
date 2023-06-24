@@ -1,9 +1,9 @@
-.mobile
-{
+.mobile {
     display: none;
 }
 .App {
   text-align: center;
+  display: flex;
 }
 
 .App-logo {
@@ -78,5 +78,21 @@ border-radius: 5px;
   }
   .modalHeaderMobile{
     display: contents;
+  }
+}
+
+.routeContainer, .expandedRouteContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media (min-width: 999px) { 
+  .routeContainer {
+    margin-inline-start: 50px;
+  }
+
+  .expandedRouteContainer {
+    margin-inline-start: 150px;
   }
 }

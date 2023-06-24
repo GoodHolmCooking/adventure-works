@@ -5,24 +5,69 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Contact from "../../components/Purchasing/Contact";
 import Address from "../../components/Purchasing/Adress";
-import VendorForm from "../../components/Forms/VendorForm";
 import VendorContactForm from "../../components/Forms/VendorContactForm";
 import { useDispatch, useSelector } from "react-redux";
 import VendorAddressForm from "../../components/Forms/VendorAddressForm";
-import { loadProvincesAsync, loadVendorAsync, toggleContactEdit, toggleNameEdit } from "../../store/slices/vendorSlice";
+import { loadProvincesAsync, toggleContactEdit, toggleNameEdit } from "../../store/slices/vendorSlice";
 import PurchasingHeader from "../../components/Purchasing/PurchasingHeader";
+import VendorNameForm from "../../components/Forms/VendorNameForm";
 
 const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
+function phoneToNumber(phone) {
+	// phone should be a string field in a format of 859-555-0100
+    if (typeof phone == "string") {
+        let area = phone.substring(0, 3);
+        let firstSet = phone.substring(4, 7);
+        let secondSet = phone.substring(8);
+        let combinedNumber = area + firstSet + secondSet;
+    
+        return +combinedNumber;
+    }
+
+    // the phone number is already in a number format, so send it back
+    else {
+        return phone;
+    }
+};
+
+function numberToPhone(providedNumber) {
+	// providedNumber should be a phone number without any additional characters such as 8595550100
+	let convertedString = providedNumber.toString();
+
+    // this function could be run every time a character is removed.
+    // characters should only be added when the phone is a complete number.
+    if (convertedString.length === 10) {
+        let area = convertedString.substring(0, 3);
+        let firstSet = convertedString.substring(3, 6);
+        let secondSet = convertedString.substring(6);
+        let phone = area + "-" + firstSet + "-" + secondSet;
+        return phone;
+    }
+
+    // if the phone is not a complete number, just apply a conversion from a number to a string
+    else {
+        return convertedString;
+    }
+}
+
 const VendorDetailsModal = props => {
     const dispatch = useDispatch();
-    const { id, expandFunction } = props;
+    const { id, expandFunction, limitedVendor } = props;
+    const [completeVendor, setCompleteVendor] = useState({});
 
-    const [vendor, setVendor] = useState({});
+    // name block states
+    const [vendorName, setVendorName] = useState("");
+    const [primaryPhone, setPrimaryPhone] = useState(0); // phone is stored as a number and then translated to a string
+
+    // contact block states
     const [contacts, setContacts] = useState([]);
     const [emails, setEmails] = useState([]);
+    const [phoneNumbers, setPhoneNumbers] = useState([]);
+
+    // address block state
     const [addresses, setAddresses] = useState([]);
 
 
@@ -30,64 +75,63 @@ const VendorDetailsModal = props => {
     const [editingContacts, setEditingContacts] = useState(false);
     const [editingAddresses, setEditingAddresses] = useState(false);
 
-    // initial load
+    // load complete vendor object
     useEffect(() => {
         axios.get(`https://api.bootcampcentral.com/api/Vendor/${id}`)
             .then(resp => {
-                setVendor({
-                    businessEntityId: resp.data.businessEntityId,
-                    accountNumber: resp.data.accountNumber,
-                    vendorName: resp.data.vendorName,
-                    creditRating: resp.data.creditRating
-                });
-
-                setContacts(resp.data.contacts.map(contact => {
-                    return {
-                        businessEntityId: contact.businessEntityId,
-                        personId: contact.businessEntityId,
-                        personalTitle: contact.personalTitle,
-                        firstName: contact.firstName,
-                        middleName: contact.middleName,
-                        lastName: contact.lastName,
-                        suffix: contact.suffix,
-                        contactTypeId: contact.contactTypeId
-                    }
-                }));
-
-                let allEmails = [];
-                resp.data.contacts.forEach(contact => {
-                    contact.emailAddresses.forEach(email => {
-                        allEmails.push(email);
-                    });
-                });
-
-                setEmails(allEmails);
-
-                setAddresses(resp.data.addresses.map(address => {
-                    return {
-                        businessEntityId: address.businessEntityId,
-                        addressId: address.addressId,
-                        addressTypeId: address.addressTypeId,
-                        addressTypeName: address.addressTypeName,
-                        addressLine1: address.addressLine1,
-                        addressLine2: address.addressLine2,
-                        city: address.city,
-                        stateProvinceId: address.stateProvinceId,
-                        stateProvinceCode: address.stateProvinceCode,
-                        stateProvinceName: address.stateProvinceCode,
-                        postalCode: address.postalCode,
-                        countryRegionCode: address.countryRegionCode,
-                        countryRegionName: address.countryRegionCode
-                    }
-                }));
+                setCompleteVendor(resp.data); 
             });
     }, [id]);
 
-
-    // close the edit view after the vendor changes are processed
+    // limited vendor object should already be passed in. Get required information from limited object.
     useEffect(() => {
-        toggleEditName();
-    }, [vendor]);
+        setVendorName(limitedVendor.vendorName);
+
+        // string needs to be converted to a number. State stores as a number for ease of entry then translates back to a string on update.
+        setPrimaryPhone(phoneToNumber(limitedVendor.contactPhone));
+    }, [limitedVendor]);
+
+    // once the complete vendor is loaded, move the data into update components
+    useEffect(() => {
+        if (Object.keys(completeVendor).length !== 0) {
+
+            // contacts in DB contain additional objects for phone numbers + emails
+            // PUT only needs the below information
+            setContacts(completeVendor.contacts.map(contact => {
+                return {
+                    businessEntityId: contact.businessEntityId,
+                    personId: contact.businessEntityId,
+                    personalTitle: contact.personalTitle,
+                    firstName: contact.firstName,
+                    middleName: contact.middleName,
+                    lastName: contact.lastName,
+                    suffix: contact.suffix,
+                    contactTypeId: contact.contactTypeId
+                }
+            }));
+
+            // PUT email uses complete object
+            let allEmails = [];
+            completeVendor.contacts.forEach(contact => {
+                contact.emailAddresses.forEach(email => {
+                    allEmails.push(email);
+                });
+            });
+            setEmails(allEmails);
+
+            // PUT phone uses complete object
+            let allPhoneNumbers = [];
+            completeVendor.contacts.forEach(contact => {
+                contact.phoneNumbers.forEach(phoneNumber => {
+                    allPhoneNumbers.push(phoneNumber);
+                });
+            });
+            setPhoneNumbers(allPhoneNumbers);
+
+            setAddresses(completeVendor.addresses);
+        }
+    }, [completeVendor]);
+
 
     const toggleEditName = () => {
         setEditingName(!editingName);
@@ -108,21 +152,21 @@ const VendorDetailsModal = props => {
     return (
         <div className={styles.modalArea}>
             <section className={styles.detailSection}>
-                {Object.keys(vendor).length === 0 && <h3>Loading...</h3>}
-                {Object.keys(vendor).length !== 0 && 
+                {Object.keys(completeVendor).length === 0 && <h3>Loading...</h3>}
+                {Object.keys(completeVendor).length !== 0 && 
                     <div>
 
                         {/* Name Section */}
                         {!editingName && 
                             <div className={styles.nameBlock}>
                                 <div className={styles.headerRow}>
-                                    <h1>{vendor.vendorName}</h1>
+                                    <h1>{vendorName}</h1>
                                     <button className={styles.editBtn} onClick={toggleEditName}>
                                         <img src="../../images/Pencilicon.png" alt="edit vendor"/>
                                     </button>
                                 </div>
                                 <div className={styles.blockSubContainer}>
-                                    {/* <p>{vendor.contacts[0].phoneNumbers[0].phoneNumber}</p> */}
+                                    <p>{numberToPhone(primaryPhone)}</p>
                                     <p>{id}</p>
                                 </div>
 
@@ -131,10 +175,16 @@ const VendorDetailsModal = props => {
 
                         { editingName &&
                             <div className={styles.formContainer}>
-                                <VendorForm 
-                                    vendor={vendor}
-                                    setVendor={setVendor}
-                                    toggleEdit={toggleEditName}
+                                <VendorNameForm 
+                                    vendorName={vendorName}
+                                    setVendorName={setVendorName}
+                                    primaryPhone={primaryPhone}
+                                    setPrimaryPhone={setPrimaryPhone}
+                                    toggleEditView={toggleEditName}
+                                    completeVendor={completeVendor}
+                                    limitedVendor={limitedVendor}
+                                    numberToPhone={numberToPhone}
+                                    phoneNumbers={phoneNumbers}
                                 />
                                 <button className={styles.cancelBtn} onClick={toggleEditName}>Cancel</button>
                             </div>
@@ -166,7 +216,7 @@ const VendorDetailsModal = props => {
                                 {editingContacts &&
                                     <div className={styles.formContainer}>
                                         <VendorContactForm
-                                            vendor={vendor}
+                                            vendor={limitedVendor}
                                             contacts={contacts}
                                             setContacts={setContacts}
                                             emails={emails}

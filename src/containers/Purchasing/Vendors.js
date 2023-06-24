@@ -10,19 +10,19 @@ import PurchasingModal from "../../components/Purchasing/PurchasingModal";
 function Vendors() {
     const {vendors, displayVendors, provinces} = useSelector(state => state.vendors);
     const [loading, setLoading] = useState(true);
+
+    // expanded vendor is the limited vendor object from /vendors, not the complete object from /vendor/id
     const [expandedVendor, setExpandedVendor] = useState({});
     // const [openModal, setOpenModal] = useState(false);
     const dispatch = useDispatch();
 
     // Load vendors
     useEffect(() => {
-        if (!vendors.length) {
-            dispatch(loadVendorsAsync())
-                .then(() => {
-                    dispatch(applyVendorFilter());
-                }
-            );
-        };
+        dispatch(loadVendorsAsync())
+            .then(() => {
+                dispatch(applyVendorFilter());
+            }
+        );
     }, [dispatch, vendors]);
 
     useEffect(() => {

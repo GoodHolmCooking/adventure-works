@@ -31,23 +31,18 @@ const StoreDetailsModal = props => {
     useEffect(() => {
         axios.get(`/Order/store/${id}`)
             .then(resp => {
-                setStore({
-                    orderDate: resp.data.orderDate,
-                    orderNumber: resp.data.orderNumber,
-                    storeName: resp.data.storeName
-                });
+                setStore(resp.data);
 
                 setContacts(resp.data.contacts.map(contact => {
                     return {
-                        businessEntityId: contact.businessEntityId,
-                        personId: contact.businessEntityId,
+                        // businessEntityId: contact.businessEntityId,
+                        // personId: contact.businessEntityId,
                         personalTitle: contact.personalTitle,
                         firstName: contact.firstName,
                         middleName: contact.middleName,
                         lastName: contact.lastName,
-                        specialty: contact.specialty,
                         suffix: contact.suffix,
-                        contacts: contact.contacts
+                        contactTypeId: contact.contactTypeId
                         
                     }
                 }));
@@ -158,9 +153,25 @@ const StoreDetailsModal = props => {
                                 <h4>Previous Sales</h4>
                             </div>
                             <div>
-                                <p>Order Date</p>
                                 <p>{convertDate(store.orderDate)}</p>
-                            </div>                                                                                                              
+                                <p>{store.lineTotal}</p>
+                            </div>
+                            <div>
+                            <p>{convertDate(store.orderDate)}</p>
+                                <p>{store.lineTotal}</p>
+                            </div> 
+                            <div>
+                            <p>{convertDate(store.orderDate)}</p>
+                                <p>{store.lineTotal}</p>
+                            </div> 
+                            <div>
+                            <p>{convertDate(store.orderDate)}</p>
+                                <p>{store.lineTotal}</p>
+                            </div> 
+                            <div>
+                            <p>{convertDate(store.orderDate)}</p>
+                                <p>{store.lineTotal}</p>
+                            </div>                                                                                                               
                         </div> 
                         </section>
                         <section>
@@ -177,7 +188,7 @@ const StoreDetailsModal = props => {
                                     {contacts.map(contact => {
                                         return (
                                             <Contact
-                                                key={contact.personId}
+                                                key={contact.Id}
                                                 contact={contact}
                                                 emails={emails}
                                             />

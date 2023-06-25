@@ -18,7 +18,7 @@ import Dashboard from './components/dashboard/dashboard';
 import { ToastContainer } from 'react-toastify';
 import Purchases from './containers/Purchasing/Purchases';
 import PurchaseDetails from './containers/Purchasing/PurchaseDetails';
-import Customers from './containers/Sales/CustomerDetails';
+import Customers from './containers/Sales/Customers';
 import CustomerDetails from './containers/Sales/CustomerDetails';
 import Stores from './containers/Sales/Stores';
 import StoreDetails from './containers/Sales/StoreDetails';

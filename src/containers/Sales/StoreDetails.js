@@ -102,7 +102,7 @@ function StoreDetails() {
                             </div>
                             <div>
                                 <p>Order Number</p>
-                                <p>${store.orderNumber}</p>
+                                <p>${store.orderNumber.toFixed(2)}</p>
                             </div>
                             <div>
                                 <p>Tracking Number</p>

@@ -17,24 +17,26 @@ const scrollToTop = () => {
 };
 
 function phoneToNumber(phone) {
-	// phone should be a string field in a format of 859-555-0100
-    if (typeof phone == "string") {
+	// 859-555-0100 -> 8595550100
+    console.log(`Running phone to number. Found ${phone}`);
+    if (phone.includes("-")) {
         let area = phone.substring(0, 3);
         let firstSet = phone.substring(4, 7);
         let secondSet = phone.substring(8);
         let combinedNumber = area + firstSet + secondSet;
     
+        console.log(`Found '-'. Returning ${combinedNumber}`);
         return +combinedNumber;
     }
-
-    // the phone number is already in a number format, so send it back
     else {
-        return phone;
+        console.log(`No '-' found. Returning ${phone}`);
+        return +phone;
     }
 };
 
 function numberToPhone(providedNumber) {
-	// providedNumber should be a phone number without any additional characters such as 8595550100
+	// 8595550100 -> 859-555-0100
+    console.log(`Running number to phone. Found ${providedNumber}`);
 	let convertedString = providedNumber.toString();
 
     // this function could be run every time a character is removed.
@@ -44,11 +46,13 @@ function numberToPhone(providedNumber) {
         let firstSet = convertedString.substring(3, 6);
         let secondSet = convertedString.substring(6);
         let phone = area + "-" + firstSet + "-" + secondSet;
+        console.log(`Found exactly 10 digits. Converted to ${phone}`);
         return phone;
     }
 
     // if the phone is not a complete number, just apply a conversion from a number to a string
     else {
+        console.log(`Not 10 digits. Returning ${convertedString}`);
         return convertedString;
     }
 }
@@ -63,12 +67,13 @@ function VendorDetails() {
 
     // name block states
     const [vendorName, setVendorName] = useState("");
-    const [primaryPhone, setPrimaryPhone] = useState(0); // stored as a number. Converted to phone format on render.
+    const [primaryPhone, setPrimaryPhone] = useState("");
 
     // contact block states
     const [contacts, setContacts] = useState([]);
     const [emails, setEmails] = useState([]);
     const [phoneNumbers, setPhoneNumbers] = useState([]);
+    const [originalPhoneNumbers, setOriginalPhoneNumbers] = useState([]);
 
     // address block state
     const [addresses, setAddresses] = useState([]);
@@ -102,17 +107,32 @@ function VendorDetails() {
     // limited vendor object should already be passed in. Get required information from limited object.
     useEffect(() => {
         setVendorName(limitedVendor.vendorName);
-
-        // string needs to be converted to a number. State stores as a number for ease of entry then translates back to a string on update.
-        setPrimaryPhone(phoneToNumber(limitedVendor.contactPhone));
+        setPrimaryPhone(limitedVendor.contactPhone);
     }, [limitedVendor]);
+
+    useEffect(() => {
+        if (phoneNumbers.length) {
+            let tempPhoneNumbers = [...phoneNumbers];
+
+            let updatePhoneNumberIndex = tempPhoneNumbers.findIndex(phoneNumber => {
+                return phoneNumber.businessEntityId === limitedVendor.contactBusinessEntityId;
+            });
+    
+            tempPhoneNumbers[updatePhoneNumberIndex] = {
+                businessEntityId: limitedVendor.contactBusinessEntityId,
+                phoneNumber: primaryPhone,
+                phoneNumberTypeId: phoneNumbers[updatePhoneNumberIndex].phoneNumberTypeId,
+                phoneNumberTypeName: phoneNumbers[updatePhoneNumberIndex].phoneNumberTypeName
+            };
+            setPhoneNumbers(tempPhoneNumbers);
+        }
+    }, [primaryPhone])
 
     // once the complete vendor is loaded, move the data into update components
     useEffect(() => {
-        if (Object.keys(completeVendor).length !== 0) {
-
-            // contacts in DB contain additional objects for phone numbers + emails
-            // PUT only needs the below information
+        // contacts in DB contain additional objects for phone numbers + emails
+        // PUT only needs the below information
+        if ('contacts' in completeVendor) {
             setContacts(completeVendor.contacts.map(contact => {
                 return {
                     businessEntityId: contact.businessEntityId,
@@ -125,7 +145,7 @@ function VendorDetails() {
                     contactTypeId: contact.contactTypeId
                 }
             }));
-    
+
             // PUT email uses complete object
             let allEmails = [];
             completeVendor.contacts.forEach(contact => {
@@ -135,17 +155,24 @@ function VendorDetails() {
             });
             setEmails(allEmails);
     
-            // PUT phone uses complete object
-            let allPhoneNumbers = [];
+            // PUT phone uses complete object + legacy information
+            let allPhoneNumbers = []; 
+
             completeVendor.contacts.forEach(contact => {
                 contact.phoneNumbers.forEach(phoneNumber => {
                     allPhoneNumbers.push(phoneNumber);
                 });
             });
-            setPhoneNumbers(allPhoneNumbers);
-    
-            setAddresses(completeVendor.addresses);
+
+            setPhoneNumbers(allPhoneNumbers); // changes when the user inputs data
+            
+            let legacyPhoneNumbers = [...allPhoneNumbers]; // I'm not sure if this is needed, but better safe than sorry.
+            setOriginalPhoneNumbers(legacyPhoneNumbers); // holds legacy information
         }
+
+        if ('addresses' in completeVendor) {
+            setAddresses(completeVendor.addresses);
+        }       
     }, [completeVendor]);
 
     return (
@@ -171,7 +198,7 @@ function VendorDetails() {
                                     
                                 </div>
                                 <div className={styles.blockSubContainer}>
-                                    <p>{numberToPhone(primaryPhone)}</p>
+                                    <p>{primaryPhone}</p>
                                     <p>{id}</p>
                                 </div>
                             </div>
@@ -189,6 +216,7 @@ function VendorDetails() {
                                     limitedVendor={limitedVendor}
                                     numberToPhone={numberToPhone}
                                     phoneNumbers={phoneNumbers}
+                                    id={id}
                                 />
                                 <button className={styles.cancelBtn} onClick={toggleEditName}>Cancel</button>
                             </div>
@@ -209,6 +237,7 @@ function VendorDetails() {
                                                 key={contact.personId}
                                                 contact={contact}
                                                 emails={emails}
+                                                phoneNumbers={phoneNumbers}
                                             />
                                         );
                                     })}
@@ -220,9 +249,15 @@ function VendorDetails() {
                                         vendor={limitedVendor}
                                         contacts={contacts}
                                         setContacts={setContacts}
+                                        phoneNumbers={phoneNumbers}
+                                        setPhoneNumbers={setPhoneNumbers}
+                                        originalPhoneNumbers={originalPhoneNumbers}
+                                        setOriginalPhoneNumbers={setOriginalPhoneNumbers}
                                         emails={emails}
                                         setEmails={setEmails}
                                         toggleEditView={toggleEditContacts}
+                                        phoneToNumber={phoneToNumber}
+                                        numberToPhone={numberToPhone}
                                     />
                                     <button className={styles.cancelBtn} onClick={toggleEditContacts}>Cancel</button>
                                 </div>

@@ -14,12 +14,21 @@
     left: 25%;
     z-index: 2;
 }
-.storeSection {
+.detailSection {
     display: flex;
     flex-direction: column;
     padding-inline: 5%;
 }
-
+.mainContent {
+    display: flex;
+    flex-direction: column;
+}
+.main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
 .backBtn {
     margin-inline-start: 4px;
 }

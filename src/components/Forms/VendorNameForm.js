@@ -11,9 +11,9 @@ const VendorNameForm = props => {
         setPrimaryPhone, 
         completeVendor, 
         toggleEditView, 
-        limitedVendor, 
-        numberToPhone,
-        phoneNumbers
+        limitedVendor,
+        phoneNumbers,
+        id
     } = props;
     const dispatch = useDispatch();
 
@@ -32,10 +32,7 @@ const VendorNameForm = props => {
         // find phone Id
         // use contact number and id from limited, find the associated id
         let primaryPhoneIndex = phoneNumbers.findIndex(phoneNumber => {
-            // phoneNumbers is an array of phone number objects.
-            // each phone number object has a variable called phone number.
-            // this variable is the actual phone number as a string.
-            return phoneNumber.phoneNumber === limitedVendor.contactPhone;
+            return phoneNumber.businessEntityId === limitedVendor.contactBusinessEntityId;
         });
 
         let primaryPhoneObj = phoneNumbers[primaryPhoneIndex];
@@ -43,7 +40,7 @@ const VendorNameForm = props => {
         // update primary phone number
         let phoneData = {
             businessEntityId: limitedVendor.contactBusinessEntityId,
-            newPhoneNumber: numberToPhone(primaryPhone),
+            newPhoneNumber: primaryPhone,
             originalPhoneNumber: limitedVendor.contactPhone,
             newPhoneNumberTypeId: primaryPhoneObj.phoneNumberTypeId,
             originalPhoneNumberTypeId: primaryPhoneObj.phoneNumberTypeId
@@ -55,10 +52,13 @@ const VendorNameForm = props => {
     }
 
     return (
-        <form onSubmit={handleInputChanges}>
-            <input type="text" defaultValue={vendorName} onChange={evt => setVendorName(evt.target.value)} className={styles.formInput} />
-            <input type="number" defaultValue={primaryPhone} onChange={evt => setPrimaryPhone(evt.target.value)} className={styles.formInput} />
-            <input type="submit" className={styles.saveBtn} />
+        <form onSubmit={handleInputChanges} className={styles.nameForm}>
+            <input type="text" defaultValue={vendorName} onChange={evt => setVendorName(evt.target.value)} className={styles.nameInput} />
+            <input type="text" defaultValue={primaryPhone} onChange={evt => setPrimaryPhone(evt.target.value)} className={styles.phoneInput} />
+            <div className={styles.idContainer}>
+                <div className={styles.vendorId}>{id}</div>
+            </div>  
+            <input type="submit" className={styles.vendorNameSaveBtn} />
         </form>
     );
 };

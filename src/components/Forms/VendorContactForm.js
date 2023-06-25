@@ -2,15 +2,26 @@
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadContactTypesAsync, updateContactAsync, updateEmailAsync } from "../../store/slices/vendorSlice";
+import { loadContactTypesAsync, updateContactAsync, updateEmailAsync, updatePhoneAsync } from "../../store/slices/vendorSlice";
 import ContactFieldset from "./ContactFieldset";
 import { updateVendorAsync } from "../../store/slices/vendorSlice";
 import styles from "./VendorContactForm.module.css";
 
 const VendorContactForm = props => {
-    const {vendor, toggleEditView, contacts, setContacts, emails, setEmails} = props;
+    const {
+        vendor, 
+        toggleEditView, 
+        contacts, 
+        setContacts, 
+        emails, 
+        setEmails,
+        phoneNumbers,
+        setPhoneNumbers,
+        originalPhoneNumbers,
+        setOriginalPhoneNumbers
+    } = props;
     const {contactTypes} = useSelector(state => state.vendors);
-    // const [phoneNumbers, setPhoneNumbers] = useState([]);
+    const [phoneUpdates, setPhoneUpdates] = useState([]);
 
     const dispatch = useDispatch();
 
@@ -26,11 +37,17 @@ const VendorContactForm = props => {
         {name: "Mrs.", id: 2},
         {name: "Ms.", id: 3}
     ];
-    const phoneTypes = [
-        {name: "Cell", id: 1},
-        {name: "Home", id: 2},
-        {name: "Work", id: 3}
-    ];
+
+    // There is a fundamental flaw in the database. A phone number uses a composite key of contact + type.
+    // The type can be changed. If this is the case, the original phone number can no longer be found.
+    // We must go with the assumption that each contact only has one phone or this won't work at all.
+    const getOriginalPhoneNumber = phoneObj => {
+        let originalIndex = originalPhoneNumbers.findIndex(originalPhoneNumber => {
+            return originalPhoneNumber.businessEntityId === phoneObj.businessEntityId;
+        });
+
+        return originalPhoneNumbers[originalIndex];
+    };
 
     const handleInputChanges = evt => {
         evt.preventDefault();
@@ -44,10 +61,24 @@ const VendorContactForm = props => {
             dispatch(updateContactAsync(contactData));
         });
 
-        // update phone numbers (Blocked until Drew fixes API)
+        let formattedPhoneUpdates = phoneNumbers.map(phoneNumber => {
+            let originalNumber = getOriginalPhoneNumber(phoneNumber);
 
-        // update emaila addresses
-        console.log("submitting emails...")
+            return {
+                businessEntityId: phoneNumber.businessEntityId,
+                newPhoneNumber: phoneNumber.phoneNumber,
+                originalPhoneNumber: originalNumber.phoneNumber,
+                newPhoneNumberTypeId: phoneNumber.phoneNumberTypeId,
+                originalPhoneNumberTypeId: originalNumber.phoneNumberTypeId
+            };
+        });
+
+        // update phone numbers
+        formattedPhoneUpdates.forEach(phoneNumber => {
+            dispatch(updatePhoneAsync(phoneNumber));
+        })
+
+        // update email addresses
         emails.forEach(email => {
             dispatch(updateEmailAsync(email));
         });
@@ -70,11 +101,12 @@ const VendorContactForm = props => {
                         emails={emails}
                         setEmails={setEmails}
                         vendor={vendor}
-                        // phoneTypes={phoneTypes}
-                        // phoneToNumber={phoneToNumber}
-                        // numberToPhone={numberToPhone}
-                        // phoneNumbers={phoneNumbers}
-                        // setPhoneNumbers={setPhoneNumbers} 
+                        phoneNumbers={phoneNumbers}
+                        setPhoneNumbers={setPhoneNumbers}
+                        originalPhoneNumbers={originalPhoneNumbers}
+                        setOriginalPhoneNumbers={setOriginalPhoneNumbers} 
+                        phoneUpdates={phoneUpdates}
+                        setPhoneUpdates={setPhoneUpdates}
                    />
                 );
             })}

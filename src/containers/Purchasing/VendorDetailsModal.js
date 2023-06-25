@@ -13,7 +13,7 @@ import PurchasingHeader from "../../components/Purchasing/PurchasingHeader";
 import VendorNameForm from "../../components/Forms/VendorNameForm";
 
 const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0 });
 };
 
 function phoneToNumber(phone) {
@@ -54,18 +54,21 @@ function numberToPhone(providedNumber) {
 }
 
 const VendorDetailsModal = props => {
+    scrollToTop();
+
     const dispatch = useDispatch();
     const { id, expandFunction, limitedVendor } = props;
     const [completeVendor, setCompleteVendor] = useState({});
 
     // name block states
     const [vendorName, setVendorName] = useState("");
-    const [primaryPhone, setPrimaryPhone] = useState(0); // phone is stored as a number and then translated to a string
+    const [primaryPhone, setPrimaryPhone] = useState("");
 
     // contact block states
     const [contacts, setContacts] = useState([]);
     const [emails, setEmails] = useState([]);
     const [phoneNumbers, setPhoneNumbers] = useState([]);
+    const [originalPhoneNumbers, setOriginalPhoneNumbers] = useState([]);
 
     // address block state
     const [addresses, setAddresses] = useState([]);
@@ -88,7 +91,7 @@ const VendorDetailsModal = props => {
         setVendorName(limitedVendor.vendorName);
 
         // string needs to be converted to a number. State stores as a number for ease of entry then translates back to a string on update.
-        setPrimaryPhone(phoneToNumber(limitedVendor.contactPhone));
+        setPrimaryPhone(limitedVendor.contactPhone);
     }, [limitedVendor]);
 
     // once the complete vendor is loaded, move the data into update components
@@ -126,7 +129,10 @@ const VendorDetailsModal = props => {
                     allPhoneNumbers.push(phoneNumber);
                 });
             });
-            setPhoneNumbers(allPhoneNumbers);
+            setPhoneNumbers(allPhoneNumbers); // changes with user input
+            
+            let legacyPhoneNumbers = [...allPhoneNumbers]; // I'm not sure if this is needed, but better safe than sorry.
+            setOriginalPhoneNumbers(legacyPhoneNumbers); // holds legacy information
 
             setAddresses(completeVendor.addresses);
         }
@@ -183,7 +189,6 @@ const VendorDetailsModal = props => {
                                     toggleEditView={toggleEditName}
                                     completeVendor={completeVendor}
                                     limitedVendor={limitedVendor}
-                                    numberToPhone={numberToPhone}
                                     phoneNumbers={phoneNumbers}
                                 />
                                 <button className={styles.cancelBtn} onClick={toggleEditName}>Cancel</button>
@@ -208,6 +213,7 @@ const VendorDetailsModal = props => {
                                                     key={contact.personId}
                                                     contact={contact}
                                                     emails={emails}
+                                                    phoneNumbers={phoneNumbers}
                                                 />
                                             );
                                         })}
@@ -222,6 +228,10 @@ const VendorDetailsModal = props => {
                                             emails={emails}
                                             setEmails={setEmails}
                                             toggleEditView={toggleEditContacts}
+                                            phoneNumbers={phoneNumbers}
+                                            setPhoneNumbers={setPhoneNumbers}
+                                            originalPhoneNumbers={originalPhoneNumbers}
+                                            setOriginalPhoneNumbers={setOriginalPhoneNumbers}
                                         />
                                         <button className={styles.cancelBtn} onClick={toggleEditContacts}>Cancel</button>
                                     </div>

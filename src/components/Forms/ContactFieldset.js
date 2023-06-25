@@ -10,7 +10,9 @@ const ContactFieldset = props => {
         contactTypes, 
         contacts, 
         setContacts,
-        vendor
+        vendor,
+        phoneNumbers,
+        setPhoneNumbers
     } = props;
     const [firstName, setFirstName] = useState(contact.firstName);
     const [middleName, setMiddleName] = useState(contact.middleName);
@@ -18,7 +20,26 @@ const ContactFieldset = props => {
     const [contactTypeId, setContactTypeId] = useState(contact.contactTypeId);
     const [personalTitle, setPersonalTitle] = useState(contact.personalTitle);
     const [contactEmails, setContactEmails] = useState([]);
+    const [contactPhoneNumbers, setContactPhoneNumbers] = useState([]);
     const [contactTypeOptions, setContactTypeOptions] = useState([]);
+
+    const phoneTypes = [
+        {id: 1, name: "Cell"},
+        {id: 2, name: "Home"},
+        {id: 3, name: "Work"}
+    ];
+
+    const findTypeName = typeId => {
+        console.log(`Passed in typeId: ${typeId}`);
+
+        let typeIndex = phoneTypes.findIndex(typeObj => {
+
+            // from form field comes in as a string. Need to look for number or string.
+            return typeObj.id == typeId;
+        });
+
+        return phoneTypes[typeIndex].name;
+    };
 
     // creates the options for the contact type select in the fieldset
     useEffect(() => {
@@ -32,6 +53,12 @@ const ContactFieldset = props => {
             return email.businessEntityId === contact.personId;
         }));
     }, [emails, contact]);
+
+    useEffect(() => {
+        setContactPhoneNumbers(phoneNumbers.filter(phoneNumber => {
+            return phoneNumber.businessEntityId === contact.personId;
+        }));
+    }, [phoneNumbers, contact]);
 
     // Contacts are saved as an object.
     // This effect handles the logic for changes to the contact object.
@@ -62,24 +89,47 @@ const ContactFieldset = props => {
             return email.emailAddressId === id;
         });
         tempEmailAddresses[updateEmailAdressIndex] = {
-            businessEntityId: contact.businessEntityId,
+            businessEntityId: contact.personId,
             emailAddressId: id,
             emailAddress: evt.target.value
         };
         setEmails(tempEmailAddresses);
     };
 
-    // Blocked until Drew updates API
-    // const handlePhoneChange = (evt, id) => {
-    //     // phone numbers are stored in a temporary value until change can be applied
-    //     let tempPhoneNumbers = [...phoneNumbers];
-    //     let updatePhoneNumberIndex = tempPhoneNumbers.findIndex(phoneNumber => {
-    //         return phoneNumber.phoneNumberTypeId === id;
-    //     });
+    // This breaks if the contact has more than one phone type; however, no entries have been found with multiple types
+    const handlePhoneTypeChange = (evt, originalTypeId) => {
+        let tempPhoneNumbers = [...phoneNumbers];
 
-    //     tempPhoneNumbers[updatePhoneNumberIndex] = evt.target.value;
-    //     setPhoneNumbers(tempPhoneNumbers);
-    // }
+        let updatePhoneNumberIndex = tempPhoneNumbers.findIndex(phoneNumber => {
+            return phoneNumber.businessEntityId === contact.personId && phoneNumber.phoneNumberTypeId === originalTypeId;
+        });
+
+        tempPhoneNumbers[updatePhoneNumberIndex] = {
+            businessEntityId: contact.personId,
+            phoneNumber: phoneNumbers[updatePhoneNumberIndex].phoneNumber,
+            phoneNumberTypeId: evt.target.value,
+            phoneNumberTypeName: findTypeName(evt.target.value)
+        };
+        setPhoneNumbers(tempPhoneNumbers);
+    };
+
+    const handlePhoneChange = (evt, originalTypeId) => {
+        // phone numbers are stored in a temporary value until change can be applied
+        let tempPhoneNumbers = [...phoneNumbers];
+
+
+        let updatePhoneNumberIndex = tempPhoneNumbers.findIndex(phoneNumber => {
+            return phoneNumber.businessEntityId === contact.personId && phoneNumber.phoneNumberTypeId === originalTypeId;
+        });
+
+        tempPhoneNumbers[updatePhoneNumberIndex] = {
+            businessEntityId: contact.personId,
+            phoneNumber: evt.target.value,
+            phoneNumberTypeId: phoneNumbers[updatePhoneNumberIndex].phoneNumberTypeId,
+            phoneNumberTypeName: phoneNumbers[updatePhoneNumberIndex].phoneNumberTypeName
+        };
+        setPhoneNumbers(tempPhoneNumbers);
+    };
 
     return (
         <fieldset key={contact.personId}>
@@ -103,16 +153,31 @@ const ContactFieldset = props => {
             <select value={contact.contactTypeId} onChange={evt => setContactTypeId(evt.target.value)} className={styles.formInput}>{contactTypeOptions}</select>
 
             {/* Phone numbers */}
-            {/* {contact.phoneNumbers.map(phoneEntry => {
+            {contactPhoneNumbers.map(phoneEntry => {
+                let phoneKey = `${phoneEntry.businessEntityId}-${phoneEntry.phoneNumberTypeId}`;
+
                 return (
-                    <input 
-                        type="number"
-                        defaultValue={phoneEntry.phoneNumber}
-                        key={phoneEntry.phoneNumberTypeId}
-                        onChange={evt => handlePhoneChange(evt, phoneEntry.phoneNumberTypeId)}
-                    />
+                    <fieldset key={phoneKey}>
+                        <select 
+                            value={phoneEntry.phoneNumberTypeId} 
+                            onChange={evt => handlePhoneTypeChange(evt, phoneEntry.phoneNumberTypeId)}
+                            className={styles.formInput}
+                        >
+                            <option value={1} key={1}>Cell</option>
+                            <option value={2} key={2}>Home</option>
+                            <option value={3} key={3}>Work</option>
+                        </select>
+                        <input 
+                            type="text"
+                            defaultValue={phoneEntry.phoneNumber}
+                            key={phoneEntry.phoneNumberTypeId}
+                            onChange={evt => handlePhoneChange(evt, phoneEntry.phoneNumberTypeId)}
+                            className={styles.formInput}
+                        />
+                    </fieldset>
+
                 );
-            })} */}
+            })}
 
             {contactEmails.map(emailEntry => {
                 return (

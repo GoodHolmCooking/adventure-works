@@ -102,7 +102,7 @@ const NavigationAside = () => {
                 </Link>
                 
                 {/* Sales */}
-                <Link to="/sales" onClick={() => setArea("sales")} className={styles.removeDecoration}>
+                <Link to="/stores" onClick={() => setArea("sales")} className={styles.removeDecoration}>
                     <li className={styles.salesLink}>
                         <div className={area === "sales" ? styles.salesBox : styles.genericBox}>
                             {area === "sales" &&

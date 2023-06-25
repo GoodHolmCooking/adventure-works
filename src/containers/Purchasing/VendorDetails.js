@@ -17,24 +17,26 @@ const scrollToTop = () => {
 };
 
 function phoneToNumber(phone) {
-	// phone should be a string field in a format of 859-555-0100
-    if (typeof phone == "string") {
+	// 859-555-0100 -> 8595550100
+    console.log(`Running phone to number. Found ${phone}`);
+    if (phone.includes("-")) {
         let area = phone.substring(0, 3);
         let firstSet = phone.substring(4, 7);
         let secondSet = phone.substring(8);
         let combinedNumber = area + firstSet + secondSet;
     
+        console.log(`Found '-'. Returning ${combinedNumber}`);
         return +combinedNumber;
     }
-
-    // the phone number is already in a number format, so send it back
     else {
-        return phone;
+        console.log(`No '-' found. Returning ${phone}`);
+        return +phone;
     }
 };
 
 function numberToPhone(providedNumber) {
-	// providedNumber should be a phone number without any additional characters such as 8595550100
+	// 8595550100 -> 859-555-0100
+    console.log(`Running number to phone. Found ${providedNumber}`);
 	let convertedString = providedNumber.toString();
 
     // this function could be run every time a character is removed.
@@ -44,11 +46,13 @@ function numberToPhone(providedNumber) {
         let firstSet = convertedString.substring(3, 6);
         let secondSet = convertedString.substring(6);
         let phone = area + "-" + firstSet + "-" + secondSet;
+        console.log(`Found exactly 10 digits. Converted to ${phone}`);
         return phone;
     }
 
     // if the phone is not a complete number, just apply a conversion from a number to a string
     else {
+        console.log(`Not 10 digits. Returning ${convertedString}`);
         return convertedString;
     }
 }
@@ -69,6 +73,7 @@ function VendorDetails() {
     const [contacts, setContacts] = useState([]);
     const [emails, setEmails] = useState([]);
     const [phoneNumbers, setPhoneNumbers] = useState([]);
+    const [originalPhoneNumbers, setOriginalPhoneNumbers] = useState([]);
 
     // address block state
     const [addresses, setAddresses] = useState([]);
@@ -100,12 +105,12 @@ function VendorDetails() {
     }, [id]);
 
     // limited vendor object should already be passed in. Get required information from limited object.
-    useEffect(() => {
-        setVendorName(limitedVendor.vendorName);
+    // useEffect(() => {
+    //     setVendorName(limitedVendor.vendorName);
 
-        // string needs to be converted to a number. State stores as a number for ease of entry then translates back to a string on update.
-        setPrimaryPhone(phoneToNumber(limitedVendor.contactPhone));
-    }, [limitedVendor]);
+    //     // string needs to be converted to a number. State stores as a number for ease of entry then translates back to a string on update.
+    //     setPrimaryPhone(phoneToNumber(limitedVendor.contactPhone));
+    // }, [limitedVendor]);
 
     // once the complete vendor is loaded, move the data into update components
     useEffect(() => {
@@ -135,14 +140,18 @@ function VendorDetails() {
             });
             setEmails(allEmails);
     
-            // PUT phone uses complete object
-            let allPhoneNumbers = [];
+            // PUT phone uses complete object + legacy information
+            let allPhoneNumbers = []; 
             completeVendor.contacts.forEach(contact => {
                 contact.phoneNumbers.forEach(phoneNumber => {
                     allPhoneNumbers.push(phoneNumber);
                 });
             });
-            setPhoneNumbers(allPhoneNumbers);
+
+            setPhoneNumbers(allPhoneNumbers); // changes when the user inputs data
+            
+            let legacyPhoneNumbers = [...allPhoneNumbers]; // I'm not sure if this is needed, but better safe than sorry.
+            setOriginalPhoneNumbers(legacyPhoneNumbers); // holds legacy information
     
             setAddresses(completeVendor.addresses);
         }
@@ -161,7 +170,7 @@ function VendorDetails() {
                         </Link>
 
                         {/* Name Section */}
-                        {!editingName && 
+                        {/* {!editingName && 
                             <div className={styles.nameBlock}>
                                 <div className={styles.headerRow}>
                                     <h1>{vendorName}</h1>
@@ -175,7 +184,7 @@ function VendorDetails() {
                                     <p>{id}</p>
                                 </div>
                             </div>
-                        }
+                        } */}
 
                         {editingName &&
                             <div className={styles.formContainer}>
@@ -224,6 +233,8 @@ function VendorDetails() {
                                         setContacts={setContacts}
                                         phoneNumbers={phoneNumbers}
                                         setPhoneNumbers={setPhoneNumbers}
+                                        originalPhoneNumbers={originalPhoneNumbers}
+                                        setOriginalPhoneNumbers={setOriginalPhoneNumbers}
                                         emails={emails}
                                         setEmails={setEmails}
                                         toggleEditView={toggleEditContacts}

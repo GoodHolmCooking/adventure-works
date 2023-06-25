@@ -14,7 +14,9 @@ const ContactFieldset = props => {
         phoneNumbers,
         setPhoneNumbers,
         phoneToNumber,
-        numberToPhone
+        numberToPhone,
+        phoneUpdates,
+        setPhoneUpdates
     } = props;
     const [firstName, setFirstName] = useState(contact.firstName);
     const [middleName, setMiddleName] = useState(contact.middleName);
@@ -24,6 +26,20 @@ const ContactFieldset = props => {
     const [contactEmails, setContactEmails] = useState([]);
     const [contactPhoneNumbers, setContactPhoneNumbers] = useState([]);
     const [contactTypeOptions, setContactTypeOptions] = useState([]);
+
+    const phoneTypes = [
+        {id: 1, name: "Cell"},
+        {id: 2, name: "Home"},
+        {id: 3, name: "Work"}
+    ];
+
+    const findTypeName = typeId => {
+        let typeIndex = phoneTypes.findIndex(typeObj => {
+            return typeObj.id === typeId;
+        });
+
+        return phoneTypes[typeIndex].name;
+    };
 
     // creates the options for the contact type select in the fieldset
     useEffect(() => {
@@ -73,29 +89,47 @@ const ContactFieldset = props => {
             return email.emailAddressId === id;
         });
         tempEmailAddresses[updateEmailAdressIndex] = {
-            businessEntityId: contact.businessEntityId,
+            businessEntityId: contact.personId,
             emailAddressId: id,
             emailAddress: evt.target.value
         };
         setEmails(tempEmailAddresses);
     };
 
-    const handlePhoneChange = evt => {
-        // phone numbers are stored in a temporary value until change can be applied
+    // This breaks if the contact has more than one phone type; however, no entries have been found with multiple types
+    const handlePhoneTypeChange = (evt, originalTypeId) => {
         let tempPhoneNumbers = [...phoneNumbers];
+
         let updatePhoneNumberIndex = tempPhoneNumbers.findIndex(phoneNumber => {
-            return phoneNumber.businessEntityId === contact.personId;
+            return phoneNumber.businessEntityId === contact.personId && phoneNumber.phoneNumberTypeId === originalTypeId;
         });
 
         tempPhoneNumbers[updatePhoneNumberIndex] = {
-            businessEntityId: 0,
-            newPhoneNumber: "string",
-            originalPhoneNumber: "string",
-            newPhoneNumberTypeId: 0,
-            originalPhoneNumberTypeId: 0
+            businessEntityId: contact.personId,
+            phoneNumber: phoneNumbers[updatePhoneNumberIndex].phoneNumber,
+            phoneNumberTypeId: evt.target.value,
+            phoneNumberTypeName: findTypeName(evt.target.value)
         };
         setPhoneNumbers(tempPhoneNumbers);
-    }
+    };
+
+    const handlePhoneChange = (evt, originalTypeId) => {
+        // phone numbers are stored in a temporary value until change can be applied
+        let tempPhoneNumbers = [...phoneNumbers];
+
+
+        let updatePhoneNumberIndex = tempPhoneNumbers.findIndex(phoneNumber => {
+            return phoneNumber.businessEntityId === contact.personId && phoneNumber.phoneNumberTypeId === originalTypeId;
+        });
+
+        tempPhoneNumbers[updatePhoneNumberIndex] = {
+            businessEntityId: contact.personId,
+            phoneNumber: evt.target.value,
+            phoneNumberTypeId: phoneNumbers[updatePhoneNumberIndex].phoneNumberTypeId,
+            phoneNumberTypeName: phoneNumbers[updatePhoneNumberIndex].phoneNumberTypeName
+        };
+        setPhoneNumbers(tempPhoneNumbers);
+    };
 
     return (
         <fieldset key={contact.personId}>
@@ -120,13 +154,28 @@ const ContactFieldset = props => {
 
             {/* Phone numbers */}
             {contactPhoneNumbers.map(phoneEntry => {
+                let phoneKey = `${phoneEntry.businessEntityId}-${phoneEntry.phoneNumberTypeId}`;
+
                 return (
-                    <input 
-                        type="number"
-                        defaultValue={phoneToNumber(phoneEntry.phoneNumber)}
-                        key={phoneEntry.phoneNumberTypeId}
-                        onChange={evt => handlePhoneChange(evt)}
-                    />
+                    <fieldset key={phoneKey}>
+                        <select 
+                            value={phoneEntry.phoneNumberTypeId} 
+                            onChange={evt => handlePhoneTypeChange(evt, phoneEntry.phoneNumberTypeId)}
+                            className={styles.formInput}
+                        >
+                            <option value={1} key={1}>Cell</option>
+                            <option value={2} key={2}>Home</option>
+                            <option value={3} key={3}>Work</option>
+                        </select>
+                        <input 
+                            type="text"
+                            defaultValue={phoneEntry.phoneNumber}
+                            key={phoneEntry.phoneNumberTypeId}
+                            onChange={evt => handlePhoneChange(evt, phoneEntry.phoneNumberTypeId)}
+                            className={styles.formInput}
+                        />
+                    </fieldset>
+
                 );
             })}
 

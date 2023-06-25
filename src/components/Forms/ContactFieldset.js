@@ -34,8 +34,12 @@ const ContactFieldset = props => {
     ];
 
     const findTypeName = typeId => {
+        console.log(`Passed in typeId: ${typeId}`);
+
         let typeIndex = phoneTypes.findIndex(typeObj => {
-            return typeObj.id === typeId;
+
+            // from form field comes in as a string. Need to look for number or string.
+            return typeObj.id == typeId;
         });
 
         return phoneTypes[typeIndex].name;

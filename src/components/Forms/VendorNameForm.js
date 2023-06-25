@@ -11,8 +11,7 @@ const VendorNameForm = props => {
         setPrimaryPhone, 
         completeVendor, 
         toggleEditView, 
-        limitedVendor, 
-        numberToPhone,
+        limitedVendor,
         phoneNumbers,
         id
     } = props;

@@ -18,9 +18,7 @@ const VendorContactForm = props => {
         phoneNumbers,
         setPhoneNumbers,
         originalPhoneNumbers,
-        setOriginalPhoneNumbers,
-        phoneToNumber,
-        numberToPhone
+        setOriginalPhoneNumbers
     } = props;
     const {contactTypes} = useSelector(state => state.vendors);
     const [phoneUpdates, setPhoneUpdates] = useState([]);
@@ -103,8 +101,6 @@ const VendorContactForm = props => {
                         emails={emails}
                         setEmails={setEmails}
                         vendor={vendor}
-                        phoneToNumber={phoneToNumber}
-                        numberToPhone={numberToPhone}
                         phoneNumbers={phoneNumbers}
                         setPhoneNumbers={setPhoneNumbers}
                         originalPhoneNumbers={originalPhoneNumbers}

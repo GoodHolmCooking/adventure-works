@@ -12,11 +12,7 @@ const ContactFieldset = props => {
         setContacts,
         vendor,
         phoneNumbers,
-        setPhoneNumbers,
-        phoneToNumber,
-        numberToPhone,
-        phoneUpdates,
-        setPhoneUpdates
+        setPhoneNumbers
     } = props;
     const [firstName, setFirstName] = useState(contact.firstName);
     const [middleName, setMiddleName] = useState(contact.middleName);

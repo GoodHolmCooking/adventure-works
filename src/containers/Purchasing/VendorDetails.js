@@ -67,7 +67,7 @@ function VendorDetails() {
 
     // name block states
     const [vendorName, setVendorName] = useState("");
-    const [primaryPhone, setPrimaryPhone] = useState(0); // stored as a number. Converted to phone format on render.
+    const [primaryPhone, setPrimaryPhone] = useState("");
 
     // contact block states
     const [contacts, setContacts] = useState([]);
@@ -105,19 +105,34 @@ function VendorDetails() {
     }, [id]);
 
     // limited vendor object should already be passed in. Get required information from limited object.
-    // useEffect(() => {
-    //     setVendorName(limitedVendor.vendorName);
+    useEffect(() => {
+        setVendorName(limitedVendor.vendorName);
+        setPrimaryPhone(limitedVendor.contactPhone);
+    }, [limitedVendor]);
 
-    //     // string needs to be converted to a number. State stores as a number for ease of entry then translates back to a string on update.
-    //     setPrimaryPhone(phoneToNumber(limitedVendor.contactPhone));
-    // }, [limitedVendor]);
+    useEffect(() => {
+        if (phoneNumbers.length) {
+            let tempPhoneNumbers = [...phoneNumbers];
+
+            let updatePhoneNumberIndex = tempPhoneNumbers.findIndex(phoneNumber => {
+                return phoneNumber.businessEntityId === limitedVendor.contactBusinessEntityId;
+            });
+    
+            tempPhoneNumbers[updatePhoneNumberIndex] = {
+                businessEntityId: limitedVendor.contactBusinessEntityId,
+                phoneNumber: primaryPhone,
+                phoneNumberTypeId: phoneNumbers[updatePhoneNumberIndex].phoneNumberTypeId,
+                phoneNumberTypeName: phoneNumbers[updatePhoneNumberIndex].phoneNumberTypeName
+            };
+            setPhoneNumbers(tempPhoneNumbers);
+        }
+    }, [primaryPhone])
 
     // once the complete vendor is loaded, move the data into update components
     useEffect(() => {
-        if (Object.keys(completeVendor).length !== 0) {
-
-            // contacts in DB contain additional objects for phone numbers + emails
-            // PUT only needs the below information
+        // contacts in DB contain additional objects for phone numbers + emails
+        // PUT only needs the below information
+        if ('contacts' in completeVendor) {
             setContacts(completeVendor.contacts.map(contact => {
                 return {
                     businessEntityId: contact.businessEntityId,
@@ -130,7 +145,7 @@ function VendorDetails() {
                     contactTypeId: contact.contactTypeId
                 }
             }));
-    
+
             // PUT email uses complete object
             let allEmails = [];
             completeVendor.contacts.forEach(contact => {
@@ -142,6 +157,7 @@ function VendorDetails() {
     
             // PUT phone uses complete object + legacy information
             let allPhoneNumbers = []; 
+
             completeVendor.contacts.forEach(contact => {
                 contact.phoneNumbers.forEach(phoneNumber => {
                     allPhoneNumbers.push(phoneNumber);
@@ -152,9 +168,11 @@ function VendorDetails() {
             
             let legacyPhoneNumbers = [...allPhoneNumbers]; // I'm not sure if this is needed, but better safe than sorry.
             setOriginalPhoneNumbers(legacyPhoneNumbers); // holds legacy information
-    
-            setAddresses(completeVendor.addresses);
         }
+
+        if ('addresses' in completeVendor) {
+            setAddresses(completeVendor.addresses);
+        }       
     }, [completeVendor]);
 
     return (
@@ -170,7 +188,7 @@ function VendorDetails() {
                         </Link>
 
                         {/* Name Section */}
-                        {/* {!editingName && 
+                        {!editingName && 
                             <div className={styles.nameBlock}>
                                 <div className={styles.headerRow}>
                                     <h1>{vendorName}</h1>
@@ -180,11 +198,11 @@ function VendorDetails() {
                                     
                                 </div>
                                 <div className={styles.blockSubContainer}>
-                                    <p>{numberToPhone(primaryPhone)}</p>
+                                    <p>{primaryPhone}</p>
                                     <p>{id}</p>
                                 </div>
                             </div>
-                        } */}
+                        }
 
                         {editingName &&
                             <div className={styles.formContainer}>

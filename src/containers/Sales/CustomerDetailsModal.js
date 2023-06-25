@@ -88,7 +88,7 @@ const CustomerDetails = props => {
                             </div>
                             <div>
                                 <p>Tracking Number:</p>
-                                <p>{customer.carrierTrackingNumber}</p>
+                                <p>{customer.freightNumber}</p>
                             </div>
                             <div>
                                 <p>Product Name</p>
@@ -144,7 +144,7 @@ const CustomerDetails = props => {
                             </div>
                             <div>
                                 <p>Subtotal</p>
-                                <p>${customer.subTotal}</p>
+                                <p>${(customer.unitPrice - customer.unitPriceDiscount) * customer.orderQty}</p>
                             </div>
                             <div>
                                 <p>Shipping Cost</p>
@@ -156,7 +156,7 @@ const CustomerDetails = props => {
                             </div>
                             <div>
                                 <p>Total Due</p>
-                                <p>${customer.totalDue}</p>
+                                <p>${(customer.unitPrice - customer.unitPriceDiscount) * customer.orderQty + (customer.freight + customer.taxAmt)}</p>
                             </div>
                         </div>
                     </div>

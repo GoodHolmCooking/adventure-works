@@ -31,7 +31,7 @@ const CustomerDetails = props => {
 
 
     useEffect(() => {
-        axios.get(`https://api.bootcampcentral.com/api/Order/customer/${id}`)
+        axios.get(`Order/customer/${id}`)
             .then(resp => {
                 setCustomer(resp.data);
                 setSubTotal(resp.data.unitPrice * resp.data.quantity);

@@ -88,7 +88,6 @@
 
 .mainContent {
     display: flex;
-    gap: 6rem;
 }
 
 .contentColumn {

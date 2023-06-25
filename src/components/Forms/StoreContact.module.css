@@ -1,0 +1,9 @@
+contact {
+    display: flex;
+    flex-direction: column;
+    margin-block: 1rem;
+}
+
+.formInput {
+    border: 1px solid #212121;
+}

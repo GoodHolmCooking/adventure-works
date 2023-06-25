@@ -70,10 +70,7 @@ export const updateStoreAsync = createAsyncThunk("/stores/updateStoreAsync", asy
 export const updateContactAsync = createAsyncThunk("/stores/updateContactAsync", async data => {
     try {
         console.log("Running contact update");
-		axios.put(`/Contact/${data.personId}/${data.Id}`, data)
-            .then(resp => {
-                console.log(`Status: ${resp.status}`);
-            });
+		axios.put(`/Contact/${data.contactInfo.Id}/${data.storeId}`, data.contactInfo);
 	} catch (err) {
 		toast.error(err.toString());
 	}

@@ -102,6 +102,8 @@ export const updateEmailAsync = createAsyncThunk("/vendors/updateEmailAsync", as
 
 export const updatePhoneAsync = createAsyncThunk("/vendors/updatePhoneAsync", async data => {
     try {
+        console.log("Atemmpting phone update. Using data:");
+        console.log(data);
 		axios.put(`/Phone/${data.businessEntityId}`, data);
 	} catch (err) {
 		toast.error(err.toString());

@@ -69,7 +69,7 @@ const VendorContactForm = props => {
             return {
                 businessEntityId: phoneNumber.businessEntityId,
                 newPhoneNumber: phoneNumber.phoneNumber,
-                originalPhoneNumber: originalNumber.phoneNumberTypeId,
+                originalPhoneNumber: originalNumber.phoneNumber,
                 newPhoneNumberTypeId: phoneNumber.phoneNumberTypeId,
                 originalPhoneNumberTypeId: originalNumber.phoneNumberTypeId
             };

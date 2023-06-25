@@ -13,7 +13,7 @@ import PurchasingHeader from "../../components/Purchasing/PurchasingHeader";
 import VendorNameForm from "../../components/Forms/VendorNameForm";
 
 const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0 });
 };
 
 function phoneToNumber(phone) {
@@ -54,6 +54,8 @@ function numberToPhone(providedNumber) {
 }
 
 const VendorDetailsModal = props => {
+    scrollToTop();
+
     const dispatch = useDispatch();
     const { id, expandFunction, limitedVendor } = props;
     const [completeVendor, setCompleteVendor] = useState({});

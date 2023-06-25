@@ -16,7 +16,13 @@ const convertDate = date => {
     return formattedDate;
 };
 
-const PurchaseDetails = props => {
+const scrollToTop = () => {
+    window.scrollTo({ top: 0 });
+};
+
+const PurchaseDetailsModal = props => {
+    scrollToTop();
+
     const [purchase, setPurchase] = useState({});
     const [subTotal, setSubTotal] = useState(0);
     const [totalDue, setTotalDue] = useState(0);
@@ -211,4 +217,4 @@ const PurchaseDetails = props => {
     );
 };
 
-export default PurchaseDetails;
+export default PurchaseDetailsModal;

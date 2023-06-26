@@ -20,7 +20,7 @@ const customerSlice = createSlice({
             // search customers
 			state.displayCustomers =  state.customers
                 .filter(customer => state.filter === "" || // if there is no filter set, display everything
-                    (customer.firstName + " " + customer.lastName.toLowerCase())
+                    (customer.firstName.toLowerCase() + " " + customer.lastName.toLowerCase())
                         .includes(state.filter.toLowerCase())); // if there is a filter, search the customer
 		},
     },

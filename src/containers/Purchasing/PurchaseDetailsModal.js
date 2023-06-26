@@ -21,8 +21,6 @@ const scrollToTop = () => {
 };
 
 const PurchaseDetailsModal = props => {
-    scrollToTop();
-
     const [purchase, setPurchase] = useState({});
     const [subTotal, setSubTotal] = useState(0);
     const [totalDue, setTotalDue] = useState(0);
@@ -45,6 +43,10 @@ const PurchaseDetailsModal = props => {
                 setOrderDate(convertDate(resp.data.orderDate));
                 setShipDate(convertDate(resp.data.shipDate));
             })
+    }, [id]);
+
+    useEffect(() => {
+        scrollToTop();
     }, [id]);
 
     return (

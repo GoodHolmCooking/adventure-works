@@ -13,49 +13,31 @@ import PurchasingHeader from "../../components/Purchasing/PurchasingHeader";
 import VendorNameForm from "../../components/Forms/VendorNameForm";
 
 const scrollToTop = () => {
+    console.log("Running scroll to top");
     window.scrollTo({ top: 0 });
 };
 
-function phoneToNumber(phone) {
-	// phone should be a string field in a format of 859-555-0100
-    if (typeof phone == "string") {
-        let area = phone.substring(0, 3);
-        let firstSet = phone.substring(4, 7);
-        let secondSet = phone.substring(8);
-        let combinedNumber = area + firstSet + secondSet;
-    
-        return +combinedNumber;
+const emailValid = email => {
+    // regex pattern taken from online tutorial
+    if (!email.match(/^[A-Za-z._\-0-9]*[@][A-Za-z-]*[.][a-z]{2,4}$/)) {
+        return false;
     }
-
-    // the phone number is already in a number format, so send it back
     else {
-        return phone;
+        return true;
     }
 };
 
-function numberToPhone(providedNumber) {
-	// providedNumber should be a phone number without any additional characters such as 8595550100
-	let convertedString = providedNumber.toString();
-
-    // this function could be run every time a character is removed.
-    // characters should only be added when the phone is a complete number.
-    if (convertedString.length === 10) {
-        let area = convertedString.substring(0, 3);
-        let firstSet = convertedString.substring(3, 6);
-        let secondSet = convertedString.substring(6);
-        let phone = area + "-" + firstSet + "-" + secondSet;
-        return phone;
+const phoneValid = phone => {
+    // regex pattern generated through ChatGPT
+    if (!phone.match(/^\d{3}-\d{3}-\d{4}$/)) {
+        return false;
     }
-
-    // if the phone is not a complete number, just apply a conversion from a number to a string
     else {
-        return convertedString;
+        return true;
     }
-}
+};
 
 const VendorDetailsModal = props => {
-    scrollToTop();
-
     const dispatch = useDispatch();
     const { id, expandFunction, limitedVendor } = props;
     const [completeVendor, setCompleteVendor] = useState({});
@@ -92,6 +74,10 @@ const VendorDetailsModal = props => {
 
         // string needs to be converted to a number. State stores as a number for ease of entry then translates back to a string on update.
         setPrimaryPhone(limitedVendor.contactPhone);
+    }, [limitedVendor]);
+
+    useEffect(() => {
+        scrollToTop();
     }, [limitedVendor]);
 
     // once the complete vendor is loaded, move the data into update components
@@ -138,7 +124,6 @@ const VendorDetailsModal = props => {
         }
     }, [completeVendor]);
 
-
     const toggleEditName = () => {
         setEditingName(!editingName);
     };
@@ -172,7 +157,7 @@ const VendorDetailsModal = props => {
                                     </button>
                                 </div>
                                 <div className={styles.blockSubContainer}>
-                                    <p>{numberToPhone(primaryPhone)}</p>
+                                    <p>{primaryPhone}</p>
                                     <p>{id}</p>
                                 </div>
 
@@ -190,6 +175,8 @@ const VendorDetailsModal = props => {
                                     completeVendor={completeVendor}
                                     limitedVendor={limitedVendor}
                                     phoneNumbers={phoneNumbers}
+                                    id={id}
+                                    phoneValid={phoneValid}
                                 />
                                 <button className={styles.cancelBtn} onClick={toggleEditName}>Cancel</button>
                             </div>
@@ -232,6 +219,8 @@ const VendorDetailsModal = props => {
                                             setPhoneNumbers={setPhoneNumbers}
                                             originalPhoneNumbers={originalPhoneNumbers}
                                             setOriginalPhoneNumbers={setOriginalPhoneNumbers}
+                                            phoneValid={phoneValid}
+                                            emailValid={emailValid}
                                         />
                                         <button className={styles.cancelBtn} onClick={toggleEditContacts}>Cancel</button>
                                     </div>

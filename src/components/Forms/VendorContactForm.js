@@ -18,10 +18,11 @@ const VendorContactForm = props => {
         phoneNumbers,
         setPhoneNumbers,
         originalPhoneNumbers,
-        setOriginalPhoneNumbers
+        setOriginalPhoneNumbers,
+        phoneValid,
+        emailValid
     } = props;
     const {contactTypes} = useSelector(state => state.vendors);
-    const [phoneUpdates, setPhoneUpdates] = useState([]);
 
     const dispatch = useDispatch();
 
@@ -75,12 +76,16 @@ const VendorContactForm = props => {
 
         // update phone numbers
         formattedPhoneUpdates.forEach(phoneNumber => {
-            dispatch(updatePhoneAsync(phoneNumber));
-        })
+            if (phoneValid(phoneNumber.newPhoneNumber)) {
+                dispatch(updatePhoneAsync(phoneNumber));
+            }
+        });
 
         // update email addresses
         emails.forEach(email => {
-            dispatch(updateEmailAsync(email));
+            if (emailValid(email.emailAddress)) {
+                dispatch(updateEmailAsync(email));
+            }
         });
 
 		// exit the editing UI
@@ -105,8 +110,8 @@ const VendorContactForm = props => {
                         setPhoneNumbers={setPhoneNumbers}
                         originalPhoneNumbers={originalPhoneNumbers}
                         setOriginalPhoneNumbers={setOriginalPhoneNumbers} 
-                        phoneUpdates={phoneUpdates}
-                        setPhoneUpdates={setPhoneUpdates}
+                        emailValid={emailValid}
+                        phoneValid={phoneValid}
                    />
                 );
             })}

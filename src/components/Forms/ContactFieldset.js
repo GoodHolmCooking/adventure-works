@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./ContactFieldset.module.css";
+import ContactEmailInput from "./ContactEmailInput";
+import ContactPhoneInput from "./ContactPhoneInput";
 
 const ContactFieldset = props => {
     const {
@@ -12,7 +14,9 @@ const ContactFieldset = props => {
         setContacts,
         vendor,
         phoneNumbers,
-        setPhoneNumbers
+        setPhoneNumbers,
+        emailValid,
+        phoneValid
     } = props;
     const [firstName, setFirstName] = useState(contact.firstName);
     const [middleName, setMiddleName] = useState(contact.middleName);
@@ -30,8 +34,6 @@ const ContactFieldset = props => {
     ];
 
     const findTypeName = typeId => {
-        console.log(`Passed in typeId: ${typeId}`);
-
         let typeIndex = phoneTypes.findIndex(typeObj => {
 
             // from form field comes in as a string. Need to look for number or string.
@@ -80,7 +82,6 @@ const ContactFieldset = props => {
         };
         setContacts(tempContacts);
     }, [personalTitle, firstName, middleName, lastName, contactTypeId]);
-
 
     const handleEmailChange = (evt, id) => {
         // emails are stored in a temporary value until change can be applied
@@ -157,36 +158,25 @@ const ContactFieldset = props => {
                 let phoneKey = `${phoneEntry.businessEntityId}-${phoneEntry.phoneNumberTypeId}`;
 
                 return (
-                    <fieldset key={phoneKey}>
-                        <select 
-                            value={phoneEntry.phoneNumberTypeId} 
-                            onChange={evt => handlePhoneTypeChange(evt, phoneEntry.phoneNumberTypeId)}
-                            className={styles.formInput}
-                        >
-                            <option value={1} key={1}>Cell</option>
-                            <option value={2} key={2}>Home</option>
-                            <option value={3} key={3}>Work</option>
-                        </select>
-                        <input 
-                            type="text"
-                            defaultValue={phoneEntry.phoneNumber}
-                            key={phoneEntry.phoneNumberTypeId}
-                            onChange={evt => handlePhoneChange(evt, phoneEntry.phoneNumberTypeId)}
-                            className={styles.formInput}
-                        />
-                    </fieldset>
-
+                    <ContactPhoneInput 
+                        key={phoneKey}
+                        phoneEntry={phoneEntry}
+                        handlePhoneTypeChange={handlePhoneTypeChange}
+                        handlePhoneChange={handlePhoneChange}
+                        styles={styles}
+                        phoneValid={phoneValid}
+                    />
                 );
             })}
 
             {contactEmails.map(emailEntry => {
                 return (
-                    <input 
-                        type="text" 
-                        defaultValue={emailEntry.emailAddress} 
-                        key={emailEntry.emailAddressId} 
-                        onChange={evt => handleEmailChange(evt, emailEntry.emailAddressId)} 
-                        className={styles.formInput}
+                    <ContactEmailInput 
+                        key={emailEntry.businessEntityId}
+                        emailEntry={emailEntry}
+                        styles={styles}
+                        handleEmailChange={handleEmailChange}
+                        emailValid={emailValid}
                     />
                 );
             })}

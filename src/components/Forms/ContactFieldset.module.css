@@ -7,3 +7,7 @@ fieldset {
 .formInput {
     border: 1px solid #212121;
 }
+
+.contactError {
+    color: red;
+}

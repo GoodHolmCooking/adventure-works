@@ -16,47 +16,6 @@ const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-const phoneToNumber = phone => {
-	// 859-555-0100 -> 8595550100
-    console.log(`Running phone to number. Found ${phone}`);
-    if (phone.includes("-")) {
-        let area = phone.substring(0, 3);
-        let firstSet = phone.substring(4, 7);
-        let secondSet = phone.substring(8);
-        let combinedNumber = area + firstSet + secondSet;
-    
-        console.log(`Found '-'. Returning ${combinedNumber}`);
-        return +combinedNumber;
-    }
-    else {
-        console.log(`No '-' found. Returning ${phone}`);
-        return +phone;
-    }
-};
-
-const numberToPhone = providedNumber => {
-	// 8595550100 -> 859-555-0100
-    console.log(`Running number to phone. Found ${providedNumber}`);
-	let convertedString = providedNumber.toString();
-
-    // this function could be run every time a character is removed.
-    // characters should only be added when the phone is a complete number.
-    if (convertedString.length === 10) {
-        let area = convertedString.substring(0, 3);
-        let firstSet = convertedString.substring(3, 6);
-        let secondSet = convertedString.substring(6);
-        let phone = area + "-" + firstSet + "-" + secondSet;
-        console.log(`Found exactly 10 digits. Converted to ${phone}`);
-        return phone;
-    }
-
-    // if the phone is not a complete number, just apply a conversion from a number to a string
-    else {
-        console.log(`Not 10 digits. Returning ${convertedString}`);
-        return convertedString;
-    }
-}
-
 const emailValid = email => {
     // regex pattern taken from online tutorial
     if (!email.match(/^[A-Za-z._\-0-9]*[@][A-Za-z]*[.][a-z]{2,4}$/)) {
@@ -235,7 +194,6 @@ const VendorDetails = () => {
                                     toggleEditView={toggleEditName}
                                     completeVendor={completeVendor}
                                     limitedVendor={limitedVendor}
-                                    numberToPhone={numberToPhone}
                                     phoneNumbers={phoneNumbers}
                                     id={id}
                                     phoneValid={phoneValid}
@@ -278,8 +236,6 @@ const VendorDetails = () => {
                                         emails={emails}
                                         setEmails={setEmails}
                                         toggleEditView={toggleEditContacts}
-                                        phoneToNumber={phoneToNumber}
-                                        numberToPhone={numberToPhone}
                                         phoneValid={phoneValid}
                                         emailValid={emailValid}
                                     />

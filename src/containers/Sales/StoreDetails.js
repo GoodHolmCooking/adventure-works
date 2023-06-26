@@ -12,6 +12,16 @@ const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
+const convertDate = date => {
+    let tempDate = new Date(date);
+    let month = tempDate.getMonth();
+    let day = tempDate.getDay();
+    let year = tempDate.getFullYear();
+    let formattedDate = `${month}/${day}/${year}`;
+    return formattedDate;
+};
+
+
 function StoreDetails() {
     const dispatch = useDispatch();
     const { id } = useParams();
@@ -19,6 +29,8 @@ function StoreDetails() {
     const [store, setStore] = useState({});
     const [contacts, setContacts] = useState([]);
     const [emails, setEmails] = useState([]);
+    const [phoneNumbers, setPhoneNumbers] = useState([]);
+    const [orderDate, setOrderDate] = useState(null);
 
 
     const [editingName, setEditingName] = useState(false);
@@ -28,16 +40,12 @@ function StoreDetails() {
     useEffect(() => {
         axios.get(`/Order/store/${id}`)
             .then(resp => {
-                setStore({
-                    orderDate: resp.data.orderDate,
-                    orderNumber: resp.data.orderNumber,
-                    Name: resp.data.name
-                });
+                setStore(resp.data);
                 console.log(resp.data)
 
                 setContacts(resp.data.contacts.map(contact => {
                     return {
-                        personId: contact.businessEntityId,
+                        businessEntityId: contact.businessEntityId,
                         personalTitle: contact.personalTitle,
                         firstName: contact.firstName,
                         middleName: contact.middleName,
@@ -55,17 +63,23 @@ function StoreDetails() {
                     }
                 }));
 
+                setPhoneNumbers(resp.data.contacts.map(contact => {
+                    return {
+                        businessEntityId: contact.businessEntityId,
+                        phoneNumber: contact.phoneNumber,
+                        phoneNumberTypeId: contact.phoneNumberTypeId,
+                        phoneNumberTypeName: contact.phoneNumberTypeName
+                    }
+                }));
+
                 
             });
     }, [id]);
-    
-    useEffect(() => {
-        toggleEditName();
-    }, [store]);
 
-    const toggleEditName = () => {
-        setEditingName(!editingName);
-    };
+    useEffect(() => {
+        console.log(contacts)
+    },
+    [contacts]);
 
     const toggleEditContacts = () => {
         setEditingContacts(!editingContacts);
@@ -86,10 +100,10 @@ function StoreDetails() {
                         {/* Name Block */}
                         <div className={styles.nameBlock}>
                             <div className={styles.nameRow}>
-                                <h1>{store.store}</h1>
+                                <h1>{store.storeName}</h1>
                             </div>
                             <div className={styles.nameSubHeadings}>
-                                <p>{store.orderDate}</p>
+                                <p>{convertDate(store.orderDate)}</p>
                                 <p>{store.orderNumber}</p>
                             </div>
                         </div>
@@ -100,23 +114,23 @@ function StoreDetails() {
                             </div>
                             <div>
                                 <p>Order Number</p>
-                                <p>${store.orderNumber.toFixed(2)}</p>
+                                <p>{store.orderNumber}</p>
                             </div>
                             <div>
                                 <p>Tracking Number</p>
-                                <p>{store.trackingNumber}</p>
+                                <p>{store.carrierTrackingNumber}</p>
                             </div>
                             <div>
                                 <p>Order Quantity</p>
-                                <p>${store.orderQuantity}</p>
+                                <p>{store.orderQty}</p>
                             </div>
                             <div>
                                 <p>Product Name</p>
-                                <p>${store.productName}</p>
+                                <p>{store.productName}</p>
                             </div>
                             <div>
                                 <p>Product ID</p>
-                                <p>${store.productId}</p>
+                                <p>{store.productId}</p>
                             </div>  
                             <div>
                                 <p>Unit Price</p>
@@ -128,12 +142,13 @@ function StoreDetails() {
                             </div>
                             <div>
                                 <p>Line Total</p>
-                                <p>${store.lineTotal}</p>
+                                <p>{store.lineTotal}</p>
                             </div>                                                                                                              
-                        </div>
+                        </div>                                                                                                            
+                        
                         {/* Store Information */}
                         <div className={styles.contentBlock}>
-                            <div>
+                        <div>
                                 <h4>Store Information</h4>
                             </div>
                             <div>
@@ -142,31 +157,47 @@ function StoreDetails() {
                             </div>
                             <div>
                                 <p>Bank</p>
-                                <p>{store.bank}</p>
+                                <p>{store.bankName}</p>
                             </div>
                             <div>
                                 <p>Square Footage</p>
-                                <p>${store.squareFootage}</p>
+                                <p>{store.squareFeet}</p>
                             </div>
                             <div>
                                 <p>Speciality</p>
-                                <p>${store.speciality}</p>
+                                <p>{store.specialty}</p>
                             </div>
                             <div>
                                 <p>Total Employees</p>
-                                <p>${store.totalEmployees}</p>
+                                <p>{store.numberEmployees}</p>
                             </div>                                                                                                               
                         </div>
                         {/* Previous Sales */}
                         <div className={styles.contentBlock}>
-                            <div>
+                        <div>
                                 <h4>Previous Sales</h4>
                             </div>
                             <div>
-                                <p>Order Date</p>
-                                <p>${store.orderDate}</p>
-                            </div>                                                                                                              
-                        </div>                    
+                                <p>{convertDate(store.orderDate)}</p>
+                                <p>${store.lineTotal}</p>
+                            </div>
+                            <div>
+                            <p>4/3/2014</p>
+                                <p>$246.25</p>
+                            </div> 
+                            <div>
+                            <p>4/2/2014</p>
+                                <p>$85.99</p>
+                            </div> 
+                            <div>
+                            <p>4/1/2014</p>
+                                <p>$100.50</p>
+                            </div> 
+                            <div>
+                            <p>3/26/2014</p>
+                                <p>$65.00</p>
+                            </div>                                                                                                               
+                        </div>                     
                         <section>
                             <div className={styles.headerRow}>
                                 <h3>Contacts</h3>
@@ -174,14 +205,15 @@ function StoreDetails() {
                                     <img src="../../images/Pencilicon.png" alt="edit store"/>
                                 </button>
                             </div>
-                            {!editingContacts && 
-                                <ol className={styles.contentContainer}>
+                            {(!editingContacts && emails.length) &&
+                                <ol className={styles.contactList}>
                                     {contacts.map(contact => {
                                         return (
                                             <Contact
                                                 key={contact.businessEntityId}
                                                 contact={contact}
                                                 emails={emails}
+                                                phoneNumbers={phoneNumbers}
                                             />
                                         );
                                     })}

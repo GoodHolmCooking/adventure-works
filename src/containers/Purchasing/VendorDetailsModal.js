@@ -38,8 +38,6 @@ const phoneValid = phone => {
 };
 
 const VendorDetailsModal = props => {
-    scrollToTop();
-
     const dispatch = useDispatch();
     const { id, expandFunction, limitedVendor } = props;
     const [completeVendor, setCompleteVendor] = useState({});
@@ -76,6 +74,10 @@ const VendorDetailsModal = props => {
 
         // string needs to be converted to a number. State stores as a number for ease of entry then translates back to a string on update.
         setPrimaryPhone(limitedVendor.contactPhone);
+    }, [limitedVendor]);
+
+    useEffect(() => {
+        scrollToTop();
     }, [limitedVendor]);
 
     // once the complete vendor is loaded, move the data into update components

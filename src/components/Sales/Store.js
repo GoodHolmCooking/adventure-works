@@ -34,7 +34,7 @@ const Store = props => {
     }
 
     return (
-        <div>
+        <div key={store.id}>
             <div className={styles.storeBlockMobile}>
                 <div className={styles.storeContent}>
                     <div>{store.storeName}</div>

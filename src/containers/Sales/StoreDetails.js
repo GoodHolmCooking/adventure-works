@@ -33,27 +33,27 @@ function StoreDetails() {
                     orderNumber: resp.data.orderNumber,
                     Name: resp.data.name
                 });
+                console.log(resp.data)
 
-                // setContacts(resp.data.contacts.map(contact => {
-                //     return {
-                //         personId: contact.businessEntityId,
-                //         personalTitle: contact.personalTitle,
-                //         firstName: contact.firstName,
-                //         middleName: contact.middleName,
-                //         lastName: contact.lastName,
-                //         suffix: contact.suffix,
-                //         contactTypeId: contact.contactTypeId
-                //     }
-                // }));
+                setContacts(resp.data.contacts.map(contact => {
+                    return {
+                        personId: contact.businessEntityId,
+                        personalTitle: contact.personalTitle,
+                        firstName: contact.firstName,
+                        middleName: contact.middleName,
+                        lastName: contact.lastName,
+                        suffix: contact.suffix,
+                        contactTypeId: contact.contactTypeId
+                    }
+                }));
 
-                // let allEmails = [];
-                // resp.data.contacts.forEach(contact => {
-                //     contact.emailAddresses.forEach(email => {
-                //         allEmails.push(email);
-                //     });
-                // });
-
-                // setEmails(allEmails);
+                setEmails(resp.data.contacts.map(contact => {
+                    return {
+                        businessEntityId: contact.businessEntityId,
+                        emailAddressId: contact.emailAddressId,
+                        emailAddress: contact.emailAddress
+                    }
+                }));
 
                 
             });
@@ -181,7 +181,7 @@ function StoreDetails() {
                                     {contacts.map(contact => {
                                         return (
                                             <Contact
-                                                key={contact.personId}
+                                                key={contact.businessEntityId}
                                                 contact={contact}
                                                 emails={emails}
                                             />

@@ -37,6 +37,7 @@ const StoreContactForm = props => {
         contacts.forEach(contact => {
             let contactData = {
                 contactInfo: contact,
+                storeId: store.storeEntityId
             }
             dispatch(updateContactAsync(contactData));
         });

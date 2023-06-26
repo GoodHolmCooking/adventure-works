@@ -50,7 +50,7 @@ function Stores() {
                 {!loading && displayStores.map(store => {
                     return (
                         <Store 
-                            key={store.orderNumber}
+                            key={store.id}
                             store={store}
                             setExpandedStore={setExpandedStore}
                         />

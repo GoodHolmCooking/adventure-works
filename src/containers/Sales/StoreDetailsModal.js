@@ -23,6 +23,7 @@ const StoreDetailsModal = props => {
     const [contacts, setContacts] = useState([]);
     const [emails, setEmails] = useState([]);
     const [orderDate, setOrderDate] = useState(null);
+    const [phoneNumbers, setPhoneNumbers] = useState([]);
 
     const [editingContacts, setEditingContacts] = useState(false);
 
@@ -32,10 +33,10 @@ const StoreDetailsModal = props => {
         axios.get(`/Order/store/${id}`)
             .then(resp => {
                 setStore(resp.data);
-
+                console.log(resp.data);
                 setContacts(resp.data.contacts.map(contact => {
                     return {
-                        // businessEntityId: contact.businessEntityId,
+                        businessEntityId: contact.businessEntityId,
                         // personId: contact.businessEntityId,
                         personalTitle: contact.personalTitle,
                         firstName: contact.firstName,
@@ -49,8 +50,30 @@ const StoreDetailsModal = props => {
 
                 setOrderDate(convertDate(resp.data.orderDate));
 
+                setEmails(resp.data.contacts.map(contact => {
+                    return {
+                        businessEntityId: contact.businessEntityId,
+                        emailAddressId: contact.emailId,
+                        emailAddress: contact.emailAddress
+                    }
+                }));
+
+                setPhoneNumbers(resp.data.contacts.map(contact => {
+                    return {
+                        businessEntityId: contact.businessEntityId,
+                        phoneNumber: contact.phoneNumber,
+                        phoneNumberTypeId: contact.phoneNumberTypeId,
+                        phoneNumberTypeName: contact.phoneNumberTypeName
+                    }
+                }));
+
             });
     }, [id]);
+
+    useEffect(() => {
+        console.log(contacts)
+    },
+    [contacts]);
 
     const toggleEditContacts = () => {
         setEditingContacts(!editingContacts);
@@ -154,23 +177,23 @@ const StoreDetailsModal = props => {
                             </div>
                             <div>
                                 <p>{convertDate(store.orderDate)}</p>
-                                <p>{store.lineTotal}</p>
+                                <p>${store.lineTotal}</p>
                             </div>
                             <div>
-                            <p>{convertDate(store.orderDate)}</p>
-                                <p>{store.lineTotal}</p>
+                            <p>4/3/2014</p>
+                                <p>$246.25</p>
                             </div> 
                             <div>
-                            <p>{convertDate(store.orderDate)}</p>
-                                <p>{store.lineTotal}</p>
+                            <p>4/2/2014</p>
+                                <p>$85.99</p>
                             </div> 
                             <div>
-                            <p>{convertDate(store.orderDate)}</p>
-                                <p>{store.lineTotal}</p>
+                            <p>4/1/2014</p>
+                                <p>$100.50</p>
                             </div> 
                             <div>
-                            <p>{convertDate(store.orderDate)}</p>
-                                <p>{store.lineTotal}</p>
+                            <p>3/26/2014</p>
+                                <p>$65.00</p>
                             </div>                                                                                                               
                         </div> 
                         </section>
@@ -183,14 +206,15 @@ const StoreDetailsModal = props => {
                                     <img src="../../images/Pencilicon.png" alt="edit store"/>
                                 </button>
                             </div>
-                            {!editingContacts && 
+                            {(!editingContacts && emails.length) && 
                                 <ol className={styles.contactList}>
                                     {contacts.map(contact => {
                                         return (
                                             <Contact
-                                                key={contact.Id}
+                                                key={contact.businessEntityId}
                                                 contact={contact}
                                                 emails={emails}
+                                                phoneNumbers={phoneNumbers}
                                             />
                                         );
                                     })}

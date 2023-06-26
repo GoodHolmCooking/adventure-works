@@ -37,7 +37,6 @@ const StoreDetailsModal = props => {
                 setContacts(resp.data.contacts.map(contact => {
                     return {
                         businessEntityId: contact.businessEntityId,
-                        // personId: contact.businessEntityId,
                         personalTitle: contact.personalTitle,
                         firstName: contact.firstName,
                         middleName: contact.middleName,
@@ -151,7 +150,7 @@ const StoreDetailsModal = props => {
                             </div>
                             <div>
                                 <p>Annual Sales</p>
-                                <p>{store.annualSales}</p>
+                                <p>${store.annualSales}</p>
                             </div>
                             <div>
                                 <p>Bank</p>

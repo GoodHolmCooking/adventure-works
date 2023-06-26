@@ -7,17 +7,9 @@ import styles from "./StoreContactForm.module.css";
 
 const StoreContactForm = props => {
     const {store, toggleEditView, contacts, setContacts, emails, setEmails} = props;
-    // const {contactTypes} = useSelector(state => state.Stores);
-    // const [phoneNumbers, setPhoneNumbers] = useState([]);
 
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     // if there are no contact types loaded into the state, load them
-    //     if (!contactTypes.length) {
-    //         dispatch(loadContactTypesAsync());
-    //     }
-    // }, [contactTypes, dispatch]);
 
     const titles = [
         {name: "Mr.", id: 1},
@@ -42,9 +34,7 @@ const StoreContactForm = props => {
             dispatch(updateContactAsync(contactData));
         });
 
-        // update phone numbers (Blocked until Drew fixes API)
-
-        // update emaila addresses
+        // update email addresses
         console.log("submitting emails...")
         emails.forEach(email => {
             dispatch(updateEmailAsync(email));
@@ -62,7 +52,6 @@ const StoreContactForm = props => {
                         key={contact.personId}
                         contact={contact}
                         titles={titles}
-                        // contactTypes={contactTypes}
                         contacts={contacts}
                         setContacts={setContacts}
                         emails={emails}

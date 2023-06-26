@@ -19,8 +19,8 @@ const Customers = props => {
                 .then(() => {
                     dispatch(applySalesFilter());
                 });
-        }
-    }, [dispatch]);
+        };
+    }, [dispatch, customers]);
 
     useEffect(() => {
         if (displayCustomers.length) {

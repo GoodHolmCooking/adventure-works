@@ -6,6 +6,7 @@ import SalesHeader from "../../components/Sales/SalesHeader";
 import styles from "./Stores.module.css";
 import { useState } from "react";
 import SalesModal from "../../components/Sales/SalesModal";
+
 function Stores() {
     const {stores, displayStores} = useSelector(state => state.stores);
     const [loading, setLoading] = useState(true);

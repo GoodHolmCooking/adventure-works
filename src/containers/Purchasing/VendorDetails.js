@@ -16,7 +16,7 @@ const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-function phoneToNumber(phone) {
+const phoneToNumber = phone => {
 	// 859-555-0100 -> 8595550100
     console.log(`Running phone to number. Found ${phone}`);
     if (phone.includes("-")) {
@@ -34,7 +34,7 @@ function phoneToNumber(phone) {
     }
 };
 
-function numberToPhone(providedNumber) {
+const numberToPhone = providedNumber => {
 	// 8595550100 -> 859-555-0100
     console.log(`Running number to phone. Found ${providedNumber}`);
 	let convertedString = providedNumber.toString();
@@ -57,7 +57,28 @@ function numberToPhone(providedNumber) {
     }
 }
 
-function VendorDetails() {
+const emailValid = email => {
+    // regex pattern taken from online tutorial
+    if (!email.match(/^[A-Za-z._\-0-9]*[@][A-Za-z]*[.][a-z]{2,4}$/)) {
+        return false;
+    }
+    else {
+        return true;
+    }
+};
+
+const phoneValid = phone => {
+    // regex pattern generated through ChatGPT
+    if (!phone.match(/^\d{3}-\d{3}-\d{4}$/)) {
+        return false;
+    }
+    else {
+        return true;
+    }
+};
+
+
+const VendorDetails = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
 
@@ -217,6 +238,7 @@ function VendorDetails() {
                                     numberToPhone={numberToPhone}
                                     phoneNumbers={phoneNumbers}
                                     id={id}
+                                    phoneValid={phoneValid}
                                 />
                                 <button className={styles.cancelBtn} onClick={toggleEditName}>Cancel</button>
                             </div>
@@ -258,6 +280,8 @@ function VendorDetails() {
                                         toggleEditView={toggleEditContacts}
                                         phoneToNumber={phoneToNumber}
                                         numberToPhone={numberToPhone}
+                                        phoneValid={phoneValid}
+                                        emailValid={emailValid}
                                     />
                                     <button className={styles.cancelBtn} onClick={toggleEditContacts}>Cancel</button>
                                 </div>

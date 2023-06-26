@@ -24,7 +24,7 @@ const SalesHeader = props => {
                         {area === 'stores' && <img src="\images\Vector.png" alt="stores are selected" /> }
                         <div>Stores</div>
                     </Link>
-                    <Link to="/customers" className={styles.purchasingLink}>
+                    <Link to="/customers" className={styles.salesLink}>
                         {area === 'customers' && <img src="\images\Vector.png" alt="customer orders are selected" /> }
                         <div>Customers</div>
                     </Link>

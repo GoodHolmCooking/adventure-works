@@ -28,7 +28,7 @@ const StoreContact = props => {
 
     useEffect(() => {
         setContactEmails(emails.filter(email => {
-            return email.businessEntityId === contact.personId;
+            return email.businessEntityId === contact.businessEntityId;
         }));
     }, [emails, contact]);
 
@@ -37,12 +37,12 @@ const StoreContact = props => {
     useEffect(() => {
         let tempContacts = [...contacts];
         let updateContactIndex = tempContacts.findIndex(tempContact => {
-            return tempContact.personId === contact.personId;
+            return tempContact.businessEntityId === contact.businessEntityId;
         });
 
         tempContacts[updateContactIndex] = {
-            // businessEntityId: store.businessEntityId,
-            personId: contact.personId,
+            businessEntityId: contact.businessEntityId,
+            personId: contact.businessEntityId,
             personalTitle: personalTitle,
             firstName: firstName,
             middleName: middleName,
@@ -61,7 +61,7 @@ const StoreContact = props => {
             return email.emailAddressId === id;
         });
         tempEmailAddresses[updateEmailAdressIndex] = {
-            // businessEntityId: contact.businessEntityId,
+            businessEntityId: contact.businessEntityId,
             emailAddressId: id,
             emailAddress: evt.target.value
         };

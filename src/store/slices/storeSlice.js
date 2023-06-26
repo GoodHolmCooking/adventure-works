@@ -70,7 +70,7 @@ export const updateStoreAsync = createAsyncThunk("/stores/updateStoreAsync", asy
 export const updateContactAsync = createAsyncThunk("/stores/updateContactAsync", async data => {
     try {
         console.log("Running contact update");
-		axios.put(`/Contact/${data.contactInfo.Id}/${data.storeId}`, data.contactInfo);
+		axios.put(`/Contact/${data.contactInfo.businessEntityId}/${data.storeId}`, data.contactInfo);
 	} catch (err) {
 		toast.error(err.toString());
 	}
@@ -80,7 +80,7 @@ export const updateContactAsync = createAsyncThunk("/stores/updateContactAsync",
 export const updateEmailAsync = createAsyncThunk("/stores/updateEmailAsync", async data => {
     try {
         console.log("Running email update");
-		axios.put(`/Email/${data.emailAddressId}/${data.Id}`, data)
+		axios.put(`/Email/${data.emailAddressId}/${data.businessEntityId}`, data)
             .then(resp => {
                 console.log(`Status: ${resp.status}`);
             });

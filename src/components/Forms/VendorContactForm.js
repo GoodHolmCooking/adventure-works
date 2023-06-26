@@ -73,23 +73,34 @@ const VendorContactForm = props => {
                 originalPhoneNumberTypeId: originalNumber.phoneNumberTypeId
             };
         });
+        
 
         // update phone numbers
+        var allPhoneNumbersValid = true;
         formattedPhoneUpdates.forEach(phoneNumber => {
             if (phoneValid(phoneNumber.newPhoneNumber)) {
                 dispatch(updatePhoneAsync(phoneNumber));
             }
+            else {
+                allPhoneNumbersValid = false;
+            }
         });
 
         // update email addresses
+        var allEmailsVaild = true;
         emails.forEach(email => {
             if (emailValid(email.emailAddress)) {
                 dispatch(updateEmailAsync(email));
             }
+            else {
+                allEmailsVaild = false;
+            }
         });
 
 		// exit the editing UI
-		toggleEditView();
+        if (allEmailsVaild && allPhoneNumbersValid) {
+            toggleEditView();
+        }	
     }
 
     return (

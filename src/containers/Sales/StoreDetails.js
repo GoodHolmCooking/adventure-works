@@ -22,7 +22,7 @@ const convertDate = date => {
 };
 
 
-function StoreDetails() {
+const StoreDetails = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
 
@@ -32,8 +32,6 @@ function StoreDetails() {
     const [phoneNumbers, setPhoneNumbers] = useState([]);
     const [orderDate, setOrderDate] = useState(null);
 
-
-    const [editingName, setEditingName] = useState(false);
     const [editingContacts, setEditingContacts] = useState(false);
 
     // initial load
@@ -54,11 +52,13 @@ function StoreDetails() {
                         contactTypeId: contact.contactTypeId
                     }
                 }));
+                
+                setOrderDate(convertDate(resp.data.orderDate));
 
                 setEmails(resp.data.contacts.map(contact => {
                     return {
                         businessEntityId: contact.businessEntityId,
-                        emailAddressId: contact.emailAddressId,
+                        emailAddressId: contact.emailId,
                         emailAddress: contact.emailAddress
                     }
                 }));

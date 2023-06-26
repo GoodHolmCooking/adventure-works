@@ -25,9 +25,6 @@
         display: flex;
         justify-content: flex-start;
     }
-
-    /* Refactoring this to a grid would put the project beyond scope for the provided budget */
-    /* Manually adjusting for expedient delivery */
     .storeNameHeading {
         padding-inline-start: 4%;
     }

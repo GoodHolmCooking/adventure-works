@@ -58,9 +58,7 @@ function StoreDetails() {
                 
             });
     }, [id]);
-
-
-    // close the edit view after the vendor changes are processed
+    
     useEffect(() => {
         toggleEditName();
     }, [store]);

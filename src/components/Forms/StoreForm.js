@@ -7,7 +7,6 @@ import { toggleNameEdit, updatePhoneAsync, updateStoreAsync } from "../../store/
 import { useNavigate } from "react-router";
 
 function phoneToNumber(phone) {
-	// 859-555-0100 -> 8595550100
 	let area = phone.substring(0, 3);
 	let firstSet = phone.substring(4, 7);
 	let secondSet = phone.substring(8);
@@ -31,15 +30,12 @@ const StoreForm = props => {
 	const {setStore, store} = props;
 	const name = store.storeName;
 	const contacts = store.contacts;
-	// const phoneNumbers = contacts[0].phoneNumbers
-	// const phone = phoneNumbers[0].phoneNumber;
 	const id = store.businessEntityId;
 	const dispatch = useDispatch();
 
 	// 123 456 789(10)
     const form = {
-        name: formBuilder.configInput("input", "text", "", "", {required: true}, name),
-        // phone: formBuilder.configInput("input", "number", "", "", {required: true, exactLength: 10}, phoneToNumber(phone)),
+        name: formBuilder.configInput("input", "text", "", "", {required: true}, name)
     };
 
     const [formData, setFormData] = useState(form);

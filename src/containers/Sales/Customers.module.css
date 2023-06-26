@@ -16,9 +16,6 @@
         margin-inline-start: 6rem;
         display: flex;
     }
-
-    /* Refactoring this to a grid would put the project beyond scope for the provided budget */
-    /* Manually adjusting for expedient delivery */
     .CustomerNameHeading {
         padding-inline-start: 1.5%;
     }

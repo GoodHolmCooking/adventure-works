@@ -20,12 +20,6 @@ const StoreContact = props => {
     const [contactEmails, setContactEmails] = useState([]);
     const [contactTypeOptions, setContactTypeOptions] = useState([]);
 
-    // useEffect(() => {
-    //     setContactTypeOptions(contactTypes.map(contactType => {
-    //         return <option value={contactType.contactTypeId} key={contactType.contactTypeId}>{contactType.contactTypeName}</option>;
-    //     }));
-    // }, [contactTypes]);
-
     useEffect(() => {
         setContactEmails(emails.filter(email => {
             return email.businessEntityId === contact.businessEntityId;

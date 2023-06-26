@@ -19,7 +19,6 @@ const VendorAddressForm = props => {
         evt.preventDefault();
 
         // update contacts
-        console.log("Submitting addresses...")
         addresses.forEach(address => {
             dispatch(updateAddressAsync(address));
         });

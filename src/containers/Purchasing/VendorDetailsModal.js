@@ -190,6 +190,7 @@ const VendorDetailsModal = props => {
                                     completeVendor={completeVendor}
                                     limitedVendor={limitedVendor}
                                     phoneNumbers={phoneNumbers}
+                                    id={id}
                                 />
                                 <button className={styles.cancelBtn} onClick={toggleEditName}>Cancel</button>
                             </div>

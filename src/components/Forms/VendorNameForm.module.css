@@ -34,30 +34,6 @@
     width: 100%;
 }
 
-/*
-    <div className={styles.nameBlock}>
-        <div className={styles.headerRow}>
-            <h1>{vendorName}</h1>
-            <button className={styles.editBtn} onClick={toggleEditName}>
-                <img src="../../images/Pencilicon.png" alt="edit vendor"/>
-            </button>
-            
-        </div>
-        <div className={styles.blockSubContainer}>
-            <p>{numberToPhone(primaryPhone)}</p>
-            <p>{id}</p>
-        </div>
-    </div>
-
-    .headerRow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-block-end: 0.4rem;
+.phoneError {
+    color: red;
 }
-
-.headerRow h1 {
-    margin: 0;
-}
-
-*/

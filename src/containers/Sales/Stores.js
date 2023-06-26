@@ -7,7 +7,7 @@ import styles from "./Stores.module.css";
 import { useState } from "react";
 import SalesModal from "../../components/Sales/SalesModal";
 function Stores() {
-    const {stores, displayStores, provinces} = useSelector(state => state.stores);
+    const {stores, displayStores} = useSelector(state => state.stores);
     const [loading, setLoading] = useState(true);
     const [expandedStore, setExpandedStore] = useState({});
     const dispatch = useDispatch();
@@ -50,10 +50,9 @@ function Stores() {
                 {!loading && displayStores.map(store => {
                     return (
                         <Store 
-                            key={store.orderNumber}
+                            key={store.id}
                             store={store}
                             setExpandedStore={setExpandedStore}
-                            provinces={provinces}
                         />
                     );
                 })}

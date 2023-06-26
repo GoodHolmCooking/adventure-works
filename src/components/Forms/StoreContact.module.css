@@ -1,4 +1,4 @@
-fieldset {
+contact {
     display: flex;
     flex-direction: column;
     margin-block: 1rem;
@@ -6,8 +6,4 @@ fieldset {
 
 .formInput {
     border: 1px solid #212121;
-}
-
-.contactError {
-    color: red;
 }

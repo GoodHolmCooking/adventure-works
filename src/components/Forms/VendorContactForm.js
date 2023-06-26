@@ -18,10 +18,11 @@ const VendorContactForm = props => {
         phoneNumbers,
         setPhoneNumbers,
         originalPhoneNumbers,
-        setOriginalPhoneNumbers
+        setOriginalPhoneNumbers,
+        phoneValid,
+        emailValid
     } = props;
     const {contactTypes} = useSelector(state => state.vendors);
-    const [phoneUpdates, setPhoneUpdates] = useState([]);
 
     const dispatch = useDispatch();
 
@@ -72,19 +73,34 @@ const VendorContactForm = props => {
                 originalPhoneNumberTypeId: originalNumber.phoneNumberTypeId
             };
         });
+        
 
         // update phone numbers
+        var allPhoneNumbersValid = true;
         formattedPhoneUpdates.forEach(phoneNumber => {
-            dispatch(updatePhoneAsync(phoneNumber));
-        })
+            if (phoneValid(phoneNumber.newPhoneNumber)) {
+                dispatch(updatePhoneAsync(phoneNumber));
+            }
+            else {
+                allPhoneNumbersValid = false;
+            }
+        });
 
         // update email addresses
+        var allEmailsVaild = true;
         emails.forEach(email => {
-            dispatch(updateEmailAsync(email));
+            if (emailValid(email.emailAddress)) {
+                dispatch(updateEmailAsync(email));
+            }
+            else {
+                allEmailsVaild = false;
+            }
         });
 
 		// exit the editing UI
-		toggleEditView();
+        if (allEmailsVaild && allPhoneNumbersValid) {
+            toggleEditView();
+        }	
     }
 
     return (
@@ -105,8 +121,8 @@ const VendorContactForm = props => {
                         setPhoneNumbers={setPhoneNumbers}
                         originalPhoneNumbers={originalPhoneNumbers}
                         setOriginalPhoneNumbers={setOriginalPhoneNumbers} 
-                        phoneUpdates={phoneUpdates}
-                        setPhoneUpdates={setPhoneUpdates}
+                        emailValid={emailValid}
+                        phoneValid={phoneValid}
                    />
                 );
             })}

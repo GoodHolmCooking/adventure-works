@@ -42,7 +42,7 @@ const Customer = props => {
             <p>{customer.orderNumber}</p>
             <p>{customer.orderQty}</p>
             <p>{convertDate(customer.shipDate)}</p>
-            <p>{customer.unitPrice}</p>
+            <p>${customer.unitPrice}</p>
             <p>${customer.lineTotal.toFixed(2)}</p> 
             <button className={styles.btn} onClick={handleModal}>
                 <img src="./images/ArrowRight.png" alt="expand customer order" />

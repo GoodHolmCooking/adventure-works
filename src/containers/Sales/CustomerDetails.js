@@ -60,22 +60,100 @@ const CustomerDetails = props => {
                         {/* Name Block */}
                         <div className={styles.nameBlock}>
                             <div className={styles.nameRow}>
-                                <h1>{customer.customer}</h1>
+                                <h1>{customer.firstName + " " + customer.lastName}</h1>
                             </div>
                             <div className={styles.nameSubHeadings}>
-                                <p>{customer.orderDate}</p>
+                                <p>{convertDate(customer.orderDate)}</p>
                                 <p>{customer.orderNumber}</p>
                             </div>
                         </div>
 
-                        {/* Shipping Info */}
+                        {/* Customer Information */}
                         <div className={styles.contentBlock}>
+                            <div>
+                                <h4>Customer Information</h4>
+                            </div>
+                            <div>
+                                <p>Name:</p>
+                                <p>{customer.firstName + " " + customer.lastName}</p>
+                            </div>
+                            <div>
+                                <p>Phone Type:  </p>
+                                <p>{customer.phoneNumber}</p>
+                            </div>
+                            <div>
+                                <p>Email:</p>
+                                <p>{customer.emailAddress}</p>
+                            </div>
+                        </div>
+                         {/* Sale Details */}
+                         <div className={styles.contentBlock}>
+                            <div>
+                                <h4>Sale Details</h4>
+                            </div>
+                            <div>
+                                <p>Order Number:</p>
+                                <p>{customer.orderNumber}</p>
+                            </div>
+                            <div>
+                                <p>Tracking Number:</p>
+                                <p>{customer.freightNumber}</p>
+                            </div>
+                            <div>
+                                <p>Product Name</p>
+                                <p>{customer.productName}</p>
+                            </div>
+                            <div>
+                                <p>Product ID</p>
+                                <p>{customer.productId}</p>
+                            </div>
+                        </div>
+                       {/* Pricing Details */}
+                       <div className={styles.contentBlock}>
+                            <div>
+                                <h4>Pricing Details</h4>
+                            </div>
+                            <div>
+                                <p>Unit Price</p>
+                                <p>${customer.unitPrice.toFixed(2)}</p>
+                            </div>
+                            <div>
+                                <p>Unit Price Discount</p>
+                                <p>${customer.unitPriceDiscount.toFixed(2)}</p>
+                            </div>
+                            <div>
+                                <p>Line Total</p>
+                                <p>${customer.lineTotal.toFixed(2)}</p>
+                            </div>
+                            <div>
+                                <p>Order Quantity</p>
+                                <p>{customer.orderQty}</p>
+                            </div>
+                            <div>
+                                <p>Subtotal</p>
+                                <p>${(customer.unitPrice - customer.unitPriceDiscount) * customer.orderQty}</p>
+                            </div>
+                            <div>
+                                <p>Shipping Cost</p>
+                                <p>${customer.freight.toFixed(2)}</p>
+                            </div>
+                            <div>
+                                <p>Tax Amount</p>
+                                <p>${customer.taxAmt.toFixed(2)}</p>
+                            </div>
+                            <div>
+                                <p>Total Due</p>
+                                <p>${(customer.unitPrice - customer.unitPriceDiscount) * customer.orderQty + (customer.freight + customer.taxAmt)}</p>
+                            </div>
+                        </div>
+                             {/* Shipping Info */}
+                            <div className={styles.contentBlock}>
                             <div>
                                 <h4>Shipping Information</h4>
                             </div>
                             <div>
                                 <p>Ship Date</p>
-                                <p>${customer.shipDate}</p>
+                                <p>{convertDate(customer.shipDate)}</p>
                             </div>
                             <div>
                                 <p>Method</p>
@@ -83,87 +161,7 @@ const CustomerDetails = props => {
                             </div>
                             <div>
                                 <p>Freight Number</p>
-                                <p>${customer.freightNumber}</p>
-                            </div>
-                        </div>
-                        {/* customer Information */}
-                        <div className={styles.contentBlock}>
-                            <div>
-                                <h4>Customer Information</h4>
-                            </div>
-                            <div>
-                                <p>Suffix First Middle Last Name Title</p>
-                                <p>{customer.customerid}</p>
-                            </div>
-                            <div>
-                                <p>Phone Type: PhoneNumber </p>
-                                <p>{customer.phoneNumber}</p>
-                            </div>
-                            <div>
-                                <p>Email: EmailAddress</p>
-                                <p>{customer.email}</p>
-                            </div>
-                        </div>
-
-                        {/* Customer Details */}
-                        <div className={styles.contentBlock}>
-                            <div>
-                                <h4>Customer Details</h4>
-                            </div>
-                            <div>
-                                <p>Order Number</p>
-                                <p>{customer.orderNumber}</p>
-                            </div>
-                            <div>
-                                <p>Tracking Number</p>
-                                <p>{customer.trackingNumber}</p>
-                            </div>
-                            <div>
-                                <p>Product Name</p>
-                                <p>${customer.productName}</p>
-                            </div>
-                            <div>
-                                <p>Product ID</p>
-                                <p>${customer.productId}</p>
-                            </div>
-                        </div>
-
-                        {/* Pricing Details */}
-                        <div className={styles.contentBlock}>
-                            <div>
-                                <h4>Pricing Details</h4>
-                            </div>
-                            <div>
-                                <p>Unit Price</p>
-                                <p>{customer.unitPrice}</p>
-                            </div>
-                            <div>
-                                <p>Unit Price Discount</p>
-                                <p>{customer.unitPriceDiscount}</p>
-                            </div>
-                            <div>
-                                <p>Line Total</p>
-                                <p>{customer.lineTotal}</p>
-                            </div>
-                            <div>
-                                <p>Order Quantity</p>
-                                <p>{customer.orderQuantity}</p>
-                            </div>
-                            <div>
-                                <p>Subtotal</p>
-                                <p>{customer.subtotal}</p>
-                            </div>
-                            <div>
-                                <p>Shipping Cost</p>
-                                <p>{customer.shippingCost}</p>
-                            </div>
-                            <div>
-                                <p>Tax Amount</p>
-                                <p>{customer.taxAmount}</p>
-                            </div>
-                            <div>
-                                <p>Total Due</p>
-                                <p>${customer.totalDue}</p>
+                                <p>{customer.freightNumber}</p>
                             </div>
                         </div>
                         <div className={styles.scrollRow}>
@@ -172,9 +170,7 @@ const CustomerDetails = props => {
                                 <p>Back to Top</p>
                             </button>
                         </div>
-                        
                     </div>
-                
                 }
 
             </section>

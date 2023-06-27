@@ -68,7 +68,7 @@ const NavigationAside = () => {
                     <li className={styles.productsLink}>
                         <div className={area === "products" ? styles.productsBox : styles.genericBox}>
                             {area === "products" && 
-                                <img src="./images/Navigation/ProductsDark.png" alt="products" />
+                                <img src="./images/Aside/ProductsDark.png" alt="products" />
                             }
                             {area !== "products" && 
                                 <img src="./images/Aside/ProductsLight.png" alt="products" />
@@ -106,7 +106,7 @@ const NavigationAside = () => {
                     <li className={styles.salesLink}>
                         <div className={area === "sales" ? styles.salesBox : styles.genericBox}>
                             {area === "sales" &&
-                                <img src="./images/Navigation/SalesDark.png" alt="sales" />
+                                <img src="./images/Aside/SalesDark.png" alt="sales" />
                             }
                             {area !== "sales" &&
                                 <img src="./images/Aside/SalesLight.png" alt="sales" />

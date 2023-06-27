@@ -1,7 +1,7 @@
 import styles from "./StoreDetailsModal.module.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Contact from "../../components/Purchasing/Contact";
+import StoreContact from "./StoreContact";
 import StoreContactForm from "../../components/Forms/StoreContactForm";
 import { useDispatch } from "react-redux";
 
@@ -62,7 +62,7 @@ const StoreDetailsModal = props => {
                         businessEntityId: contact.businessEntityId,
                         phoneNumber: contact.phoneNumber,
                         phoneNumberTypeId: contact.phoneNumberTypeId,
-                        phoneNumberTypeName: contact.phoneNumberTypeName
+                        phoneNumberTypeName: contact.phoneNumberType
                     }
                 }));
 
@@ -209,7 +209,8 @@ const StoreDetailsModal = props => {
                                 <ol className={styles.contactList}>
                                     {contacts.map(contact => {
                                         return (
-                                            <Contact
+                                            // Need to create a separate store contact form. Information is different.
+                                            <StoreContact
                                                 key={contact.businessEntityId}
                                                 contact={contact}
                                                 emails={emails}

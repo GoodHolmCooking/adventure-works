@@ -30,7 +30,7 @@ import NavigationAside from './components/NavigationAside';
 
 import InventoryProducts from './containers/Products/InventoryProducts';
 import InventoryDetails from './containers/Products/InventoryDetails';
-import CatalogDetails from './containers/Products/catalogDetails';
+import CatalogDetails from './containers/Products/CatalogDetails';
 import CatalogProducts from './containers/Products/catalogProducts';
 
 

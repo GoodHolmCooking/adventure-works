@@ -23,7 +23,7 @@ const productSlice = createSlice({
 
 			state.displayProducts =  state.products
                 .filter(product => state.filter === "" || // if there is no filter set, display everything
-                    (product.productName.toLowerCase())
+                    (product.name.toLowerCase())
                         .includes(state.filter.toLowerCase())); // if there is a filter, search the product name
 		},
     },

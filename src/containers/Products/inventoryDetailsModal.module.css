@@ -9,10 +9,12 @@
     box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.25);
     padding: 3%;
     min-width: 1000px;
+    transform: translate(-50%, -50%);
     position: absolute;
-    top: 2%;
-    left: 25%;
+    top: 50%;
+    left: 50%;
     z-index: 2;
+    text-align: left!important;
 }
 
 .nameBlock {
@@ -51,6 +53,10 @@
     justify-content: space-between;
 }
 
+.content > div > p {
+    margin-inline-end: 4rem;
+}
+
 .content > p {
     margin-inline-start: 0.5rem;
     margin-block: 0.5rem;
@@ -63,4 +69,25 @@
     right: 1rem;
     background: none;
     border: none; 
+}
+
+.flex {
+    display: flex;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.flexItems {
+    display: flex;
+}
+
+.flexItems img {
+    cursor: pointer;
+}
+
+.spaceBetween {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12rem;
 }

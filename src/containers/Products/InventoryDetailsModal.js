@@ -1,34 +1,15 @@
 import styles from "./inventoryDetailsModal.module.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 const InventoryDetailsModal = props => {
-    const { id, expandFunction } = props;
+    const { id, expandFunction, inventory } = props;
 
-    const [inventory, setInventory] = useState({});
-
-    // initial load
-    useEffect(() => {
-        axios.get(`https://api.bootcampcentral.com/api/Inventory/${id}`)
-            .then(resp => {
-                setInventory({
-                    productId: resp.data.productId,
-                    productName: resp.data.productName,
-                    productNumber: resp.data.productNumber,
-                    safetyStockLevel: resp.data.safetyStockLevel,
-                    reorderPoint: resp.data.reorderPoint,
-                    locationId: resp.data.locationId,
-                    locationName: resp.data.locationName,
-                    shelf: resp.data.shelf,
-                    bin: resp.data.bin,
-                    quantity: resp.data.quantity
-                });
-            });
-    }, [id]);
 
     const handleClose = () => {
         expandFunction({});
@@ -37,7 +18,6 @@ const InventoryDetailsModal = props => {
     return (
         <div className={styles.modalArea}>
             <section className={styles.modalDetails}>
-                {Object.keys(inventory).length === 0 }
                 {Object.keys(inventory).length !== 0 && 
                     <div>
                         <div className={styles.nameBlock}>
@@ -47,16 +27,22 @@ const InventoryDetailsModal = props => {
                             </div>
                             {/* May not actually need subContent on each section */}
                             <div className={styles.subContent}>
-                                <p>{inventory.locationName}</p>
-                                <p>{inventory.quantity}</p>
+                                <div className={styles.spaceBetween}>
+                                    <p>{inventory.locationName}</p>
+                                    <div className={styles.flexItems}>
+                                        <img src="../../images/Minus.png" alt="minus icon" />
+                                        <p>{inventory.quantity}</p>
+                                        <img src="../../images/Plus.png" alt="plus icon" />
+                                    </div>
+                                    
+                                </div>
+                                
                             </div>
                             <div className={styles.subContent}>
                                 <p>{inventory.shelf}</p>
                             </div>
                             <div className={styles.subContent}>
                                 <p>{inventory.bin}</p>
-                                <img src="../../images/delete.png" alt="trash icon" /> {/* I don't think this is actually meant to function, just for looks */}
-                                <p>Delete Item</p>
                             </div>
                         </div>
                         
@@ -120,7 +106,10 @@ const InventoryDetailsModal = props => {
                             </div>
                         </div>
                         
-
+                        <div className={styles.flex}>
+                            <img src="../../images/delete.png" alt="trash icon" /> {/* I don't think this is actually meant to function, just for looks */}
+                            <p>Delete Item</p>
+                        </div>
                         
                         <button className={styles.closeButton} onClick={handleClose}>
                             <img src="../../images/XIcon.png" alt="close modal"/>

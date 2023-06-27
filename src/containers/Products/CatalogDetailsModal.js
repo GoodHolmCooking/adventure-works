@@ -71,6 +71,7 @@ const CatalogDetailsModal = props => {
                         {!editCatalog &&
                             <div className={styles.nameBlock}>
                                 <div className={styles.header}>
+                                    {/* <img src={`data:image/jpeg;base64,${product.thumbnailPhoto}`} alt="" /> */}
                                     <h1>{catalog.productName}</h1>
                                     <button className={styles.button} onClick={toggleEditCatalog}>
                                         <img src="../../../images/Pencilicon.png" alt="edit catalog"/>
@@ -95,131 +96,148 @@ const CatalogDetailsModal = props => {
                             </div>
                         }
 
-                        <div className={styles.main}>
-                            <div className={styles.columnsRow}>
-                                <div className={styles.content}>
-                                    <div>
-                                        <h4>Product Description</h4>
-                                    </div>
-                                    <div>
-                                        <p>Wheel Description</p>
-                                        <p>{catalog.wheelDescription}</p>
-                                    </div>
-                                    <div>
-                                        <p>Saddle Description</p>
-                                        <p>{catalog.saddleDescription}</p>
-                                    </div>
-                                    <div>
-                                        <p>Pedal Description</p>
-                                        <p>{catalog.pedalDescription}</p>
-                                    </div>
-                                    <div>
-                                        <p>Rider Experience</p>
-                                        <p>{catalog.riderExperience}</p>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div className={styles.columnsRow}>
+                        <div className={styles.content}>
+                            <div>
+                                <h4>Product Description</h4>
+                            </div>
+                            <div className={styles.space}>
+                                <div>
+                                    <span>Wheel Description</span>
+                                    <p>{catalog.wheelDescription}</p>
+                                </div>
+                                <div>
+                                    <span>Saddle Description</span>
+                                    <p>{catalog.saddleDescription}</p>
+                                </div>
+                                <div>
+                                    <span>Pedal Description</span>
+                                    <p>{catalog.pedalDescription}</p>
+                                </div>
+                                <div>
+                                    <span>Rider Experience</span>
+                                    <p>{catalog.riderExperience}</p>
+                                </div>
+                            </div> 
+                        </div>
+
+                        <div className={styles.group}>
+                            <div className={styles.columnRow}>
                                 <div className={styles.content}>
                                     <div>
                                         <h4>Product Details</h4>
                                     </div>
                                     <div>
-                                        <p>Summary</p>
+                                        <span>Summary</span>
+                                    </div>
+                                    <div>
                                         <p>{catalog.summary}</p>
                                     </div>
-                                    <div>
-                                        <p>Product Model ID</p>
+                                    <div className={styles.space}>
+                                        <p>Product Model ID:</p>
                                         <p>{catalog.productModelId}</p>
                                     </div>
-                                    <div>
-                                        <p>Manufacturer</p>
+                                    <div className={styles.space}>
+                                        <p>Manufacturer:</p>
                                         <p>{catalog.manufacturer}</p>
                                     </div>
                                     <div>
-                                        <p>Bike Frame</p>
+                                        <span>Bike Frame</span>
+                                    </div>
+                                    <div>
                                         <p>{catalog.bikeFrame}</p>
                                     </div>
-                                    <div>
-                                        <p>Crankset</p>
+                                    <div className={styles.space}>
+                                        <p>Crankset:</p>
                                         <p>{catalog.crankset}</p>
                                     </div>
-                                    <div>
-                                        <p>Material</p>
+                                    <div className={styles.space}>
+                                        <p>Material:</p>
                                         <p>{catalog.material}</p>
                                     </div>
-                                    <div>
-                                        <p>Product Line</p>
+                                    <div className={styles.space}>
+                                        <p>Product Line:</p>
                                         <p>{catalog.productLine}</p>
                                     </div>
-                                    <div>
-                                        <p>Style</p>
+                                    <div className={styles.space}>
+                                        <p>Style:</p>
                                         <p>{catalog.style}</p>
                                     </div>
                                 </div>
+                            </div>
 
+                            <div className={styles.columnRow}>
                                 <div className={styles.content}>
                                     <div>
                                         <h4>Manufacturing Details</h4>
                                     </div>
-                                    <div>
-                                        <p>Manufacturer</p>
+                                    <div className={styles.space}>
+                                        <p>Manufacturer:</p>
                                         <p>{catalog.manufacturer}</p>
                                     </div>
-                                    <div>
-                                        <p>Model Name</p>
+                                    <div className={styles.space}>
+                                        <p>Model Name:</p>
                                         <p>{catalog.productModelName}</p>
                                     </div>
-                                    <div>
-                                        <p>Model ID</p>
+                                    <div className={styles.space}>
+                                        <p>Model ID:</p>
                                         <p>{catalog.productModelId}</p>
                                     </div>
-                                    <div>
-                                        <p>Step</p>
+                                    <div className={styles.space}>
+                                        <p>Step:</p>
                                         <p>{catalog.numberOfSteps}</p>
                                     </div>
-                                    <div>
-                                        <p>Set Up Hours</p>
+                                    <div className={styles.space}>
+                                        <p>Set Up Hours:</p>
                                         <p>{catalog.setupHours}</p>
                                     </div>
-                                    <div>
-                                        <p>Machine Hours</p>
+                                    <div className={styles.space}>
+                                        <p>Machine Hours:</p>
                                         <p>{catalog.machineHours}</p>
                                     </div>
-                                    <div>
-                                        <p>Labor Hours</p>
+                                    <div className={styles.space}>
+                                        <p>Labor Hours:</p>
                                         <p>{catalog.laborHours}</p>
                                     </div>
-                                    <div>
-                                        <p>Lot Size</p>
+                                    <div className={styles.space}>
+                                        <p>Lot Size:</p>
                                         <p>{catalog.lotSize}</p>
                                     </div>
-                                    <div>
-                                        <p>instructions</p>
+                                    <div className={styles.space}>
+                                        <span>instructions</span>
                                         <p>{catalog.instructions}</p>
                                     </div>
                                 </div>
-
+                            </div>
+                                
+                            <div className={styles.columnRow}>
                                 <div className={styles.content}>
                                     <div>
                                         <h4>Warranty & Maintenance</h4>
                                     </div>
-                                    <div>
-                                        <p>Warranty Period</p>
+                                    <div className={styles.space}>
+                                        <p>Warranty Period:</p>
                                         <p>{catalog.warrantyPeriod}</p>
                                     </div>
                                     <div>
-                                        <p>Warranty Description</p>
+                                        <span>Warranty Description</span>
+                                    </div>
+                                    <div>
                                         <p>{catalog.warrantyDescription}</p>
                                     </div>
                                     <div>
-                                        <p>Maintenance Description</p>
+                                        <span>Maintenance Description</span>
+                                    </div>
+                                    <div>
                                         <p>{catalog.maintenanceDescription}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
+                            
+                            
+
                         
                         
                         <button className={styles.closeButton} onClick={handleClose}>

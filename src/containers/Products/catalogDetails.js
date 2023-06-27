@@ -4,7 +4,6 @@ import CatalogForm from "../../components/Forms/catalogForm"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductsToolbar from "../../components/Products/productsToolbar";
-import Left from "../../images/close.png"
 
 
 const scrollToTop = () => {
@@ -71,7 +70,7 @@ function CatalogDetails() {
                 {Object.keys(product).length !== 0 &&
                     <div>
                         <Link to="/catalog" className={styles.row}>
-                            <img src={Left} alt="navigate back" />
+                            <img src="../../../images/ArrowLeft.png" alt="navigate back" />
                             <p className={styles.button}>Back</p>
                         </Link>
 
@@ -108,35 +107,41 @@ function CatalogDetails() {
                                 <h4>Product Details</h4>
                             </div>
                             <div>
-                                <p>Summary</p>
+                                <span>Summary</span>
+                            </div>
+                            <div>
                                 <p>{product.summary}</p>
                             </div>
                             <div>
-                                <p>Product Model ID</p>
+                                <p>Product Model ID:</p>
                                 <p>{product.productModelId}</p>
                             </div>
                             <div>
-                                <p>Manufacturer</p>
+                                <p>Manufacturer:</p>
                                 <p>{product.manufacturer}</p>
                             </div>
                             <div>
-                                <p>Bike Frame</p>
+                                <span>Bike Frame</span>
+                            </div>
+                            <div>
                                 <p>{product.bikeFrame}</p>
                             </div>
                             <div>
-                                <p>Crankset</p>
+                                <span>Crankset</span>
+                            </div>
+                            <div>
                                 <p>{product.crankset}</p>
                             </div>
                             <div>
-                                <p>Material</p>
+                                <p>Material:</p>
                                 <p>{product.material}</p>
                             </div>
                             <div>
-                                <p>Product Line</p>
+                                <p>Product Line:</p>
                                 <p>{product.productLine}</p>
                             </div>
                             <div>
-                                <p>Style</p>
+                                <p>Style:</p>
                                 <p>{product.style}</p>
                             </div>
                         </div>
@@ -146,19 +151,27 @@ function CatalogDetails() {
                                 <h4>Product Description</h4>
                             </div>
                             <div>
-                                <p>Wheel Description</p>
+                                <span>Wheel Description</span>
+                            </div>
+                            <div>
                                 <p>{product.wheelDescription}</p>
                             </div>
                             <div>
-                                <p>Saddle Description</p>
+                                <span>Saddle Description</span>
+                            </div>
+                            <div>
                                 <p>{product.saddleDescription}</p>
                             </div>
                             <div>
-                                <p>Pedal Description</p>
+                                <span>Pedal Description</span>
+                            </div>
+                            <div>
                                 <p>{product.pedalDescription}</p>
                             </div>
                             <div>
-                                <p>Rider Experience</p>
+                                <span>Rider Experience</span>
+                            </div>
+                            <div>
                                 <p>{product.riderExperience}</p>
                             </div>
                         </div>
@@ -168,15 +181,19 @@ function CatalogDetails() {
                                 <h4>Warranty & Maintenance</h4>
                             </div>
                             <div>
-                                <p>Warranty Period</p>
+                                <p>Warranty Period:</p>
                                 <p>{product.warrantyPeriod}</p>
                             </div>
                             <div>
-                                <p>Warranty Description</p>
+                                <span>Warranty Description</span>
+                            </div>
+                            <div>
                                 <p>{product.warrantyDescription}</p>
                             </div>
                             <div>
-                                <p>Maintenance Description</p>
+                                <span>Maintenance Description</span>
+                            </div>
+                            <div>
                                 <p>{product.maintenanceDescription}</p>
                             </div>
                         </div>
@@ -186,40 +203,40 @@ function CatalogDetails() {
                                 <h4>Manufacturing Details</h4>
                             </div>
                             <div>
-                                <p>Manufacturer</p>
+                                <p>Manufacturer:</p>
                                 <p>{product.manufacturer}</p>
                             </div>
                             <div>
-                                <p>Model Name</p>
+                                <p>Model Name:</p>
                                 <p>{product.productModelName}</p>
                             </div>
                             <div>
-                                <p>Model ID</p>
+                                <p>Model ID:</p>
                                 <p>{product.productModelId}</p>
                             </div>
                             <div>
-                                <p>Step</p>
+                                <p>Step:</p>
                                 <p>{product.numberOfSteps}</p>
                             </div>
                             <div>
-                                <p>Set Up Hours</p>
+                                <p>Set Up Hours:</p>
                                 <p>{product.setupHours}</p>
                             </div>
                             <div>
-                                <p>Machine Hours</p>
+                                <p>Machine Hours:</p>
                                 <p>{product.machineHours}</p>
                             </div>
                             <div>
-                                <p>Labor Hours</p>
+                                <p>Labor Hours:</p>
                                 <p>{product.laborHours}</p>
                             </div>
                             <div>
-                                <p>Lot Size</p>
+                                <p>Lot Size:</p>
                                 <p>{product.lotSize}</p>
                             </div>
 
                              <div>
-                                <p>instructions</p>
+                                <span>instructions</span>
                                 <p>{product.instructions}</p>
                             </div>
                         </div>

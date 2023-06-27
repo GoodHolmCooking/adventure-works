@@ -20,6 +20,7 @@ const ProductModal = props => {
         }
         {area === "inventory" &&
             <InventoryDetailsModal 
+                inventory={model}
                 id={model.productId}
                 expandFunction={expandFunction}
             />

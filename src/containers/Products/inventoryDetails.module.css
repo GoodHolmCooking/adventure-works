@@ -43,3 +43,12 @@
 .scrollButton > img {
     margin-inline-end: 0.5rem;
 }
+
+.flex {
+    display: flex;
+}
+
+.deleteFlex {
+    display: flex;
+    text-decoration: underline;
+}

@@ -8,14 +8,14 @@ import { updateProductAsync } from "../../store/slices/productSlice";
 
 const CatalogForm = props => {
 	const {setProduct, product} = props;
-	const name = product.productName;
-	// const catalog = product.catalog;
 
-	const id = product.productId;
 	const dispatch = useDispatch();
 
     const form = {
-        name: formBuilder.configInput("input", "text", "", "", {required: true}, name),
+        name: formBuilder.configInput("input", "text", "Product Name", "", {required: true}, product.productName),
+        number: formBuilder.configInput("input", "number", "Product Number", "", {required: true}, product.productId),
+        color: formBuilder.configInput("input", "text", "Color", "", {required: true}, product.color),
+        price: formBuilder.configInput("input", "number", "List Price", "", {required: true}, product.listPrice),
     };
 
     const [formData, setFormData] = useState(form);
@@ -45,7 +45,10 @@ const CatalogForm = props => {
 		let data = {
 			productUpdate: {
 				...product,
-				productName: formData.name.value
+				productName: formData.name.value,
+				productId: formData.number.value,
+				productColor: formData.color.value,
+				productListPrice: formData.price.value
 			},
 			callbacks: {
 				setProduct: setProduct

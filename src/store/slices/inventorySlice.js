@@ -7,6 +7,7 @@ const inventorySlice = createSlice({
     name:"inventory",
     initialState:{
         inventory: [],
+        inventoryItem: {},
         displayInventory: [],
         filter: ""
     },
@@ -19,11 +20,15 @@ const inventorySlice = createSlice({
 			return { ...state, filter: action.payload }
 		},
 
+        setInventoryItem: (state,action) => {
+            state.inventoryItem = action.payload;  
+        },
+
         applyInventoryFilter: (state) => {
 
             console.log(`Applying filter:'${state.filter}' on ${state.inventory.length}`);
 
-			state.displayInventory=  state.inventory
+			state.displayInventory= state.inventory
                 .filter(product => state.filter === "" || // if there is no filter set, display everything
                     (product.productName.toLowerCase())
                         .includes(state.filter.toLowerCase())); // if there is a filter, return matching inventory
@@ -41,7 +46,7 @@ const inventorySlice = createSlice({
     }
 });
 
-export const { setInventoryFilter, applyInventoryFilter } = inventorySlice.actions;
+export const { setInventoryFilter, applyInventoryFilter, setInventoryItem } = inventorySlice.actions;
 
 export const loadInventoryAsync = createAsyncThunk("/inventory/loadInventoryAsync", async () => {
     

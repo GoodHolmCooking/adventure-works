@@ -1,9 +1,8 @@
 import styles from "./inventoryDetails.module.css";
 import { Link, useParams } from "react-router-dom";
-// import CatalogForm from "../../components/Forms/catalogForm"
 import { useEffect, useState } from "react";
-import axios from "axios";
 import ProductsToolbar from "../../components/Products/productsToolbar";
+import { useSelector } from "react-redux";
 
 
 const scrollToTop = () => {
@@ -14,27 +13,14 @@ function InventoryDetails() {
 
     const { id } = useParams();
     const [inventory, setInventory] = useState({});
-    // const [catalog, setCatalog] = useState({});
 
     const [editInventory, setEditInventory] = useState(false);
 
+    const {inventoryItem} = useSelector(state => state.inventory);
+
     useEffect(() => {
-        axios.get(`https://api.bootcampcentral.com/api/Product/${id}`)
-            .then(resp => {
-                setInventory({
-                    productId: resp.data.productId,
-                    productName: resp.data.productName,
-                    productNumber: resp.data.productNumber,
-                    safetyStockLevel: resp.data.safetyStockLevel,
-                    reorderPoint: resp.data.reorderPoint,
-                    locationId: resp.data.locationId,
-                    locationName: resp.data.locationName,
-                    shelf: resp.data.shelf,
-                    bin: resp.data.bin,
-                    quantity: resp.data.quantity
-                });
-            });
-    }, [id]);
+        setInventory(inventoryItem);
+    }, [inventoryItem]);
 
 
     useEffect(() => {
@@ -65,14 +51,23 @@ function InventoryDetails() {
                             </div>
                             <div>
                                 <p>{inventory.locationName}</p>
-                                <p>{inventory.quantity}</p>
+                                <div className={styles.flex}>
+                                    <img src="../../images/Minus.png" alt="minus icon" />
+                                    <p>{inventory.quantity}</p>
+                                    <img src="../../images/Plus.png" alt="plus icon" />
+                                </div>
+                                
                             </div>
                             <div>
                                 <p>{inventory.shelf}</p>
                             </div>
                             <div>
                                 <p>{inventory.bin}</p>
-                                <img src="../../images/delete.png" alt="trash icon">Delete Item</img> {/* I think this works? */}
+                                <div className={styles.deleteFlex}>
+                                    <img src="../../images/delete.png" alt="trash icon"/>
+                                    <p>Delete</p>
+                                </div>
+                                
                             </div>
                         </div>
                         

@@ -13,12 +13,11 @@ const Catalog = props => {
         setExpandedProduct(product);
     };
     
-
     return (
         <div>
             <div className={styles.mobileCatalog}>
                 <div className={styles.catalogContent}>
-                    <div>{product.productName}</div>
+                    <div>{product.name}</div>
                     <div>{product.productNumber}</div>
                 </div>
                 <button className={styles.button} onClick={handleNavigate}>

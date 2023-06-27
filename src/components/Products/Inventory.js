@@ -1,15 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./inventory.module.css";
+import { useDispatch } from "react-redux";
+import { setInventoryItem } from "../../store/slices/inventorySlice";
 
 const Inventory = props => {
     const {inventory, setExpandedInventory} = props;
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleModal = () => {
         setExpandedInventory(inventory);
     };
 
     const handleNavigate = () => {
+        dispatch(setInventoryItem(inventory));
         navigate(`/inventory/${inventory.productId}`);
     };
 

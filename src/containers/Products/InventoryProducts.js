@@ -45,9 +45,12 @@ const InventoryProducts = props => {
                 }
 
                 {!loading && displayInventory.map(inventory => {
+
+                    let compKey = inventory.productId.toString() + "-" + inventory.locationId.toString();
+
                     return (
                         <Inventory 
-                            key={inventory.productId}
+                            key={compKey}
                             inventory={inventory}
                             setExpandedInventory={setExpandedInventory}
                         />

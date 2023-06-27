@@ -18,7 +18,7 @@ const scrollToTop = () => {
 
 const emailValid = email => {
     // regex pattern taken from online tutorial
-    if (!email.match(/^[A-Za-z._\-0-9]*[@][A-Za-z]*[.][a-z]{2,4}$/)) {
+    if (!email.match(/^[A-Za-z._\-0-9]*[@][A-Za-z-]*[.][a-z]{2,4}$/)) {
         return false;
     }
     else {

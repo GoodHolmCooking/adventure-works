@@ -74,12 +74,15 @@ const VendorContactForm = props => {
             };
         });
         
+        console.log(formattedPhoneUpdates);
 
         // update phone numbers
         var allPhoneNumbersValid = true;
+        var dispatchedPhoneNumbers = false;
         formattedPhoneUpdates.forEach(phoneNumber => {
             if (phoneValid(phoneNumber.newPhoneNumber)) {
                 dispatch(updatePhoneAsync(phoneNumber));
+                dispatchedPhoneNumbers = true;
             }
             else {
                 allPhoneNumbersValid = false;

@@ -64,7 +64,7 @@ const NavigationAside = () => {
                 </Link>
 
                 {/* Products */}
-                <Link to="/products" onClick={() => setArea("products")} className={styles.removeDecoration}>
+                <Link to="/catalog" onClick={() => setArea("products")} className={styles.removeDecoration}>
                     <li className={styles.productsLink}>
                         <div className={area === "products" ? styles.productsBox : styles.genericBox}>
                             {area === "products" && 

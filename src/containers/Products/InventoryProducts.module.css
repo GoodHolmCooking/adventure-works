@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+}
+
+.desktopView {
+    display: none;
+}
+
+.inventorySpacing {
+    padding-inline: 5%;
+}
+
+@media (min-width: 999px) {
+    .desktopView {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .name {
+        padding-inline-start: 6%;
+    }
+
+    .quantity {
+        padding-inline-start: 8.5%;
+    }
+
+    .id {
+        padding-inline-start: 10%;
+    }
+
+    .location {
+        padding-inline-start: 8%;
+    }
+
+    .shelf {
+        padding-inline-start: 10.5%;
+    }
+
+    .bin {
+        padding-inline-start: 11.5%;
+    }
+
+    .options {
+        padding-inline-start: 10%;
+    }
+}

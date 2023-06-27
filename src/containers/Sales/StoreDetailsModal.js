@@ -1,7 +1,7 @@
 import styles from "./StoreDetailsModal.module.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Contact from "../../components/Purchasing/Contact";
+import StoreContact from "./StoreContact";
 import StoreContactForm from "../../components/Forms/StoreContactForm";
 import { useDispatch } from "react-redux";
 
@@ -62,7 +62,7 @@ const StoreDetailsModal = props => {
                         businessEntityId: contact.businessEntityId,
                         phoneNumber: contact.phoneNumber,
                         phoneNumberTypeId: contact.phoneNumberTypeId,
-                        phoneNumberTypeName: contact.phoneNumberTypeName
+                        phoneNumberTypeName: contact.phoneNumberType
                     }
                 }));
 
@@ -132,7 +132,7 @@ const StoreDetailsModal = props => {
                             </div>  
                             <div>
                                 <p>Unit Price</p>
-                                <p>${store.unitPrice}</p>
+                                <p>${store.unitPrice.toFixed(2)}</p>
                             </div>
                             <div>
                                 <p>Unit Price Discount</p>
@@ -140,7 +140,7 @@ const StoreDetailsModal = props => {
                             </div>
                             <div>
                                 <p>Line Total</p>
-                                <p>{store.lineTotal}</p>
+                                <p>{store.lineTotal.toFixed(2)}</p>
                             </div>                                                                                                              
                         </div>
                         {/* Store Information */}
@@ -150,7 +150,7 @@ const StoreDetailsModal = props => {
                             </div>
                             <div>
                                 <p>Annual Sales</p>
-                                <p>${store.annualSales}</p>
+                                <p>${store.annualSales.toFixed(2)}</p>
                             </div>
                             <div>
                                 <p>Bank</p>
@@ -176,7 +176,7 @@ const StoreDetailsModal = props => {
                             </div>
                             <div>
                                 <p>{convertDate(store.orderDate)}</p>
-                                <p>${store.lineTotal}</p>
+                                <p>${store.lineTotal.toFixed(2)}</p>
                             </div>
                             <div>
                             <p>4/3/2014</p>
@@ -209,7 +209,8 @@ const StoreDetailsModal = props => {
                                 <ol className={styles.contactList}>
                                     {contacts.map(contact => {
                                         return (
-                                            <Contact
+                                            // Need to create a separate store contact form. Information is different.
+                                            <StoreContact
                                                 key={contact.businessEntityId}
                                                 contact={contact}
                                                 emails={emails}

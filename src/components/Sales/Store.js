@@ -47,11 +47,11 @@ const Store = props => {
 
             <div className={styles.storeBlockDesktop}>
                 <p>{store.storeName}</p>
-                <p>{store.orderDate}</p>
+                <p>{convertDate(store.orderDate)}</p>
                 <p>{store.contactFirstName + " " + store.contactLastName}</p>
                 <p>{store.orderNumber}</p>
                 <p>{store.productName}</p>
-                <p>${store.unitPrice}</p>
+                <p>${store.unitPrice.toFixed(2)}</p>
                 <p>${store.lineTotal.toFixed(2)}</p>
                 <button className={styles.btn} onClick={handleModal}>
                     <img src="./images/ArrowRight.png" alt="expand store" />

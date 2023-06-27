@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import Contact from "../../components/Purchasing/Contact";
+import StoreContact from "./StoreContact";
 import StoreContactForm from "../../components/Forms/StoreContactForm";
 import { useDispatch } from "react-redux";
 import SalesHeader from "../../components/Sales/SalesHeader";
@@ -68,7 +68,7 @@ const StoreDetails = () => {
                         businessEntityId: contact.businessEntityId,
                         phoneNumber: contact.phoneNumber,
                         phoneNumberTypeId: contact.phoneNumberTypeId,
-                        phoneNumberTypeName: contact.phoneNumberTypeName
+                        phoneNumberTypeName: contact.phoneNumberType
                     }
                 }));
 
@@ -209,7 +209,7 @@ const StoreDetails = () => {
                                 <ol className={styles.contactList}>
                                     {contacts.map(contact => {
                                         return (
-                                            <Contact
+                                            <StoreContact
                                                 key={contact.businessEntityId}
                                                 contact={contact}
                                                 emails={emails}

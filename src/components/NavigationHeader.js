@@ -55,7 +55,7 @@ const NavigationHeader = () => {
                     </Link>
 
                     {/* Products */}
-                    <Link to="/products" onClick={toggleMenu}>
+                    <Link to="/catalog" onClick={toggleMenu}>
                         <li className={styles.productsLink}>
                             <div className={styles.productsBox}>
                                 <img src="./images/Products.png" alt="products" />

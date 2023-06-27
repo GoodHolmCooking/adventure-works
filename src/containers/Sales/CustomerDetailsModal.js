@@ -144,7 +144,7 @@ const CustomerDetails = props => {
                             </div>
                             <div>
                                 <p>Subtotal</p>
-                                <p>${(customer.unitPrice - customer.unitPriceDiscount) * customer.orderQty}</p>
+                                <p>${((customer.unitPrice - customer.unitPriceDiscount) * customer.orderQty).toFixed(2)}</p>
                             </div>
                             <div>
                                 <p>Shipping Cost</p>
@@ -156,7 +156,7 @@ const CustomerDetails = props => {
                             </div>
                             <div>
                                 <p>Total Due</p>
-                                <p>${(customer.unitPrice - customer.unitPriceDiscount) * customer.orderQty + (customer.freight + customer.taxAmt)}</p>
+                                <p>${((customer.unitPrice - customer.unitPriceDiscount) * customer.orderQty + (customer.freight + customer.taxAmt)).toFixed(2)}</p>
                             </div>
                         </div>
                     </div>

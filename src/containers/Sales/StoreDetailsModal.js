@@ -132,7 +132,7 @@ const StoreDetailsModal = props => {
                             </div>  
                             <div>
                                 <p>Unit Price</p>
-                                <p>${store.unitPrice}</p>
+                                <p>${store.unitPrice.toFixed(2)}</p>
                             </div>
                             <div>
                                 <p>Unit Price Discount</p>
@@ -140,7 +140,7 @@ const StoreDetailsModal = props => {
                             </div>
                             <div>
                                 <p>Line Total</p>
-                                <p>{store.lineTotal}</p>
+                                <p>{store.lineTotal.toFixed(2)}</p>
                             </div>                                                                                                              
                         </div>
                         {/* Store Information */}
@@ -150,7 +150,7 @@ const StoreDetailsModal = props => {
                             </div>
                             <div>
                                 <p>Annual Sales</p>
-                                <p>${store.annualSales}</p>
+                                <p>${store.annualSales.toFixed(2)}</p>
                             </div>
                             <div>
                                 <p>Bank</p>
@@ -176,7 +176,7 @@ const StoreDetailsModal = props => {
                             </div>
                             <div>
                                 <p>{convertDate(store.orderDate)}</p>
-                                <p>${store.lineTotal}</p>
+                                <p>${store.lineTotal.toFixed(2)}</p>
                             </div>
                             <div>
                             <p>4/3/2014</p>

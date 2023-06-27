@@ -16,6 +16,7 @@ import { LoginContext } from "./context/loginContext";
 import { useContext } from 'react';
 import Dashboard from './components/dashboard/dashboard';
 import { ToastContainer } from 'react-toastify';
+
 import Purchases from './containers/Purchasing/Purchases';
 import PurchaseDetails from './containers/Purchasing/PurchaseDetails';
 import Customers from './containers/Sales/Customers';
@@ -25,6 +26,13 @@ import StoreDetails from './containers/Sales/StoreDetails';
 import { useSelector } from 'react-redux';
 import NavigationHeader from './components/NavigationHeader';
 import NavigationAside from './components/NavigationAside';
+
+
+import InventoryProducts from './containers/Products/InventoryProducts';
+import InventoryDetails from './containers/Products/InventoryDetails';
+import CatalogDetails from './containers/Products/CatalogDetails';
+import CatalogProducts from './containers/Products/catalogProducts';
+
 
 
 
@@ -48,14 +56,23 @@ function App() {
         <Route path="/employees" element={<Employees/>} />
         <Route path="/vendors" element={<Vendors />}/>
         <Route path="/vendors/:id" element={<VendorDetails />}/>
+
         <Route path="/purchases" element={<Purchases />}/>
         <Route path="/purchases/:id" element={<PurchaseDetails />}/>
         <Route path="/stores" element={<Stores />}/>
         <Route path="/stores/:id" element={<StoreDetails />}/>
         <Route path="/customers" element={<Customers />}/>
         <Route path="/customers/:id" element={<CustomerDetails />}/>
+        <Route path="/inventory" element={<InventoryProducts />}/>
+        <Route path="/inventory/:id" element={<InventoryDetails />}/>
+        <Route path="/catalog" element={<CatalogProducts />}/>
+        <Route path="/catalog/:id" element={<CatalogDetails />}/>
       </Routes>
       </div>    
+
+        
+
+
       </BrowserRouter>
     </div>
     )

@@ -1,0 +1,47 @@
+* {
+    box-sizing: border-box;
+}
+
+.catalogSpacing {
+    padding-inline: 5%;
+}
+
+.desktopView {
+    display: none;
+}
+
+@media (min-width: 999px) {
+    .desktopView {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    /* need to figure out how to display the image before I can change this, it will probably also screw up all the others since this is a manual adjustment */
+    .photo {
+        padding-inline-start: 5%;
+    }
+
+    .name {
+        padding-inline-start: 7%;
+    }
+
+    .number {
+        padding-inline-start: 10.5%;
+    }
+
+    .color {
+        padding-inline-start: 12%;
+    }
+
+    .price {
+        padding-inline-start: 12%;
+    }
+
+    .warranty {
+        padding-inline-start: 9%;
+    }
+
+    .options {
+        padding-inline-start: 6%;
+    }
+}

@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.modalArea {
+    background-color: #FDFDFD;
+    box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.25);
+    padding: 3%;
+    min-width: 1000px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    text-align: left!important;
+}
+
+.nameBlock {
+    margin-block-start: 1rem;
+    margin-block-end: 2rem;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8rem;
+}
+
+.subContent {
+    text-align: start;
+    margin-inline-start: 0.5rem;
+}
+
+.main {
+    display: flex;
+    gap: 6rem;
+}
+
+.columnsRow {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    margin-block-end: 1rem;
+}
+
+.content > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content > div > p {
+    margin-inline-end: 4rem;
+}
+
+.content > p {
+    margin-inline-start: 0.5rem;
+    margin-block: 0.5rem;
+}
+
+.closeButton {
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none; 
+}
+
+.flex {
+    display: flex;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.flexItems {
+    display: flex;
+}
+
+.flexItems img {
+    cursor: pointer;
+}
+
+.spaceBetween {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12rem;
+}

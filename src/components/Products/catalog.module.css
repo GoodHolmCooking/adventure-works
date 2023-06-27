@@ -1,0 +1,48 @@
+.mobileCatalog {
+    border-block-end: 3px solid #5BC0EB;
+    display: flex;
+    justify-content: space-between;
+    margin-block: 1rem;
+    padding-block-end: 1rem;
+    color: #212121;
+}
+
+.catalogContent {
+    text-align: start;
+}
+
+.button {
+    background: none;
+    border: none;
+}
+
+.desktopCatalog {
+    display: none;
+}
+
+
+
+@media (min-width: 999px) {
+    .mobileCatalog {
+        display: none;
+    }
+
+    .desktopCatalog {
+        border-block-end: 3px solid #5BC0EB;
+        display: flex;
+        justify-content: space-evenly;
+        margin-block: 1rem;
+        padding-block-end: 1rem;
+        color: #212121;
+        align-items: center;
+    }
+
+    .desktopCatalog > p {
+        width: 12rem;
+        flex-wrap: wrap;
+    }
+
+    .button:hover {
+        cursor: pointer;
+    }
+}

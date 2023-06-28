@@ -25,6 +25,30 @@ const VendorContactForm = props => {
     const {contactTypes} = useSelector(state => state.vendors);
 
     const dispatch = useDispatch();
+    
+    const updateOriginalNumbers = updatedPhoneNumber => {
+
+        const phoneTypes = [
+            {id: 1, name: "Cell"},
+            {id: 2, name: "Home"},
+            {id: 3, name: "Work"}
+        ];
+
+        let tempPhoneNumbers = [...originalPhoneNumbers];
+
+
+        let updatePhoneNumberIndex = tempPhoneNumbers.findIndex(phoneNumber => {
+            return updatedPhoneNumber.businessEntityId === phoneNumber.businessEntityId;
+        });
+
+        tempPhoneNumbers[updatePhoneNumberIndex] = {
+            businessEntityId: updatedPhoneNumber.businessEntityId,
+            phoneNumber: updatedPhoneNumber.newPhoneNumber,
+            phoneNumberTypeId: updatedPhoneNumber.newPhoneNumberTypeId,
+            phoneNumberTypeName: phoneTypes[updatedPhoneNumber.newPhoneNumberTypeId - 1].name
+        };
+        setOriginalPhoneNumbers(tempPhoneNumbers);
+    };
 
     useEffect(() => {
         // if there are no contact types loaded into the state, load them
@@ -78,11 +102,10 @@ const VendorContactForm = props => {
 
         // update phone numbers
         var allPhoneNumbersValid = true;
-        var dispatchedPhoneNumbers = false;
         formattedPhoneUpdates.forEach(phoneNumber => {
             if (phoneValid(phoneNumber.newPhoneNumber)) {
                 dispatch(updatePhoneAsync(phoneNumber));
-                dispatchedPhoneNumbers = true;
+                updateOriginalNumbers(phoneNumber);
             }
             else {
                 allPhoneNumbersValid = false;

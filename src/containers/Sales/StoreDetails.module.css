@@ -4,7 +4,7 @@
     padding: 0;
 }
 
-.storeSection {
+.detailSection {
     display: flex;
     flex-direction: column;
     padding-inline: 5%;

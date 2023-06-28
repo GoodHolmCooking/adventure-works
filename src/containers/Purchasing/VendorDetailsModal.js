@@ -55,7 +55,6 @@ const VendorDetailsModal = props => {
     // address block state
     const [addresses, setAddresses] = useState([]);
 
-
     const [editingName, setEditingName] = useState(false);
     const [editingContacts, setEditingContacts] = useState(false);
     const [editingAddresses, setEditingAddresses] = useState(false);

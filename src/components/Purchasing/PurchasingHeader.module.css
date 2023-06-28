@@ -26,8 +26,12 @@
 input {
     padding: 0;
     margin: 0;
-    flex: 6;
     border: none;
+}
+
+.searchBlock > input
+{
+    flex: 6;
 }
 
 .searchImgContainer {

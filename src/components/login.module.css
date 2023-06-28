@@ -31,14 +31,22 @@
     border: 1px solid #212121;
     border-radius: 5px;
 }
+
 .loginRememberMe
 {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-start !important;
     align-content: center;
     flex-direction: row;
-    gap: 13px;
+    gap: 0px;
     margin-top: 20px;
+}
+
+.loginCheckBox
+{
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 30px !important;
 }
 
 .loginButton
@@ -83,4 +91,9 @@ color: #212121;
 {
     text-align: center;
     margin-bottom: 100px;
+}
+
+.loginInput
+{
+    height: 44px !important;
 }

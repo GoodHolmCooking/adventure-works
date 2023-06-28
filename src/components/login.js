@@ -89,14 +89,14 @@ function Login(props) {
       <div className={styles.loginForm}>
         <div className={styles.loginTextInput}>
           <label>Email</label>
-          <input onChange={handleUserUpdate} type="text" required="true"></input>
+          <input className={styles.loginInput} onChange={handleUserUpdate} type="text" required="true"></input>
         </div>
         <div className={styles.loginTextInput}>
           <label>Password</label>
-          <input onChange={handlePassUpdate} type="password" required = "true"></input>
+          <input className={styles.loginInput} onChange={handlePassUpdate} type="password" required = "true"></input>
         </div>
         <div className={styles.loginRememberMe}>
-          <input onChange={handleChecked} type="checkbox"></input>
+          <input className={styles.loginCheckBox} onChange={handleChecked} type="checkbox"></input>
           <label>Remember me</label>
         </div>
         <button className={[styles.loginButton, btnHighlight].join(" ")} >Login</button>

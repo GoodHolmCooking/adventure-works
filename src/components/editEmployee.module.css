@@ -21,6 +21,7 @@
 .informationDisplay > span
 {
     grid-area: 'label';
+    text-decoration: none !important;
 }
 .informationDisplay > p
 {

@@ -30,7 +30,7 @@ import NavigationAside from './components/NavigationAside';
 
 import InventoryProducts from './containers/Products/InventoryProducts';
 import InventoryDetails from './containers/Products/InventoryDetails';
-import CatalogDetails from './containers/Products/CatalogDetails';
+import CatalogDetails from './containers/Products/catalogDetails';
 import CatalogProducts from './containers/Products/catalogProducts';
 
 
@@ -41,8 +41,8 @@ function App() {
   const loginContext = useContext(LoginContext);
   const {expanded} = useSelector(state => state.navigation);
   let content;
-  // let loginstatus = window.sessionStorage.getItem(key)
-  let loginstatus = true; 
+   let loginstatus = window.sessionStorage.getItem(key)
+  //let loginstatus = true; 
   if(loginContext.accepted || loginstatus === true)
   {
     content = (
